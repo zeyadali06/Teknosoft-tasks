@@ -35,6 +35,12 @@
       "css": "male",
       "code": 61827,
       "src": "fontawesome5"
+    },
+    {
+      "uid": "e9f1a464968111eab72aacfdce5a3d9f",
+      "css": "triangle-down",
+      "code": 62240,
+      "src": "octicons"
     }
   ]
 }

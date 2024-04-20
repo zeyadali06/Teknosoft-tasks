@@ -2,7 +2,6 @@
 
 import 'package:bmi_calculater_app/constants.dart';
 import 'package:bmi_calculater_app/my_flutter_app_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 
