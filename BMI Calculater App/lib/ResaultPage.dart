@@ -14,19 +14,15 @@ class ResaultPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text(
-          'Back',
-          style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
-        ),
-        leadingWidth: 40,
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 7),
-          child: GestureDetector(
-            child: const Icon(Icons.keyboard_arrow_left, size: 42),
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-          ),
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: const Icon(Icons.keyboard_arrow_left, size: 42),
+            ),
+            const Text('Back', style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18)),
+          ],
         ),
       ),
       body: Padding(
@@ -37,13 +33,15 @@ class ResaultPage extends StatelessWidget {
             const Text('Result', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 22)),
             const Spacer(flex: 1),
             const BMIResault(),
-            const Spacer(flex: 1),
+            const Spacer(flex: 2),
             const UserInfo(),
             const Spacer(flex: 3),
             const InstructionsContainer(),
             const Spacer(flex: 3),
             MaterialButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
               minWidth: double.infinity,
               height: 50,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRadius)),

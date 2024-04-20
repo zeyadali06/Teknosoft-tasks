@@ -1,3 +1,4 @@
+import 'package:bmi_calculater_app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -6,17 +7,17 @@ part 'bmi_state.dart';
 class BmiCubit extends Cubit<BmiState> {
   BmiCubit() : super(BmiInitial());
 
-  late int weight;
-  late int height;
-  late int age;
-  late String gender;
+  int weight = 1;
+  int height = 1;
+  int age = 1;
+  String gender = male;
   late String category;
   late double bmi;
   late String interval;
 
   void calculateBMI() {
     try {
-      bmi = weight / (height * height);
+      bmi = double.parse((weight / (height * height)).toStringAsFixed(4));
       category = _bmiCategory(bmi);
       emit(BmiSuccess());
     } catch (_) {

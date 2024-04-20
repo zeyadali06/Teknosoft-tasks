@@ -1,11 +1,14 @@
 // ignore_for_file: file_names
 
+import 'package:bmi_calculater_app/ResaultPage.dart';
+import 'package:bmi_calculater_app/cubits/cubit/bmi_cubit.dart';
 import 'package:bmi_calculater_app/widgets/AgeField.dart';
 import 'package:bmi_calculater_app/widgets/GenderChoices.dart';
 import 'package:bmi_calculater_app/widgets/HeightBar.dart';
 import 'package:bmi_calculater_app/widgets/WeightBar.dart';
 import 'package:bmi_calculater_app/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -78,15 +81,29 @@ class HomePage extends StatelessWidget {
               ],
             ),
             const Spacer(flex: 2),
-            MaterialButton(
-              onPressed: () {},
-              minWidth: double.infinity,
-              height: 50,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRadius)),
-              color: const Color(0xFF2566cf),
-              child: const Text(
-                'CALCULATE BMI',
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 16),
+            BlocListener<BmiCubit, BmiState>(
+              listener: (context, state) {
+                if (state is BmiInitial) {
+                } else if (state is BmiSuccess) {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+                    return const ResaultPage();
+                  }));
+                } else if (state is BmiFailed) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Please try again.')));
+                }
+              },
+              child: MaterialButton(
+                onPressed: () {
+                  BlocProvider.of<BmiCubit>(context).calculateBMI();
+                },
+                minWidth: double.infinity,
+                height: 50,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRadius)),
+                color: const Color(0xFF2566cf),
+                child: const Text(
+                  'CALCULATE BMI',
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 16),
+                ),
               ),
             )
           ],

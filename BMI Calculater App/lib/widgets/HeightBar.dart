@@ -1,7 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:bmi_calculater_app/constants.dart';
+import 'package:bmi_calculater_app/cubits/cubit/bmi_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class HeightBar extends StatefulWidget {
@@ -45,7 +47,10 @@ class _HeightBarState extends State<HeightBar> {
             selectedTextStyle: const TextStyle(fontWeight: FontWeight.w900, fontSize: 22),
             textStyle: const TextStyle(fontWeight: FontWeight.w900, color: Colors.grey, fontSize: 12),
             onChanged: (index) {
-              setState(() => _currentValue = index);
+              BlocProvider.of<BmiCubit>(context).height = index;
+              setState(() {
+                _currentValue = index;
+              });
             },
           ),
           const Center(

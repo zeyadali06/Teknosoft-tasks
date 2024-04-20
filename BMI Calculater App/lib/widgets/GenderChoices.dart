@@ -1,8 +1,10 @@
 // ignore_for_file: file_names
 
 import 'package:bmi_calculater_app/constants.dart';
+import 'package:bmi_calculater_app/cubits/cubit/bmi_cubit.dart';
 import 'package:bmi_calculater_app/my_flutter_app_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GenderChoices extends StatefulWidget {
   const GenderChoices({super.key});
@@ -17,7 +19,7 @@ class _GenderChoicesState extends State<GenderChoices> {
 
   @override
   void initState() {
-    chosedWidget = const ChoosedWidget(gender: 'Male');
+    chosedWidget = const ChoosedWidget(gender: male);
     super.initState();
   }
 
@@ -30,15 +32,16 @@ class _GenderChoicesState extends State<GenderChoices> {
         elevation: 0,
         onDestinationSelected: (value) {
           index = value;
+          BlocProvider.of<BmiCubit>(context).gender = index == 0 ? male : female;
           setState(() {});
         },
         destinations: [
           NavigationDestination(
-            icon: Padding(padding: const EdgeInsets.only(right: 7.5), child: whichChoosed(index, 'Male')),
+            icon: Padding(padding: const EdgeInsets.only(right: 7.5), child: whichChoosed(index, male)),
             label: '',
           ),
           NavigationDestination(
-            icon: Padding(padding: const EdgeInsets.only(left: 7.5), child: whichChoosed(index, 'Female')),
+            icon: Padding(padding: const EdgeInsets.only(left: 7.5), child: whichChoosed(index, female)),
             label: '',
           ),
         ],
@@ -47,22 +50,22 @@ class _GenderChoicesState extends State<GenderChoices> {
   }
 
   Widget whichChoosed(int index, String gender) {
-    if (gender == 'Male') {
+    if (gender == male) {
       if (index == 0) {
-        return const ChoosedWidget(gender: 'Male');
+        return const ChoosedWidget(gender: male);
       } else {
-        return const UnChoosedWidget(gender: 'Male');
+        return const UnChoosedWidget(gender: male);
       }
     }
 
-    if (gender == 'Female') {
+    if (gender == female) {
       if (index == 0) {
-        return const UnChoosedWidget(gender: 'Female');
+        return const UnChoosedWidget(gender: female);
       } else {
-        return const ChoosedWidget(gender: 'Female');
+        return const ChoosedWidget(gender: female);
       }
     }
-    return const ChoosedWidget(gender: 'Male');
+    return const ChoosedWidget(gender: male);
   }
 }
 
@@ -95,7 +98,7 @@ class ChoosedWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  gender == 'Male' ? MyFlutterApp.male : MyFlutterApp.female,
+                  gender == male ? MyFlutterApp.male : MyFlutterApp.female,
                   size: MediaQuery.of(context).size.width / 5.5,
                   color: kPrimaryColor,
                 ),
@@ -148,7 +151,7 @@ class UnChoosedWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              gender == 'Male' ? MyFlutterApp.male : MyFlutterApp.female,
+              gender == male ? MyFlutterApp.male : MyFlutterApp.female,
               size: MediaQuery.of(context).size.width / 5.5,
               color: const Color(0xFF8b8b8b),
             ),
