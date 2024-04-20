@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-import 'package:bmi_calculater_app/Triangle.dart';
+import 'package:bmi_calculater_app/widgets/Triangle.dart';
 import 'package:bmi_calculater_app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';

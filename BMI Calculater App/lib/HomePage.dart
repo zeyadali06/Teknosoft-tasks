@@ -1,9 +1,9 @@
 // ignore_for_file: file_names
 
-import 'package:bmi_calculater_app/AgeField.dart';
-import 'package:bmi_calculater_app/GenderChoices.dart';
-import 'package:bmi_calculater_app/HeightBar.dart';
-import 'package:bmi_calculater_app/WeightBar.dart';
+import 'package:bmi_calculater_app/widgets/AgeField.dart';
+import 'package:bmi_calculater_app/widgets/GenderChoices.dart';
+import 'package:bmi_calculater_app/widgets/HeightBar.dart';
+import 'package:bmi_calculater_app/widgets/WeightBar.dart';
 import 'package:bmi_calculater_app/constants.dart';
 import 'package:flutter/material.dart';
 
