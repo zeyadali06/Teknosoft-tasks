@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:bmi_calculater_app/constants.dart';
 import 'package:flutter/material.dart';
 
 class Triangle extends StatelessWidget {
@@ -10,7 +11,7 @@ class Triangle extends StatelessWidget {
     return ClipPath(
       clipper: _TrianglePath(),
       child: Container(
-        color: Colors.blue,
+        color: kPrimaryColor,
         width: 15,
         height: 15,
       ),

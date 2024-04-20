@@ -78,7 +78,7 @@ class ChoosedWidget extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             color: const Color(0xFFdfe9f9),
-            border: Border.all(color: const Color(0xFF2566cf), width: 2),
+            border: Border.all(color: kPrimaryColor, width: 2),
             borderRadius: BorderRadius.circular(kRadius),
             boxShadow: const [
               BoxShadow(
@@ -97,7 +97,7 @@ class ChoosedWidget extends StatelessWidget {
                 Icon(
                   gender == 'Male' ? MyFlutterApp.male : MyFlutterApp.female,
                   size: MediaQuery.of(context).size.width / 5.5,
-                  color: const Color(0xFF2566cf),
+                  color: kPrimaryColor,
                 ),
                 const SizedBox(height: 10),
                 Text(gender, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
@@ -111,7 +111,7 @@ class ChoosedWidget extends StatelessWidget {
             padding: EdgeInsets.only(top: 15, right: 15),
             child: Icon(
               MyFlutterApp.ok_circled,
-              color: Color(0xFF2566cf),
+              color: kPrimaryColor,
               size: 16,
             ),
           ),

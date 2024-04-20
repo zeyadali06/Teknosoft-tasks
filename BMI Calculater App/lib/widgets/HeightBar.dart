@@ -60,7 +60,7 @@ class _HeightBarState extends State<HeightBar> {
                   Spacer(flex: 2),
                   VerticalDivider(color: Colors.grey, thickness: 2, indent: 15),
                   Spacer(flex: 2),
-                  VerticalDivider(color: Colors.blue, thickness: 2),
+                  VerticalDivider(color: kPrimaryColor, thickness: 2),
                   Spacer(flex: 2),
                   VerticalDivider(color: Colors.grey, thickness: 2, indent: 15),
                   Spacer(flex: 2),
