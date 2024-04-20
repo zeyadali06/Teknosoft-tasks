@@ -9,6 +9,7 @@ class BmiCubit extends Cubit<BmiState> {
   late int weight;
   late int height;
   late int age;
+  late String gender;
   late String category;
   late double bmi;
   late String interval;
