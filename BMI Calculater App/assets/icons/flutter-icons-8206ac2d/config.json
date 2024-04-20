@@ -7,6 +7,24 @@
   "ascent": 850,
   "glyphs": [
     {
+      "uid": "2d3be3e856fc1e4ac067590d2ded1b07",
+      "css": "plus-squared-alt",
+      "code": 61846,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "18ef25350258541e8e54148ed79845c0",
+      "css": "minus-squared-alt",
+      "code": 61767,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "5e1ef647438e2204c15197c6efc4151e",
+      "css": "ok-circled",
+      "code": 61549,
+      "src": "mfglabs"
+    },
+    {
       "uid": "6d1875d1e61a270dcc9690d502581a70",
       "css": "female",
       "code": 61826,
@@ -17,12 +35,6 @@
       "css": "male",
       "code": 61827,
       "src": "fontawesome5"
-    },
-    {
-      "uid": "5e1ef647438e2204c15197c6efc4151e",
-      "css": "ok-circled",
-      "code": 61549,
-      "src": "mfglabs"
     }
   ]
 }
