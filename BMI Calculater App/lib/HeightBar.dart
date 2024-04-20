@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:bmi_calculater_app/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
 
@@ -13,17 +14,23 @@ class HeightBar extends StatefulWidget {
 }
 
 class _HeightBarState extends State<HeightBar> {
-  int _currentValue = 999;
+  int _currentValue = 1;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        border: Border.fromBorderSide(BorderSide(color: Colors.grey.withOpacity(.2), width: 1)),
-        borderRadius: const BorderRadius.all(Radius.circular(15)),
+        border: Border.fromBorderSide(BorderSide(color: Colors.grey.withOpacity(.3), width: 2)),
+        borderRadius: const BorderRadius.all(Radius.circular(kRadius)),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(.2), blurStyle: BlurStyle.outer, blurRadius: 2),
+          BoxShadow(
+            color: Colors.grey.withOpacity(.2),
+            blurStyle: BlurStyle.outer,
+            blurRadius: 5,
+            spreadRadius: -2,
+            offset: const Offset(0, 2),
+          ),
         ],
       ),
       child: Column(
