@@ -18,7 +18,7 @@ class BmiCubit extends Cubit<BmiState> {
   void calculateBMI() {
     try {
       bmi = weight / ((height / 100) * (height / 100));
-      bmi = double.parse(bmi.toStringAsFixed(4));
+      bmi = double.parse(bmi.toStringAsFixed(1));
       category = _bmiCategory(bmi);
       emit(BmiSuccess());
     } catch (_) {
