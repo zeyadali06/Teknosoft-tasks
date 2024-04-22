@@ -21,11 +21,11 @@ class InstructionsContainer extends StatelessWidget {
         text: TextSpan(
           style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w400, fontSize: 16, fontFamily: 'Roboto', height: 1.5),
           children: [
-            const TextSpan(text: 'A BMI of'),
+            const TextSpan(text: 'A BMI that is'),
             TextSpan(text: ' ${BlocProvider.of<BmiCubit>(context).interval} ', style: const TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold)),
             const TextSpan(text: 'indicates that your weight is in the'),
             TextSpan(text: ' ${BlocProvider.of<BmiCubit>(context).category} ', style: const TextStyle(color: kPrimaryColor, fontWeight: FontWeight.bold)),
-            const TextSpan(text: 'normal category for a person of your height.\n\n'),
+            const TextSpan(text: 'category for a person of your height.\n\n'),
             const TextSpan(text: 'Mantaining a healthy weight reduce the risk of diseases associated with overweight and obesity.'),
           ],
         ),

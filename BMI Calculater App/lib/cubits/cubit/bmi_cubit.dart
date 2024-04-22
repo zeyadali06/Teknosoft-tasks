@@ -17,7 +17,8 @@ class BmiCubit extends Cubit<BmiState> {
 
   void calculateBMI() {
     try {
-      bmi = double.parse((weight / (height * height)).toStringAsFixed(4));
+      bmi = weight / ((height / 100) * (height / 100));
+      bmi = double.parse(bmi.toStringAsFixed(4));
       category = _bmiCategory(bmi);
       emit(BmiSuccess());
     } catch (_) {
@@ -30,13 +31,13 @@ class BmiCubit extends Cubit<BmiState> {
       interval = 'smaller than 18.5';
       return 'Underweight';
     } else if (bmi >= 18.5 && bmi < 25) {
-      interval = '18.5 - 25';
+      interval = 'between 18.5 - 24.9';
       return 'Normal';
     } else if (bmi >= 25 && bmi < 30) {
-      interval = '25 - 30';
+      interval = 'between 25 - 29.9';
       return 'Overweight';
     } else {
-      interval = 'greater than 30';
+      interval = 'greater than or equal 30';
       return 'Obese';
     }
   }
