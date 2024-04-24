@@ -12,9 +12,9 @@ class GradientColor extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xfff2f2fd), Color(0xffccd3ef)],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0xfff5f6fc), Color(0xffccd3ef)],
         ),
       ),
       child: child,
