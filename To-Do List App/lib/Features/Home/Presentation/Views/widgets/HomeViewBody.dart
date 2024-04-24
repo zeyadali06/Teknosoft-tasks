@@ -2,11 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
+import 'package:todo_list_app/Features/Home/Presentation/Views/widgets/TaskLevelContainer.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/widgets/TopBar.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
   final int task = 5;
+  final int myDayTasks = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,10 @@ class HomeViewBody extends StatelessWidget {
           child: Column(
             children: [
               TopBar(task: task),
+              const SizedBox(height: 10),
+              Divider(color: Colors.grey.withOpacity(.15)),
+              const SizedBox(height: 10),
+              TaskLevelContainer(myDayTasks: myDayTasks),
             ],
           ),
         ),

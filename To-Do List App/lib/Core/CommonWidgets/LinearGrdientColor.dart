@@ -14,7 +14,7 @@ class GradientColor extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xffffffff), Color(0xffcad3f0)],
+          colors: [Color(0xfff2f2fd), Color(0xffccd3ef)],
         ),
       ),
       child: child,

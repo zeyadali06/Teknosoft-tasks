@@ -5,10 +5,7 @@ import 'package:todo_list_app/Core/Utils/Styles.dart';
 import 'package:todo_list_app/Features/Search/Presentation/Views/SearchView.dart';
 
 class TopBar extends StatelessWidget {
-  const TopBar({
-    super.key,
-    required this.task,
-  });
+  const TopBar({super.key, required this.task});
 
   final int task;
 
