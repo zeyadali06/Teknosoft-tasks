@@ -73,20 +73,18 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Rubik
+    - family: Lato
       fonts:
-        - asset: assets/fonts/static/Rubik-Black.ttf
+        - asset: assets/fonts/Lato-Black.ttf
           weight: 900
-        - asset: assets/fonts/static/Rubik-Bold.ttf
-          weight: 800
-        - asset: assets/fonts/static/Rubik-SemiBold.ttf
+        - asset: assets/fonts/Lato-Bold.ttf
           weight: 700
-        - asset: assets/fonts/static/Rubik-Medium.ttf
-          weight: 600
-        - asset: assets/fonts/static/Rubik-Regular.ttf
-          weight: 500
-        - asset: assets/fonts/static/Rubik-Light.ttf
+        - asset: assets/fonts/Lato-Regular.ttf
           weight: 400
+        - asset: assets/fonts/Lato-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Lato-Thin.ttf
+          weight: 100
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
