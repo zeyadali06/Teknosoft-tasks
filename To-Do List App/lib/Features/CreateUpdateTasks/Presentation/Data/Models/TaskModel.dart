@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, constant_identifier_names
 
 import 'package:hive/hive.dart';
 
@@ -35,26 +35,22 @@ class TaskModel extends HiveObject {
 }
 
 enum Category {
-  personal(category: "Personal"),
-  learning(category: "Learning"),
-  work(category: "Work"),
-  shopping(category: "Shopping");
+  Personal,
+  Learning,
+  Work,
+  Shopping;
 
-  const Category({required this.category});
+  static String get firstItem => Personal.name;
 
-  final String category;
-
-  static List<String> get all => ["Personal", "Learning", "Work", "Shopping"];
+  static List<String> get all => [Personal.name, Learning.name, Work.name, Shopping.name];
 }
 
 enum Priority {
-  high(priority: "High"),
-  medium(priority: "Medium"),
-  low(priority: "Low");
+  High,
+  Medium,
+  Low;
 
-  const Priority({required this.priority});
+  static String get firstItem => High.name;
 
-  final String priority;
-
-  static List<String> get all => ["High", "Medium", "Low"];
+  static List<String> get all => [High.name, Medium.name, Low.name];
 }
