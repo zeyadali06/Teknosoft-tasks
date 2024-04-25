@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Data/Models/TaskModel.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/HomeView.dart';
 import 'package:todo_list_app/constants.dart';
 

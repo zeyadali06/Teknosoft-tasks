@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:hive/hive.dart';
-import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Data/Models/TaskModel.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/constants.dart';
 
 Future<void> addData(TaskModel task) async {
