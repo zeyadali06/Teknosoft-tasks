@@ -56,5 +56,5 @@ enum Priority {
 
   final String priority;
 
-  List<String> get all => ["High", "Medium", "Low"];
+  static List<String> get all => ["High", "Medium", "Low"];
 }
