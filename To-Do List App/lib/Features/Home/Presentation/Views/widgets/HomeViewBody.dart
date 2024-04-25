@@ -5,6 +5,7 @@ import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/widgets/AllCategories.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/widgets/TaskLevelContainer.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/widgets/TopBar.dart';
+import 'package:todo_list_app/constants.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
@@ -17,7 +18,7 @@ class HomeViewBody extends StatelessWidget {
       child: SafeArea(
         child: GradientColor(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(kPadding),
             child: Column(
               children: [
                 TopBar(task: task),
