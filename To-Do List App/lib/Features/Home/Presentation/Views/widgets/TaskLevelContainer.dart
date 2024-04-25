@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/widgets/RowOfTaskLevel.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/ShowTasksView.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/UpcomingTasksView.dart';
 import 'package:todo_list_app/constants.dart';
 
 class TaskLevelContainer extends StatelessWidget {
@@ -23,11 +25,26 @@ class TaskLevelContainer extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
         child: Column(
           children: [
-            RowOfTaskLevel(myDayTasks: myDayTasks, text: 'My Day', imagePath: 'assets/images/Screenshot 2024-04-24 224102.png'),
+            RowOfTaskLevel(
+              myDayTasks: myDayTasks,
+              text: 'My Day',
+              imagePath: 'assets/images/Screenshot 2024-04-24 224102.png',
+              toScreen: const ShowTasksView(),
+            ),
             Divider(color: Colors.blue.withOpacity(.15)),
-            RowOfTaskLevel(myDayTasks: myDayTasks, text: 'Upcoming', imagePath: 'assets/images/Screenshot 2024-04-24 231327.png'),
+            RowOfTaskLevel(
+              myDayTasks: myDayTasks,
+              text: 'Upcoming',
+              imagePath: 'assets/images/Screenshot 2024-04-24 231327.png',
+              toScreen: const UpcomingTasksView(),
+            ),
             Divider(color: Colors.blue.withOpacity(.15)),
-            RowOfTaskLevel(myDayTasks: myDayTasks, text: 'Important', imagePath: 'assets/images/Screenshot 2024-04-24 231442.png'),
+            RowOfTaskLevel(
+              myDayTasks: myDayTasks,
+              text: 'Important',
+              imagePath: 'assets/images/Screenshot 2024-04-24 231442.png',
+              toScreen: const ShowTasksView(),
+            ),
           ],
         ),
       ),
