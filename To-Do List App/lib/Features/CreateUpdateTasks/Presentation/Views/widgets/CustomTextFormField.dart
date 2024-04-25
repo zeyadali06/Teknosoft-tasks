@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:todo_list_app/Core/Utils/Styles.dart';
 import 'package:todo_list_app/constants.dart';
 
 class CustomTextFormField extends StatefulWidget {
@@ -60,8 +61,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           focusedBorder: outlineInputBorder(2),
           errorBorder: outlineInputBorder(2),
           hintText: widget.hintText,
-          hintStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: color),
-          label: Text(widget.hintText, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, color: color)),
+          hintStyle: Styles.white18w500.copyWith(color: color, fontSize: 16),
+          label: Text(widget.hintText, style: Styles.white18w500.copyWith(color: color, fontSize: 16)),
           // prefixIcon: Icon(widget.prefixIcon, color: color),
           // suffixIcon: IconButton(
           //   color: color,
@@ -77,7 +78,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
 
   OutlineInputBorder outlineInputBorder(double width) {
     return OutlineInputBorder(
-      borderRadius: const BorderRadius.all(Radius.circular(10)),
+      borderRadius: const BorderRadius.all(Radius.circular(kPadding)),
       borderSide: BorderSide(width: width, color: color),
     );
   }
