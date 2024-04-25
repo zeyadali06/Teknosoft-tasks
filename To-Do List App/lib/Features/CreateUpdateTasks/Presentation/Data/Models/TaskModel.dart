@@ -44,7 +44,7 @@ enum Category {
 
   final String category;
 
-  List<String> get all => ["Personal", "Learning", "Work", "Shopping"];
+  static List<String> get all => ["Personal", "Learning", "Work", "Shopping"];
 }
 
 enum Priority {
