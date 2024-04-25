@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/HomeView.dart';
+import 'package:todo_list_app/constants.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter(TaskModelAdapter());
+  await Hive.openBox<TaskModel>(kBoxName);
   runApp(const MyApp());
 }
 
