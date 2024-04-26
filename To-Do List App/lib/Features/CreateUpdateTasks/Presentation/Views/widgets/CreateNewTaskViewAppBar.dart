@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_list_app/Core/CommonWidgets/ImportantStar.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
-import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Manager/AddTaskCubit/add_task_cubit.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Manager/CreateTaskCubit/create_task_cubit.dart';
 
 class CreateNewTaskViewAppBar {
   static AppBar appBar(BuildContext context) {

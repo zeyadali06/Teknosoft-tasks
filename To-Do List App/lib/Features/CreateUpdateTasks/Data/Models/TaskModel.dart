@@ -17,22 +17,43 @@ class TaskModel extends HiveObject {
   late String category;
 
   @HiveField(3)
-  late DateTime datetime;
+  late DateTime from;
 
   @HiveField(4)
-  late String priority;
+  late DateTime to;
 
   @HiveField(5)
+  late String priority;
+
+  @HiveField(6)
   late bool important;
+
+  @HiveField(7)
+  late bool finished;
 
   TaskModel({
     required this.title,
     this.description = '',
     required this.category,
-    required this.datetime,
+    required this.from,
+    required this.to,
     required this.priority,
     this.important = false,
+    this.finished = false,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      "title": title,
+      "description": description,
+      "category": category,
+      "from": from,
+      "to": to,
+      "priority": priority,
+      "important": important,
+      "finished": finished,
+    };
+  }
 }
 
 enum Category {
@@ -45,6 +66,15 @@ enum Category {
 
   final List<Color> gradient;
 
+  static Category? find(String category) {
+    for (Category element in Category.values) {
+      if (element.name == category) {
+        return element;
+      }
+    }
+    return null;
+  }
+
   static String get firstItem => Personal.name;
 
   static List<String> get all => [Personal.name, Learning.name, Work.name, Shopping.name];
@@ -54,6 +84,15 @@ enum Priority {
   High,
   Medium,
   Low;
+
+  static Priority? find(String priority) {
+    for (Priority element in Priority.values) {
+      if (element.name == priority) {
+        return element;
+      }
+    }
+    return null;
+  }
 
   static String get firstItem => High.name;
 

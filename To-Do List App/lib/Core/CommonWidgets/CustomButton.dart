@@ -16,7 +16,7 @@ class CustomButton extends StatelessWidget {
       minWidth: double.infinity,
       color: kPrimaryColor,
       padding: const EdgeInsets.all(15),
-      shape: OutlineInputBorder(borderRadius: BorderRadius.circular(kRaduis), borderSide: const BorderSide(width: 0)),
+      shape: OutlineInputBorder(borderRadius: BorderRadius.circular(kRaduis), borderSide: const BorderSide(width: 0, color: kPrimaryColor)),
       child: Text('Add New Task', style: Styles.blue18Bold.copyWith(color: Colors.white)),
     );
   }

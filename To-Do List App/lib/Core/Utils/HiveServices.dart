@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'dart:async';
+
 import 'package:hive/hive.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/constants.dart';
@@ -12,10 +14,18 @@ List<TaskModel> getData() {
   return Hive.box<TaskModel>(kBoxName).values.toList();
 }
 
-void deleteData(TaskModel task) {
-  task.delete();
+Future<void> deleteData(TaskModel task) async {
+  await task.delete();
+  await task.save();
 }
 
-void editData(TaskModel task) {
-  task.save();
+Future<void> editData(TaskModel task) async {
+  await task.save();
+}
+
+Future<void> deleteAll() async {
+  for (TaskModel element in getData()) {
+    await element.delete();
+    await element.save();
+  }
 }
