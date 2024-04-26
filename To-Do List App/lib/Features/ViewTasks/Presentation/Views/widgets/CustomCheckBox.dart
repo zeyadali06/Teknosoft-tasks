@@ -4,14 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:todo_list_app/constants.dart';
 
 class CustomCheckBox extends StatefulWidget {
-  const CustomCheckBox({super.key});
+  const CustomCheckBox({super.key, this.onPressed, required this.initStateIsChecked});
+
+  final Future<void> Function()? onPressed;
+  final bool initStateIsChecked;
 
   @override
   State<CustomCheckBox> createState() => _CustomCheckBoxState();
 }
 
 class _CustomCheckBoxState extends State<CustomCheckBox> {
-  bool isChecked = false;
+  late bool isChecked;
+
+  @override
+  void initState() {
+    isChecked = widget.initStateIsChecked;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +33,8 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
       width: 32,
       height: 32,
       child: IconButton(
-        onPressed: () {
+        onPressed: () async {
+          await widget.onPressed?.call();
           setState(() {
             isChecked = !isChecked;
           });

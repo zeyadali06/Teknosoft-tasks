@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:todo_list_app/Core/CommonWidgets/HourMinuteFormate.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
 import 'package:todo_list_app/constants.dart';
 
@@ -20,9 +21,7 @@ class DateTimeContainer extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            datetime == null
-                ? ""
-                : "${datetime!.day}-${datetime!.month}-${datetime!.year}   ${datetime!.hour >= 10 ? datetime!.hour : "0${datetime!.hour}"}:${datetime!.minute >= 10 ? datetime!.minute : "0${datetime!.minute}"}",
+            datetime == null ? "" : "${datetime!.day}-${datetime!.month}-${datetime!.year}   ${hourMinuteFormate(datetime!)}",
             style: Styles.blue18Bold.copyWith(fontSize: 16),
           ),
         ),

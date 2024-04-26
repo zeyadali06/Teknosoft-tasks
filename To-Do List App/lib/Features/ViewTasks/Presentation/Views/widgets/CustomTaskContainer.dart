@@ -1,14 +1,18 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:todo_list_app/Core/CommonWidgets/HourMinuteFormate.dart';
 import 'package:todo_list_app/Core/CommonWidgets/ImportantStar.dart';
+import 'package:todo_list_app/Core/Utils/HiveServices.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/CustomCheckBox.dart';
 import 'package:todo_list_app/constants.dart';
 
 class CustomTaskContainer extends StatelessWidget {
-  const CustomTaskContainer({super.key});
+  const CustomTaskContainer({super.key, required this.task});
+
+  final TaskModel task;
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +23,32 @@ class CustomTaskContainer extends StatelessWidget {
       child: ListTile(
         contentPadding: const EdgeInsets.only(left: 15),
         tileColor: const Color(0xfffcfdff),
-        leading: const CustomCheckBox(),
-        trailing: const ImportantStar(),
+        leading: CustomCheckBox(
+          initStateIsChecked: task.finished,
+          onPressed: () async {
+            task.finished = !(task.finished);
+            await editData(task);
+          },
+        ),
+        trailing: ImportantStar(
+          onPressed: () async {
+            task.important = !(task.important);
+            await editData(task);
+          },
+          initStateIsChecked: task.important,
+        ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Weekly meeting', style: Styles.blue18Bold),
+            Text(task.title, style: Styles.blue18Bold),
             const SizedBox(height: 5),
-            const Text('14:00 - 14:30', style: Styles.grey12Bold),
+            Text("${hourMinuteFormate(task.from)} - ${hourMinuteFormate(task.to)}", style: Styles.grey12Bold),
             const SizedBox(height: 7),
             Row(
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: Category.Personal.gradient),
+                    gradient: LinearGradient(colors: Category.find(task.category)!.gradient),
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: const CircleAvatar(
@@ -41,7 +57,7 @@ class CustomTaskContainer extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
-                Text('Work', style: Styles.grey12Bold.copyWith(fontSize: 14, color: const Color(0xff6d6d6d))),
+                Text(Category.find(task.category)!.name, style: Styles.grey12Bold.copyWith(fontSize: 14, color: const Color(0xff6d6d6d))),
               ],
             )
           ],

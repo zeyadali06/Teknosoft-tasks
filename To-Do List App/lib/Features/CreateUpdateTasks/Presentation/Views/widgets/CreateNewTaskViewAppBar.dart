@@ -18,9 +18,10 @@ class CreateNewTaskViewAppBar {
       centerTitle: true,
       actions: [
         ImportantStar(
-          onPressed: () {
+          onPressed: () async {
             BlocProvider.of<AddTaskCubit>(context).important = !(BlocProvider.of<AddTaskCubit>(context).important);
           },
+          initStateIsChecked: false,
         ),
       ],
       leading: IconButton(

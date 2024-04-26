@@ -11,7 +11,7 @@ class ShowTasksView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ShowTaskViewAppBar.appBar(context),
-      body: const ShowTaskViewBody(),
+      body: ShowTaskViewBody(),
     );
   }
 }

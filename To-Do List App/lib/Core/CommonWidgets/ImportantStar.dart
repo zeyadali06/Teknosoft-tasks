@@ -3,9 +3,10 @@
 import 'package:flutter/material.dart';
 
 class ImportantStar extends StatefulWidget {
-  const ImportantStar({super.key, this.onPressed});
+  const ImportantStar({super.key, this.onPressed, required this.initStateIsChecked});
 
-  final void Function()? onPressed;
+  final Future<void> Function()? onPressed;
+  final bool initStateIsChecked;
 
   @override
   State<ImportantStar> createState() => _ImportantStarState();
@@ -18,20 +19,20 @@ class _ImportantStarState extends State<ImportantStar> {
 
   @override
   void initState() {
-    icon = notChecked;
+    icon = widget.initStateIsChecked ? checked : notChecked;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () {
+      onPressed: () async {
         if (icon.icon == checked.icon) {
           icon = notChecked;
         } else {
           icon = checked;
         }
-        widget.onPressed?.call();
+        await widget.onPressed?.call();
         setState(() {});
       },
       icon: icon,
