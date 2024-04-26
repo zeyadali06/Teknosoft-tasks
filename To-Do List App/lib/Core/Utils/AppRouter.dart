@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Manager/CreateTaskCubit/create_task_cubit.dart';
@@ -8,36 +7,17 @@ import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/Crea
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/UpdateTaskView.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/HomeView.dart';
 import 'package:todo_list_app/Features/Search/Presentation/Views/SearchView.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/MyDayTasksView.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/ShowTasksView.dart';
-import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/UpcomingTasksView.dart';
 
 abstract class AppRouter {
   static const String kHomePath = "/HomeView";
   static const String kSearchPath = "/SearchView";
   static const String kCreateTaskPath = "/CreateNewTaskView";
   static const String kUpdateTaskPath = "/UpdateTaskView";
-  static const String kShowTasksPath = "/ShowTasksView";
+  static const String kMyDayTasksPath = "/MyDayTasksView";
+  static const String kImportantTasksPath = "/ImportantTasksView";
   static const String kUpcomingTasksPath = "/UpcomingTasksView";
-
-  static const Map<Object, String> paths = {
-    HomeView: kHomePath,
-    SearchView: kSearchPath,
-    CreateNewTaskView: kCreateTaskPath,
-    UpdateTaskView: kUpdateTaskPath,
-    ShowTasksView: kShowTasksPath,
-    UpcomingTasksView: kUpcomingTasksPath,
-  };
-
-  static String getPath(Widget obj) {
-    return paths.entries.firstWhere(
-      (element) {
-        if (obj.toString() == element.key.toString()) {
-          return true;
-        }
-        return false;
-      },
-    ).value;
-  }
 
   static final router = GoRouter(
     routes: [
@@ -75,7 +55,13 @@ abstract class AppRouter {
         },
       ),
       GoRoute(
-        path: kShowTasksPath,
+        path: kMyDayTasksPath,
+        builder: (context, state) {
+          return const MyDayTasksView();
+        },
+      ),
+      GoRoute(
+        path: kImportantTasksPath,
         builder: (context, state) {
           return const ShowTasksView();
         },
@@ -83,7 +69,7 @@ abstract class AppRouter {
       GoRoute(
         path: kUpcomingTasksPath,
         builder: (context, state) {
-          return const UpcomingTasksView();
+          return const ShowTasksView();
         },
       ),
     ],

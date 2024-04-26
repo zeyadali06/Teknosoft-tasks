@@ -7,8 +7,8 @@ import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.d
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/CustomTaskContainer.dart';
 import 'package:todo_list_app/constants.dart';
 
-class ShowTaskViewBody extends StatelessWidget {
-  ShowTaskViewBody({super.key});
+class MyDayTasksViewBody extends StatelessWidget {
+  MyDayTasksViewBody({super.key});
 
   final List<TaskModel> tasks = getData();
 
