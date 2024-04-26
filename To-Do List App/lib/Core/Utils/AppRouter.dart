@@ -7,6 +7,7 @@ import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/Crea
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/UpdateTaskView.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/HomeView.dart';
 import 'package:todo_list_app/Features/Search/Presentation/Views/SearchView.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/MyDayTasks/my_day_tasks_cubit.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/MyDayTasksView.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/ShowTasksView.dart';
 
@@ -57,7 +58,10 @@ abstract class AppRouter {
       GoRoute(
         path: kMyDayTasksPath,
         builder: (context, state) {
-          return const MyDayTasksView();
+          return BlocProvider(
+            create: (context) => MyDayTasksCubit(),
+            child: const MyDayTasksView(),
+          );
         },
       ),
       GoRoute(
