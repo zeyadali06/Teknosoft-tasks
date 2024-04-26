@@ -1,8 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
-import 'package:todo_list_app/Features/Search/Presentation/Views/SearchView.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar({super.key, required this.task});
@@ -22,7 +23,7 @@ class TopBar extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SearchView()));
+                    GoRouter.of(context).push(AppRouter.kSearchPath);
                   },
                   child: Image.asset('assets/images/Screenshot 2024-04-24 213002.png', fit: BoxFit.fill, width: 30),
                 ),

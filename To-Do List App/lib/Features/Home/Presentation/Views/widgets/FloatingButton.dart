@@ -1,9 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Manager/AddTaskCubit/add_task_cubit.dart';
-import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/CreateNewTaskView.dart';
+import 'package:go_router/go_router.dart';
+import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 
 class FloatingButton extends StatelessWidget {
   const FloatingButton({super.key});
@@ -21,14 +20,7 @@ class FloatingButton extends StatelessWidget {
       ),
       child: IconButton(
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => BlocProvider(
-                create: (context) => AddTaskCubit(),
-                child: const CreateNewTaskView(),
-              ),
-            ),
-          );
+          GoRouter.of(context).push(AppRouter.kCreateTaskPath);
         },
         icon: const CircleAvatar(
           backgroundColor: Colors.transparent,
