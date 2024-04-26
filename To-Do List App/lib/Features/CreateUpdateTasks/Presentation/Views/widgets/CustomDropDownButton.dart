@@ -39,7 +39,10 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
         });
       },
       inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(kRaduis)),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(kRaduis),
+          borderSide: const BorderSide(color: Colors.grey, width: 1.5),
+        ),
       ),
     );
   }

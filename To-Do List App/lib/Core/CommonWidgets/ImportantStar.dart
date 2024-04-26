@@ -3,7 +3,9 @@
 import 'package:flutter/material.dart';
 
 class ImportantStar extends StatefulWidget {
-  const ImportantStar({super.key});
+  const ImportantStar({super.key, this.onPressed});
+
+  final void Function()? onPressed;
 
   @override
   State<ImportantStar> createState() => _ImportantStarState();
@@ -21,6 +23,7 @@ class _ImportantStarState extends State<ImportantStar> {
         } else {
           icon = Icons.star_border;
         }
+        widget.onPressed!.call();
         setState(() {});
       },
       icon: Icon(icon, color: const Color(0xff68a5a0), size: 28),

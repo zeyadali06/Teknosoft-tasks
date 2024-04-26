@@ -12,6 +12,7 @@ class CustomTextFormField extends StatefulWidget {
     // required this.prefixIcon,
     // required this.suffixIcon,
     required this.controller,
+    this.onSaved,
     this.inputFormatters,
   });
 
@@ -20,6 +21,7 @@ class CustomTextFormField extends StatefulWidget {
   // final IconData suffixIcon;
   final TextEditingController controller;
   final List<TextInputFormatter>? inputFormatters;
+  final void Function(String?)? onSaved;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -51,6 +53,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           }
           return null;
         },
+        onSaved: widget.onSaved,
         cursorOpacityAnimates: true,
         controller: widget.controller,
         cursorColor: color,

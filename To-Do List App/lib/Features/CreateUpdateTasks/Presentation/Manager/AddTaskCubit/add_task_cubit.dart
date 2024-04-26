@@ -10,20 +10,20 @@ class AddTaskCubit extends Cubit<AddTaskState> {
 
   late String title;
   late String description;
-  late String category;
-  late String priority;
-  late bool important;
+  String category = Category.firstItem;
+  String priority = Priority.firstItem;
+  bool important = false;
 
   Future<void> addTask() async {
-    TaskModel task = TaskModel(
-      category: category,
-      priority: priority,
-      title: title,
-      description: description,
-      datetime: DateTime.now(),
-      important: important,
-    );
     try {
+      TaskModel task = TaskModel(
+        category: category,
+        priority: priority,
+        title: title,
+        description: description,
+        datetime: DateTime.now(),
+        important: important,
+      );
       emit(AddTaskLoading());
       await addData(task);
       emit(AddTaskSuccessed());

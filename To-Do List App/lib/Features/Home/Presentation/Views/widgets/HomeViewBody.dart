@@ -15,8 +15,8 @@ class HomeViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: SafeArea(
-        child: GradientColor(
+      child: GradientColor(
+        child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(kPadding),
             child: Column(
