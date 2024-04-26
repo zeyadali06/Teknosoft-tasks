@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, constant_identifier_names
 
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 part 'TaskModel.g.dart';
@@ -35,10 +36,14 @@ class TaskModel extends HiveObject {
 }
 
 enum Category {
-  Personal,
-  Learning,
-  Work,
-  Shopping;
+  Personal(gradient: [Color(0xff7d9bdf), Color(0xff5070c5)]),
+  Learning(gradient: [Color(0xffbc7096), Color(0xff7474c4)]),
+  Work(gradient: [Color(0xff669bab), Color(0xff6182ca)]),
+  Shopping(gradient: [Color(0xffff9187), Color(0xffe36163)]);
+
+  const Category({required this.gradient});
+
+  final List<Color> gradient;
 
   static String get firstItem => Personal.name;
 

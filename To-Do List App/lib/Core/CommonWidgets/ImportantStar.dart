@@ -12,21 +12,29 @@ class ImportantStar extends StatefulWidget {
 }
 
 class _ImportantStarState extends State<ImportantStar> {
-  IconData icon = Icons.star_border;
+  Icon checked = const Icon(Icons.star, color: Color(0xff68a5a0), size: 28);
+  Icon notChecked = const Icon(Icons.star_border, color: Color(0xffbad7db), size: 26);
+  late Icon icon;
+
+  @override
+  void initState() {
+    icon = notChecked;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-        if (icon == Icons.star_border) {
-          icon = Icons.star;
+        if (icon.icon == checked.icon) {
+          icon = notChecked;
         } else {
-          icon = Icons.star_border;
+          icon = checked;
         }
-        widget.onPressed!.call();
+        widget.onPressed?.call();
         setState(() {});
       },
-      icon: Icon(icon, color: const Color(0xff68a5a0), size: 28),
+      icon: icon,
     );
   }
 }
