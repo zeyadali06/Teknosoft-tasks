@@ -19,7 +19,7 @@ class RowOfTaskLevel extends StatelessWidget {
       width: double.infinity,
       child: MaterialButton(
         onPressed: () {
-          GoRouter.of(context).push(AppRouter.paths[toScreen]!);
+          GoRouter.of(context).push(AppRouter.getPath(toScreen));
         },
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,

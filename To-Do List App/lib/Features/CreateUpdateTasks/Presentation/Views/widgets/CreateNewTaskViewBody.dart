@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:todo_list_app/Core/CommonWidgets/CustomButton.dart';
 import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
@@ -99,6 +100,7 @@ class _CreateNewTaskViewBodyState extends State<CreateNewTaskViewBody> {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
       await BlocProvider.of<AddTaskCubit>(context).addTask();
+      GoRouter.of(context).pop();
     } else {
       autovalidateMode = AutovalidateMode.always;
       setState(() {});
