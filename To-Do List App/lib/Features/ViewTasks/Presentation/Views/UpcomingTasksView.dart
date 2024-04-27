@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/UpcomingTasksViewAppBar.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/CustomAppBar.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/UpcomingTasksViewBody.dart';
 
 class UpcomingTasksView extends StatelessWidget {
@@ -10,7 +10,7 @@ class UpcomingTasksView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UpcomingTasksViewAppBar.appBar(context),
+      appBar: CustomAppBar.appBar(context, 'Upcoming'),
       body: const UpcomingTasksViewBody(),
     );
   }
