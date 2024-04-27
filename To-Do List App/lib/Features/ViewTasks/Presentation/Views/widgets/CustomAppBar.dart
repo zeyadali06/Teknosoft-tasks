@@ -11,7 +11,7 @@ class CustomAppBar {
       surfaceTintColor: const Color(0xffeff3fe),
       elevation: .25,
       shadowColor: Colors.black,
-      title: const Text('Upcoming', style: Styles.black20Bold),
+      title: Text(title, style: Styles.black20Bold),
       centerTitle: true,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back_ios_new),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
+import 'package:todo_list_app/Core/CommonWidgets/NoThingToShow.dart';
 import 'package:todo_list_app/Core/CommonWidgets/SnackBar.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/ImportantTasks/important_tasks_cubit.dart';
@@ -52,15 +53,17 @@ class _ImportantTasksViewBodyState extends State<ImportantTasksViewBody> {
                     BlocProvider.of<ImportantTasksCubit>(context).getTasks(dateTime);
                   },
                 ),
-                Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(kPadding),
-                    itemCount: tasks.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return CustomTaskContainer(task: tasks[index]);
-                    },
-                  ),
-                ),
+                tasks.isEmpty
+                    ? const Center(child: LottieImage())
+                    : Expanded(
+                        child: ListView.builder(
+                          padding: const EdgeInsets.all(kPadding),
+                          itemCount: tasks.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return CustomTaskContainer(task: tasks[index]);
+                          },
+                        ),
+                      )
               ],
             ),
           ),
