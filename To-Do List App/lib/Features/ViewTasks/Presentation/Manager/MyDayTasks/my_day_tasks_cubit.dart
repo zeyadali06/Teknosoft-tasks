@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:todo_list_app/Core/Utils/HiveServices.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 
@@ -9,14 +10,14 @@ class MyDayTasksCubit extends Cubit<MyDayTasksState> {
   MyDayTasksCubit() : super(MyDayTasksInitial());
 
   List<TaskModel> getMyDayTasks() {
-    emit(MyDayTasksLoading());
     try {
+      emit(MyDayTasksLoading());
       emit(MyDayTasksLoading());
       List<TaskModel> tasks = getData();
       List<TaskModel> res = [];
 
       for (TaskModel task in tasks) {
-        if (task.from.day == DateTime.now().day && task.from.month == DateTime.now().month && task.from.year == DateTime.now().year) {
+        if (isSameDay(DateTime.now(), task.from)) {
           res.add(task);
         }
       }

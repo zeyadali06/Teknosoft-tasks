@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:todo_list_app/Core/Utils/HiveServices.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 
@@ -16,7 +17,7 @@ class ImportantTasksCubit extends Cubit<ImportantTasksState> {
       tasks.clear();
 
       for (TaskModel task in allTasks) {
-        if (task.from.day == datetime.day && task.from.month == datetime.month && task.from.year == datetime.year) {
+        if (isSameDay(datetime, task.from)) {
           if (task.important) {
             tasks.add(task);
           }
