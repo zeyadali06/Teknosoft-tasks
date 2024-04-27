@@ -11,7 +11,7 @@ class MyDayTasksView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyDayTasksViewAppBar.appBar(context),
-      body: MyDayTasksViewBody(),
+      body: const MyDayTasksViewBody(),
     );
   }
 }

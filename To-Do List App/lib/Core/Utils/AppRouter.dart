@@ -67,13 +67,13 @@ abstract class AppRouter {
       GoRoute(
         path: kImportantTasksPath,
         builder: (context, state) {
-          return const ShowTasksView();
+          return const ShowTasksView(appBarTitle: 'Important');
         },
       ),
       GoRoute(
         path: kUpcomingTasksPath,
         builder: (context, state) {
-          return const ShowTasksView();
+          return const ShowTasksView(appBarTitle: 'Upcoming');
         },
       ),
     ],
