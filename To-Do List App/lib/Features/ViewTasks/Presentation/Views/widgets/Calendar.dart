@@ -1,8 +1,10 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/UpcomingTasks/upcoming_tasks_cubit.dart';
 import 'package:todo_list_app/constants.dart';
 
 class Calendar extends StatefulWidget {
@@ -93,6 +95,7 @@ class _CalendarState extends State<Calendar> {
         if (!isSameDay(_selectedDay, selectedDay)) {
           _selectedDay = selectedDay;
           _focusedDay = focusedDay;
+          BlocProvider.of<UpcomingTasksCubit>(context).getTasks(_selectedDay!);
           setState(() {});
         }
       },
