@@ -22,6 +22,7 @@ class _MyDayTasksViewBodyState extends State<MyDayTasksViewBody> {
   bool isLoading = false;
   late List<TaskModel> tasks;
   late Timer timer;
+  Timer? longTimer;
 
   @override
   void initState() {
@@ -29,8 +30,11 @@ class _MyDayTasksViewBodyState extends State<MyDayTasksViewBody> {
     final DateTime now = DateTime.now();
     final DateTime nextMidnight = DateTime(now.year, now.month, now.day + 1, 0, 0, 0);
     final Duration duration = nextMidnight.difference(now);
-    timer = Timer.periodic(duration, (Timer timer) {
+    timer = Timer(duration, () {
       tasks = BlocProvider.of<MyDayTasksCubit>(context).getMyDayTasks();
+      longTimer = Timer.periodic(const Duration(days: 1), (Timer timer) {
+        tasks = BlocProvider.of<MyDayTasksCubit>(context).getMyDayTasks();
+      });
     });
     super.initState();
   }
@@ -38,6 +42,9 @@ class _MyDayTasksViewBodyState extends State<MyDayTasksViewBody> {
   @override
   void dispose() {
     timer.cancel();
+    if (longTimer != null) {
+      longTimer!.cancel();
+    }
     tasks.clear();
     super.dispose();
   }
