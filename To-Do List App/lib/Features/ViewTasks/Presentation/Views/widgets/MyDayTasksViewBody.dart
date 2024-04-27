@@ -1,8 +1,11 @@
 // ignore_for_file: file_names
 
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
+import 'package:todo_list_app/Core/CommonWidgets/SnackBar.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/MyDayTasks/my_day_tasks_cubit.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/CustomTaskContainer.dart';
@@ -16,24 +19,56 @@ class MyDayTasksViewBody extends StatefulWidget {
 }
 
 class _MyDayTasksViewBodyState extends State<MyDayTasksViewBody> {
+  bool isLoading = false;
   late List<TaskModel> tasks;
+  late Timer timer;
 
   @override
   void initState() {
     tasks = BlocProvider.of<MyDayTasksCubit>(context).getMyDayTasks();
+    final DateTime now = DateTime.now();
+    final DateTime nextMidnight = DateTime(now.year, now.month, now.day + 1, 0, 0, 0);
+    final Duration duration = nextMidnight.difference(now);
+    timer = Timer.periodic(duration, (Timer timer) {
+      tasks = BlocProvider.of<MyDayTasksCubit>(context).getMyDayTasks();
+    });
     super.initState();
   }
 
   @override
+  void dispose() {
+    timer.cancel();
+    tasks.clear();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return GradientColor(
-      child: ListView.builder(
-        padding: const EdgeInsets.all(kPadding),
-        itemCount: tasks.length,
-        itemBuilder: (BuildContext context, int index) {
-          return CustomTaskContainer(task: tasks[index]);
-        },
-      ),
+    return BlocConsumer<MyDayTasksCubit, MyDayTasksState>(
+      listener: (context, state) {
+        if (state is MyDayTasksLoading) {
+          isLoading = true;
+        } else if (state is MyDayTasksSuccess) {
+          isLoading = false;
+        } else if (state is MyDayTasksFailed) {
+          isLoading = false;
+          showSnakeBar(context, state.errMessage);
+        }
+      },
+      builder: (context, state) {
+        return ModalProgressHUD(
+          inAsyncCall: isLoading,
+          child: GradientColor(
+            child: ListView.builder(
+              padding: const EdgeInsets.all(kPadding),
+              itemCount: tasks.length,
+              itemBuilder: (BuildContext context, int index) {
+                return CustomTaskContainer(task: tasks[index]);
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 }
