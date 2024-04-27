@@ -7,7 +7,7 @@ import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
 import 'package:todo_list_app/Core/CommonWidgets/SnackBar.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/UpcomingTasks/upcoming_tasks_cubit.dart';
-import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/Calendar.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/CustomCalendar.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/CustomTaskContainer.dart';
 import 'package:todo_list_app/constants.dart';
 
@@ -47,7 +47,11 @@ class _UpcomingTasksViewBodyState extends State<UpcomingTasksViewBody> {
           child: GradientColor(
             child: Column(
               children: [
-                const Calendar(),
+                CustomCalendar(
+                  func: (dateTime) {
+                    BlocProvider.of<UpcomingTasksCubit>(context).getTasks(dateTime);
+                  },
+                ),
                 Expanded(
                   child: ListView.builder(
                     padding: const EdgeInsets.all(kPadding),

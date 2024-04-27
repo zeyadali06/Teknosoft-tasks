@@ -1,20 +1,20 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
-import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/UpcomingTasks/upcoming_tasks_cubit.dart';
 import 'package:todo_list_app/constants.dart';
 
-class Calendar extends StatefulWidget {
-  const Calendar({super.key});
+class CustomCalendar extends StatefulWidget {
+  const CustomCalendar({super.key, required this.func});
+
+  final void Function(DateTime dateTime) func;
 
   @override
-  State<Calendar> createState() => _CalendarState();
+  State<CustomCalendar> createState() => _CustomCalendarState();
 }
 
-class _CalendarState extends State<Calendar> {
+class _CustomCalendarState extends State<CustomCalendar> {
   late DateTime _focusedDay;
   DateTime? _selectedDay;
 
@@ -42,7 +42,8 @@ class _CalendarState extends State<Calendar> {
           style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero)),
           onPressed: () {
             _focusedDay = DateTime.now();
-            BlocProvider.of<UpcomingTasksCubit>(context).getTasks(DateTime.now());
+            widget.func.call(DateTime.now());
+            // BlocProvider.of<UpcomingTasksCubit>(context).getTasks(DateTime.now());
             setState(() {});
           },
           child: const Text('Today', style: Styles.blue18Bold),
@@ -96,7 +97,8 @@ class _CalendarState extends State<Calendar> {
         if (!isSameDay(_selectedDay, selectedDay)) {
           _selectedDay = selectedDay;
           _focusedDay = focusedDay;
-          BlocProvider.of<UpcomingTasksCubit>(context).getTasks(_selectedDay!);
+          widget.func.call(_selectedDay!);
+          // BlocProvider.of<UpcomingTasksCubit>(context).getTasks(_selectedDay!);
           setState(() {});
         }
       },
