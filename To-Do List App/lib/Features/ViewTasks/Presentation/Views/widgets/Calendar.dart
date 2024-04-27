@@ -42,6 +42,7 @@ class _CalendarState extends State<Calendar> {
           style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero)),
           onPressed: () {
             _focusedDay = DateTime.now();
+            BlocProvider.of<UpcomingTasksCubit>(context).getTasks(DateTime.now());
             setState(() {});
           },
           child: const Text('Today', style: Styles.blue18Bold),

@@ -9,8 +9,9 @@ import 'package:todo_list_app/Features/Home/Presentation/Views/HomeView.dart';
 import 'package:todo_list_app/Features/Search/Presentation/Views/SearchView.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/MyDayTasks/my_day_tasks_cubit.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/UpcomingTasks/upcoming_tasks_cubit.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/ImportantTasksView.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/MyDayTasksView.dart';
-import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/ShowTasksView.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/UpcomingTasksView.dart';
 
 abstract class AppRouter {
   static const String kHomePath = "/HomeView";
@@ -68,7 +69,7 @@ abstract class AppRouter {
       GoRoute(
         path: kImportantTasksPath,
         builder: (context, state) {
-          return const ShowTasksView(appBarTitle: 'Important');
+          return const ImportantTasksView();
         },
       ),
       GoRoute(
@@ -76,7 +77,7 @@ abstract class AppRouter {
         builder: (context, state) {
           return BlocProvider(
             create: (context) => UpcomingTasksCubit(),
-            child: const ShowTasksView(appBarTitle: 'Upcoming'),
+            child: const UpcomingTasksView(),
           );
         },
       ),

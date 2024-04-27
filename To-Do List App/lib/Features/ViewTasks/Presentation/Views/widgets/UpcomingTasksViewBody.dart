@@ -11,14 +11,14 @@ import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/Cale
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/CustomTaskContainer.dart';
 import 'package:todo_list_app/constants.dart';
 
-class ShowTasksViewBody extends StatefulWidget {
-  const ShowTasksViewBody({super.key});
+class UpcomingTasksViewBody extends StatefulWidget {
+  const UpcomingTasksViewBody({super.key});
 
   @override
-  State<ShowTasksViewBody> createState() => _ShowTasksViewBodyState();
+  State<UpcomingTasksViewBody> createState() => _UpcomingTasksViewBodyState();
 }
 
-class _ShowTasksViewBodyState extends State<ShowTasksViewBody> {
+class _UpcomingTasksViewBodyState extends State<UpcomingTasksViewBody> {
   bool isLoading = false;
   List<TaskModel> tasks = [];
 
