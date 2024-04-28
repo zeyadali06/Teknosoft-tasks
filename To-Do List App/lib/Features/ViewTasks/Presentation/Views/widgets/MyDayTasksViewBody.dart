@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Core/CommonWidgets/CustomPopScope.dart';
@@ -22,32 +21,12 @@ class MyDayTasksViewBody extends StatefulWidget {
 
 class _MyDayTasksViewBodyState extends State<MyDayTasksViewBody> {
   late List<TaskModel> tasks;
-  late Timer timer;
-  Timer? longTimer;
 
   @override
   void initState() {
     tasks = BlocProvider.of<MyDayTasksCubit>(context).getMyDayTasks();
-    final DateTime now = DateTime.now();
-    final DateTime nextMidnight = DateTime(now.year, now.month, now.day + 1, 0, 0, 0);
-    final Duration duration = nextMidnight.difference(now);
-    timer = Timer(duration, () {
-      tasks = BlocProvider.of<MyDayTasksCubit>(context).getMyDayTasks();
-      longTimer = Timer.periodic(const Duration(days: 1), (Timer timer) {
-        tasks = BlocProvider.of<MyDayTasksCubit>(context).getMyDayTasks();
-      });
-    });
+    BlocProvider.of<MyDayTasksCubit>(context).startMidNightTimer();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    timer.cancel();
-    if (longTimer != null) {
-      longTimer!.cancel();
-    }
-    tasks.clear();
-    super.dispose();
   }
 
   @override
@@ -63,6 +42,7 @@ class _MyDayTasksViewBodyState extends State<MyDayTasksViewBody> {
                   showSnakeBar(context, state.errMessage);
                   return const Column();
                 } else {
+                  tasks = BlocProvider.of<MyDayTasksCubit>(context).tasks;
                   if (tasks.isEmpty) {
                     return const Expanded(child: Center(child: LottieImage()));
                   } else {
