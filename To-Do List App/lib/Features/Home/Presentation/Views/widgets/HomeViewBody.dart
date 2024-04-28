@@ -19,30 +19,33 @@ class HomeViewBody extends StatelessWidget {
     return BlocBuilder<HomeViewCubit, HomeViewState>(
       builder: (context, state) {
         return SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: GradientColor(
-            child: Builder(builder: (context) {
-              if (state is HomeViewFailed) {
-                showSnakeBar(context, state.errMessage);
-                return const Column();
-              } else {
-                return SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.all(kPadding),
-                    child: Column(
-                      children: [
-                        TopBar(task: BlocProvider.of<HomeViewCubit>(context).finishedTasks),
-                        const SizedBox(height: 10),
-                        Divider(color: Colors.grey.withOpacity(.15)),
-                        const SizedBox(height: 10),
-                        const TaskLevelContainer(),
-                        const SizedBox(height: 25),
-                        const AllCategories(),
-                      ],
+            child: Builder(
+              builder: (context) {
+                if (state is HomeViewFailed) {
+                  showSnakeBar(context, state.errMessage);
+                  return const Column();
+                } else {
+                  return SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.all(kPadding),
+                      child: Column(
+                        children: [
+                          TopBar(task: BlocProvider.of<HomeViewCubit>(context).finishedTasks),
+                          const SizedBox(height: 10),
+                          Divider(color: Colors.grey.withOpacity(.15)),
+                          const SizedBox(height: 10),
+                          const TaskLevelContainer(),
+                          const SizedBox(height: 25),
+                          const AllCategories(),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              }
-            }),
+                  );
+                }
+              },
+            ),
           ),
         );
       },

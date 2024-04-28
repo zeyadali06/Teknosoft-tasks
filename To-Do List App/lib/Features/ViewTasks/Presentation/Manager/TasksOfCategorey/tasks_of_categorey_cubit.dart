@@ -8,12 +8,11 @@ part 'tasks_of_categorey_state.dart';
 
 class TasksOfCategoreyCubit extends Cubit<TasksOfCategoreyState> {
   TasksOfCategoreyCubit() : super(TasksOfCategoreyInitial());
-  List<TaskModel> tasks = [];
 
   List<TaskModel> getTasks(DateTime datetime, Category cat) {
     try {
       List<TaskModel> allTasks = getData();
-      tasks.clear();
+      List<TaskModel> tasks = [];
 
       for (TaskModel task in allTasks) {
         if (task.category == cat.name && isSameDay(datetime, task.from)) {

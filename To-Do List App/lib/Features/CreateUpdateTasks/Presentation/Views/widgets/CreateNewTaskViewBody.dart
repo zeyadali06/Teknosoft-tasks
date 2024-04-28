@@ -63,6 +63,7 @@ class _CreateNewTaskViewBodyState extends State<CreateNewTaskViewBody> {
                 key: formKey,
                 autovalidateMode: autovalidateMode,
                 child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   padding: const EdgeInsets.all(kPadding),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,

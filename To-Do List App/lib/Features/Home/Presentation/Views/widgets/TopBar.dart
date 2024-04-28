@@ -31,7 +31,7 @@ class TopBar extends StatelessWidget {
                   child: Image.asset('assets/images/Screenshot 2024-04-24 213002.png', fit: BoxFit.fill, width: 30),
                 ),
                 const SizedBox(width: 30),
-                const CircleAvatar(radius: 18, backgroundColor: Colors.black),
+                CircleAvatar(radius: 18, backgroundColor: kPrimaryColor.withOpacity(.5)),
               ],
             ),
           ],

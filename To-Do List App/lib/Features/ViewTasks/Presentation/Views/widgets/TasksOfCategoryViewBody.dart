@@ -22,7 +22,7 @@ class TasksOfCategoryViewBody extends StatefulWidget {
 }
 
 class _TasksOfCategoryViewBodyState extends State<TasksOfCategoryViewBody> {
-  List<TaskModel> tasks = [];
+  late List<TaskModel> tasks;
 
   @override
   void initState() {
@@ -48,10 +48,19 @@ class _TasksOfCategoryViewBodyState extends State<TasksOfCategoryViewBody> {
                     ? const Center(child: LottieImage())
                     : Expanded(
                         child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
                           padding: const EdgeInsets.all(kPadding),
                           itemCount: tasks.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return CustomTaskContainer(task: tasks[index]);
+                            return CustomTaskContainer(
+                              task: tasks[index],
+                              onDismissed: (direction) async {
+                                DateTime datetime = DateTime.parse(tasks[index].from.toString());
+                                String category = tasks[index].category;
+                                await tasks[index].delete();
+                                tasks = BlocProvider.of<TasksOfCategoreyCubit>(context).getTasks(datetime, Category.find(category)!);
+                              },
+                            );
                           },
                         ),
                       )

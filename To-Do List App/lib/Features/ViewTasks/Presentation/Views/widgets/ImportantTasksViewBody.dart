@@ -21,7 +21,7 @@ class ImportantTasksViewBody extends StatefulWidget {
 }
 
 class _ImportantTasksViewBodyState extends State<ImportantTasksViewBody> {
-  List<TaskModel> tasks = [];
+  late List<TaskModel> tasks;
 
   @override
   void initState() {
@@ -49,17 +49,26 @@ class _ImportantTasksViewBodyState extends State<ImportantTasksViewBody> {
                           tasks = BlocProvider.of<ImportantTasksCubit>(context).getTasks(dateTime);
                         },
                       ),
-                      tasks.isEmpty
-                          ? const Center(child: LottieImage())
-                          : Expanded(
-                              child: ListView.builder(
-                                padding: const EdgeInsets.all(kPadding),
-                                itemCount: tasks.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return CustomTaskContainer(task: tasks[index]);
+                      if (tasks.isEmpty)
+                        const Center(child: LottieImage())
+                      else
+                        Expanded(
+                          child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            padding: const EdgeInsets.all(kPadding),
+                            itemCount: tasks.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return CustomTaskContainer(
+                                task: tasks[index],
+                                onDismissed: (direction) async {
+                                  DateTime datetime = DateTime.parse(tasks[index].from.toString());
+                                  await tasks[index].delete();
+                                  tasks = BlocProvider.of<ImportantTasksCubit>(context).getTasks(datetime);
                                 },
-                              ),
-                            )
+                              );
+                            },
+                          ),
+                        )
                     ],
                   );
                 }

@@ -8,12 +8,11 @@ part 'important_tasks_state.dart';
 
 class ImportantTasksCubit extends Cubit<ImportantTasksState> {
   ImportantTasksCubit() : super(ImportantTasksInitial());
-  List<TaskModel> tasks = [];
 
   List<TaskModel> getTasks(DateTime datetime) {
     try {
       List<TaskModel> allTasks = getData();
-      tasks.clear();
+      List<TaskModel> tasks = [];
 
       for (TaskModel task in allTasks) {
         if (isSameDay(datetime, task.from) && task.important) {

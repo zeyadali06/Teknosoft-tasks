@@ -66,10 +66,17 @@ class _MyDayTasksViewBodyState extends State<MyDayTasksViewBody> {
                   return tasks.isEmpty
                       ? const Center(child: LottieImage())
                       : ListView.builder(
+                          physics: const BouncingScrollPhysics(),
                           padding: const EdgeInsets.all(kPadding),
                           itemCount: tasks.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return CustomTaskContainer(task: tasks[index]);
+                            return CustomTaskContainer(
+                              task: tasks[index],
+                              onDismissed: (direction) async {
+                                await tasks[index].delete();
+                                tasks = BlocProvider.of<MyDayTasksCubit>(context).getMyDayTasks();
+                              },
+                            );
                           },
                         );
                 }

@@ -15,7 +15,7 @@ class _LottieImageState extends State<LottieImage> with SingleTickerProviderStat
 
   @override
   void initState() {
-    animationController = AnimationController(vsync: this, duration: const Duration(seconds: 10))..repeat();
+    animationController = AnimationController(vsync: this, duration: const Duration(seconds: 5))..repeat();
     super.initState();
   }
 

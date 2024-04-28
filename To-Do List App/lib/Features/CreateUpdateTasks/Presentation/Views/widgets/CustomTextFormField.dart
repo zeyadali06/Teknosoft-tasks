@@ -53,6 +53,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           }
           return null;
         },
+        onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         onSaved: widget.onSaved,
         cursorOpacityAnimates: true,
         controller: widget.controller,

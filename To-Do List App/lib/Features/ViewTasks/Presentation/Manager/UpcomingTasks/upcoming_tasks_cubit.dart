@@ -9,12 +9,10 @@ part 'upcoming_tasks_state.dart';
 class UpcomingTasksCubit extends Cubit<UpcomingTasksState> {
   UpcomingTasksCubit() : super(UpcomingTasksInitial());
 
-  List<TaskModel> tasks = [];
-
   List<TaskModel> getTasks(DateTime datetime) {
     try {
       List<TaskModel> allTasks = getData();
-      tasks.clear();
+      List<TaskModel> tasks = [];
 
       for (TaskModel task in allTasks) {
         if (isSameDay(datetime, task.from)) {
