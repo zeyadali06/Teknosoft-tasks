@@ -8,15 +8,24 @@ part 'home_view_state.dart';
 
 class HomePageCubit extends Cubit<HomePageState> {
   HomePageCubit() : super(HomePageInitial());
-  int myDayTasks = 0;
-  int importantTasks = 0;
-  int personalTasks = 0;
-  int learningTasks = 0;
-  int workTasks = 0;
-  int shoppingTasks = 0;
+  late int myDayTasks;
+  late int importantTasks;
+  late int personalTasks;
+  late int learningTasks;
+  late int workTasks;
+  late int shoppingTasks;
+  late int finishedTasks;
 
   void getNumOfEachTask() {
     try {
+      myDayTasks = 0;
+      importantTasks = 0;
+      personalTasks = 0;
+      learningTasks = 0;
+      workTasks = 0;
+      shoppingTasks = 0;
+      finishedTasks = 0;
+
       emit(HomePageLoading());
       List<TaskModel> tasks = getData();
       for (TaskModel task in tasks) {
@@ -37,6 +46,9 @@ class HomePageCubit extends Cubit<HomePageState> {
         }
         if (task.important) {
           importantTasks++;
+        }
+        if (task.finished && isSameDay(task.finishDate, DateTime.now())) {
+          finishedTasks++;
         }
       }
       emit(HomePageSuccessed());

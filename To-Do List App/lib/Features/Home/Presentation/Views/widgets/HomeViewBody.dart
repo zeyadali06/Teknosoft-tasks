@@ -11,7 +11,6 @@ import 'package:todo_list_app/constants.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
-  final int task = 5;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class HomeViewBody extends StatelessWidget {
                 padding: const EdgeInsets.all(kPadding),
                 child: Column(
                   children: [
-                    TopBar(task: task),
+                    TopBar(task: BlocProvider.of<HomePageCubit>(context).finishedTasks),
                     const SizedBox(height: 10),
                     Divider(color: Colors.grey.withOpacity(.15)),
                     const SizedBox(height: 10),

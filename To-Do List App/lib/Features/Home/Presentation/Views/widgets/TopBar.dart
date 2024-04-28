@@ -1,9 +1,12 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
+import 'package:todo_list_app/Features/Home/Presentation/Manager/HomePage/home_view_cubit.dart';
+import 'package:todo_list_app/constants.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar({super.key, required this.task});
@@ -36,7 +39,21 @@ class TopBar extends StatelessWidget {
         const SizedBox(height: 10),
         Row(
           children: [
-            const CircleAvatar(backgroundColor: Colors.black, radius: 10),
+            // const CircleAvatar(backgroundColor: Colors.black, radius: 10),
+            CircleAvatar(
+              radius: 7,
+              backgroundColor: Colors.transparent,
+              child: Stack(
+                children: [
+                  const CircularProgressIndicator(strokeWidth: 2.5, color: Color(0xffd1d5de), value: 1),
+                  CircularProgressIndicator(
+                    strokeWidth: 2.5,
+                    value: (BlocProvider.of<HomePageCubit>(context).finishedTasks) / (BlocProvider.of<HomePageCubit>(context).myDayTasks),
+                    color: kPrimaryColor,
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(width: 7),
             const Text("Today's Progress", style: Styles.blue12Bold),
             Text(" $task tasks left", style: Styles.grey12Bold),

@@ -27,6 +27,11 @@ class CustomTaskContainer extends StatelessWidget {
           initStateIsChecked: task.finished,
           onPressed: () async {
             task.finished = !(task.finished);
+            if (task.finished) {
+              task.finishDate = DateTime.now();
+            } else {
+              task.finishDate = null;
+            }
             await editData(task);
           },
         ),
