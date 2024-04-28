@@ -53,7 +53,7 @@ class _ImportantTasksViewBodyState extends State<ImportantTasksViewBody> {
               child: Column(
                 children: [
                   CustomCalendar(
-                    func: (dateTime) {
+                    onDaySelected: (dateTime) {
                       BlocProvider.of<ImportantTasksCubit>(context).getTasks(dateTime);
                     },
                   ),

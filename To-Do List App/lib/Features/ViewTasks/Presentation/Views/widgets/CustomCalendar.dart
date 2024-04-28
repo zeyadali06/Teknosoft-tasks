@@ -6,9 +6,9 @@ import 'package:todo_list_app/Core/Utils/Styles.dart';
 import 'package:todo_list_app/constants.dart';
 
 class CustomCalendar extends StatefulWidget {
-  const CustomCalendar({super.key, required this.func});
+  const CustomCalendar({super.key, required this.onDaySelected});
 
-  final void Function(DateTime dateTime) func;
+  final void Function(DateTime dateTime) onDaySelected;
 
   @override
   State<CustomCalendar> createState() => _CustomCalendarState();
@@ -42,8 +42,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
           style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero)),
           onPressed: () {
             _focusedDay = DateTime.now();
-            widget.func.call(DateTime.now());
-            // BlocProvider.of<UpcomingTasksCubit>(context).getTasks(DateTime.now());
+            widget.onDaySelected.call(DateTime.now());
             setState(() {});
           },
           child: const Text('Today', style: Styles.blue18Bold),
@@ -97,7 +96,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
         if (!isSameDay(_selectedDay, selectedDay)) {
           _selectedDay = selectedDay;
           _focusedDay = focusedDay;
-          widget.func.call(_selectedDay!);
+          widget.onDaySelected.call(_selectedDay!);
           // BlocProvider.of<UpcomingTasksCubit>(context).getTasks(_selectedDay!);
           setState(() {});
         }

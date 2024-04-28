@@ -13,7 +13,7 @@ class TasksOfCategoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar.appBar(context, category),
-      body: const TasksOfCategoryViewBody(),
+      body: TasksOfCategoryViewBody(category: category),
     );
   }
 }

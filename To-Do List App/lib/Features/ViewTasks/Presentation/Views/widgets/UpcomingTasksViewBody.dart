@@ -53,7 +53,7 @@ class _UpcomingTasksViewBodyState extends State<UpcomingTasksViewBody> {
               child: Column(
                 children: [
                   CustomCalendar(
-                    func: (dateTime) {
+                    onDaySelected: (dateTime) {
                       BlocProvider.of<UpcomingTasksCubit>(context).getTasks(dateTime);
                     },
                   ),
