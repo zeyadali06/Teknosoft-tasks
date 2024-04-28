@@ -14,14 +14,6 @@ class CustomCheckBox extends StatefulWidget {
 }
 
 class _CustomCheckBoxState extends State<CustomCheckBox> {
-  late bool isChecked;
-
-  @override
-  void initState() {
-    isChecked = widget.initStateIsChecked;
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,9 +27,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
       child: IconButton(
         onPressed: () async {
           await widget.onPressed?.call();
-          setState(() {
-            isChecked = !isChecked;
-          });
+          setState(() {});
         },
         highlightColor: kPrimaryColor.withOpacity(.1),
         splashColor: kPrimaryColor.withOpacity(.1),
@@ -46,7 +36,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
           alignment: Alignment.center,
           firstChild: const Icon(Icons.check, size: 0),
           secondChild: const Icon(Icons.check, color: kPrimaryColor),
-          crossFadeState: isChecked ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+          crossFadeState: widget.initStateIsChecked ? CrossFadeState.showSecond : CrossFadeState.showFirst,
           duration: const Duration(milliseconds: 150),
         ),
       ),

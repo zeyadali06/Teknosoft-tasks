@@ -33,6 +33,7 @@ class _UpcomingTasksViewBodyState extends State<UpcomingTasksViewBody> {
   Widget build(BuildContext context) {
     return BlocBuilder<UpcomingTasksCubit, UpcomingTasksState>(
       builder: (context, state) {
+        tasks = BlocProvider.of<UpcomingTasksCubit>(context).tasks;
         return CustomPopScope(
           toScreenPath: AppRouter.kHomePath,
           child: GradientColor(
@@ -45,7 +46,7 @@ class _UpcomingTasksViewBodyState extends State<UpcomingTasksViewBody> {
                   children: [
                     CustomCalendar(
                       onDaySelected: (dateTime) {
-                        tasks = BlocProvider.of<UpcomingTasksCubit>(context).getTasks(dateTime);
+                        BlocProvider.of<UpcomingTasksCubit>(context).getTasks(dateTime);
                       },
                     ),
                     tasks.isEmpty

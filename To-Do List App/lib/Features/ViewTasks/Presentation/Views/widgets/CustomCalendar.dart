@@ -59,7 +59,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
           );
         },
         selectedBuilder: (context, day, focusedDay) {
-          if (day.day == _focusedDay.day) {
+          if (focusedDay.day == _focusedDay.day) {
             return Center(
               child: CircleAvatar(
                 radius: 20,

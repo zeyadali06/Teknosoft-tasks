@@ -9,11 +9,16 @@ import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.d
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/CustomCheckBox.dart';
 import 'package:todo_list_app/constants.dart';
 
-class CustomTaskContainer extends StatelessWidget {
+class CustomTaskContainer extends StatefulWidget {
   const CustomTaskContainer({super.key, required this.task});
 
   final TaskModel task;
 
+  @override
+  State<CustomTaskContainer> createState() => _CustomTaskContainerState();
+}
+
+class _CustomTaskContainerState extends State<CustomTaskContainer> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -24,36 +29,38 @@ class CustomTaskContainer extends StatelessWidget {
         contentPadding: const EdgeInsets.only(left: 15),
         tileColor: const Color(0xfffcfdff),
         leading: CustomCheckBox(
-          initStateIsChecked: task.finished,
+          initStateIsChecked: widget.task.finished,
           onPressed: () async {
-            task.finished = !(task.finished);
-            if (task.finished) {
-              task.finishDate = DateTime.now();
+            widget.task.finished = !(widget.task.finished);
+            if (widget.task.finished) {
+              widget.task.finishDate = DateTime.now();
             } else {
-              task.finishDate = null;
+              widget.task.finishDate = null;
             }
-            await editData(task);
+            await editData(widget.task);
+            setState(() {});
           },
         ),
         trailing: ImportantStar(
+          initStateIsChecked: widget.task.important,
           onPressed: () async {
-            task.important = !(task.important);
-            await editData(task);
+            widget.task.important = !(widget.task.important);
+            await editData(widget.task);
+            setState(() {});
           },
-          initStateIsChecked: task.important,
         ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(task.title, style: Styles.blue18Bold),
+            Text(widget.task.title, style: Styles.blue18Bold),
             const SizedBox(height: 5),
-            Text("${hourMinuteFormate(task.from)} - ${hourMinuteFormate(task.to)}", style: Styles.grey12Bold),
+            Text("${hourMinuteFormate(widget.task.from)} - ${hourMinuteFormate(widget.task.to)}", style: Styles.grey12Bold),
             const SizedBox(height: 7),
             Row(
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: Category.find(task.category)!.gradient),
+                    gradient: LinearGradient(colors: Category.find(widget.task.category)!.gradient),
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: const CircleAvatar(
@@ -62,7 +69,7 @@ class CustomTaskContainer extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
-                Text(Category.find(task.category)!.name, style: Styles.grey12Bold.copyWith(fontSize: 14, color: const Color(0xff6d6d6d))),
+                Text(Category.find(widget.task.category)!.name, style: Styles.grey12Bold.copyWith(fontSize: 14, color: const Color(0xff6d6d6d))),
               ],
             )
           ],
