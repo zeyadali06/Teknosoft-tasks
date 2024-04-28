@@ -23,25 +23,25 @@ class AllCategories extends StatelessWidget {
         children: [
           TasksCategory(
             imagePath: 'assets/images/Screenshot 2024-04-25 002248.png',
-            category: Category.Personal.name,
+            category: Category.Personal,
             tasks: BlocProvider.of<HomePageCubit>(context).personalTasks,
             colorGradient: Category.Personal.gradient,
           ),
           TasksCategory(
             imagePath: 'assets/images/Screenshot 2024-04-25 011727.png',
-            category: Category.Learning.name,
+            category: Category.Learning,
             tasks: BlocProvider.of<HomePageCubit>(context).learningTasks,
             colorGradient: Category.Learning.gradient,
           ),
           TasksCategory(
             imagePath: 'assets/images/Screenshot 2024-04-25 011814.png',
-            category: Category.Work.name,
+            category: Category.Work,
             tasks: BlocProvider.of<HomePageCubit>(context).workTasks,
             colorGradient: Category.Work.gradient,
           ),
           TasksCategory(
             imagePath: 'assets/images/Screenshot 2024-04-25 012510.png',
-            category: Category.Shopping.name,
+            category: Category.Shopping,
             tasks: BlocProvider.of<HomePageCubit>(context).shoppingTasks,
             colorGradient: Category.Shopping.gradient,
           ),

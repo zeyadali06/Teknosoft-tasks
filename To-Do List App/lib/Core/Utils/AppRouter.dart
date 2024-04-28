@@ -2,6 +2,7 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Manager/CreateTaskCubit/create_task_cubit.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/CreateNewTaskView.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/UpdateTaskView.dart';
@@ -13,6 +14,7 @@ import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/MyDayTasks
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/UpcomingTasks/upcoming_tasks_cubit.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/ImportantTasksView.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/MyDayTasksView.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/TasksOfCategoryView.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/UpcomingTasksView.dart';
 
 abstract class AppRouter {
@@ -23,6 +25,7 @@ abstract class AppRouter {
   static const String kMyDayTasksPath = "/MyDayTasksView";
   static const String kImportantTasksPath = "/ImportantTasksView";
   static const String kUpcomingTasksPath = "/UpcomingTasksView";
+  static const String kTasksOfCategoryPath = "/TasksOfCategoryView";
 
   static final router = GoRouter(
     routes: [
@@ -90,6 +93,13 @@ abstract class AppRouter {
             create: (context) => UpcomingTasksCubit(),
             child: const UpcomingTasksView(),
           );
+        },
+      ),
+      GoRoute(
+        path: kTasksOfCategoryPath,
+        builder: (context, state) {
+          Category cat = state.extra as Category;
+          return TasksOfCategoryView(category: cat.name);
         },
       ),
     ],
