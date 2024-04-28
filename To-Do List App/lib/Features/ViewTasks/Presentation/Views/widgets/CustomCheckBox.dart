@@ -3,17 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list_app/constants.dart';
 
-class CustomCheckBox extends StatefulWidget {
-  const CustomCheckBox({super.key, this.onPressed, required this.initStateIsChecked});
+class CustomCheckBox extends StatelessWidget {
+  const CustomCheckBox({super.key, this.onPressed, required this.isChecked});
 
   final Future<void> Function()? onPressed;
-  final bool initStateIsChecked;
+  final bool isChecked;
 
-  @override
-  State<CustomCheckBox> createState() => _CustomCheckBoxState();
-}
-
-class _CustomCheckBoxState extends State<CustomCheckBox> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,8 +21,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
       height: 32,
       child: IconButton(
         onPressed: () async {
-          await widget.onPressed?.call();
-          setState(() {});
+          await onPressed!();
         },
         highlightColor: kPrimaryColor.withOpacity(.1),
         splashColor: kPrimaryColor.withOpacity(.1),
@@ -36,7 +30,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
           alignment: Alignment.center,
           firstChild: const Icon(Icons.check, size: 0),
           secondChild: const Icon(Icons.check, color: kPrimaryColor),
-          crossFadeState: widget.initStateIsChecked ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+          crossFadeState: isChecked ? CrossFadeState.showSecond : CrossFadeState.showFirst,
           duration: const Duration(milliseconds: 150),
         ),
       ),

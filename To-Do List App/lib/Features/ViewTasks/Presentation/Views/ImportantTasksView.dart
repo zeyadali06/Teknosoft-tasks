@@ -10,10 +10,10 @@ class ImportantTasksView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.appBar(context, 'Important'),
-      body: const ImportantTasksViewBody(),
-      floatingActionButton: const FloatingButton(),
+    return const Scaffold(
+      appBar: CustomAppBar(title: 'Important'),
+      body: ImportantTasksViewBody(),
+      floatingActionButton: FloatingButton(),
     );
   }
 }

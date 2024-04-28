@@ -9,7 +9,7 @@ import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/TasksOfCategorey/tasks_of_categorey_cubit.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/CustomCalendar.dart';
-import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/CustomTaskContainer.dart';
+import 'package:todo_list_app/Core/CommonWidgets/CustomTaskContainer.dart';
 import 'package:todo_list_app/constants.dart';
 
 class TasksOfCategoryViewBody extends StatefulWidget {

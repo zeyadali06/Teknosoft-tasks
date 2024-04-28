@@ -29,9 +29,9 @@ class _CustomTaskContainerState extends State<CustomTaskContainer> {
         contentPadding: const EdgeInsets.only(left: 15),
         tileColor: const Color(0xfffcfdff),
         leading: CustomCheckBox(
-          initStateIsChecked: widget.task.finished,
+          isChecked: widget.task.finished,
           onPressed: () async {
-            widget.task.finished = !(widget.task.finished);
+            widget.task.finished = !widget.task.finished;
             if (widget.task.finished) {
               widget.task.finishDate = DateTime.now();
             } else {
@@ -42,9 +42,9 @@ class _CustomTaskContainerState extends State<CustomTaskContainer> {
           },
         ),
         trailing: ImportantStar(
-          initStateIsChecked: widget.task.important,
+          isChecked: widget.task.important,
           onPressed: () async {
-            widget.task.important = !(widget.task.important);
+            widget.task.important = !widget.task.important;
             await editData(widget.task);
             setState(() {});
           },

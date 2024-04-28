@@ -7,8 +7,19 @@ import 'package:todo_list_app/Core/CommonWidgets/ImportantStar.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Manager/CreateTaskCubit/create_task_cubit.dart';
 
-class CreateNewTaskViewAppBar {
-  static AppBar appBar(BuildContext context) {
+class CreateNewTaskViewAppBar extends StatefulWidget implements PreferredSizeWidget {
+  const CreateNewTaskViewAppBar({super.key});
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  State<CreateNewTaskViewAppBar> createState() => _CreateNewTaskViewAppBarState();
+}
+
+class _CreateNewTaskViewAppBarState extends State<CreateNewTaskViewAppBar> {
+  @override
+  Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: const Color(0xffeff3fe),
       surfaceTintColor: const Color(0xffeff3fe),
@@ -18,10 +29,12 @@ class CreateNewTaskViewAppBar {
       centerTitle: true,
       actions: [
         ImportantStar(
+          isChecked: BlocProvider.of<AddTaskCubit>(context).important,
           onPressed: () async {
             BlocProvider.of<AddTaskCubit>(context).important = !(BlocProvider.of<AddTaskCubit>(context).important);
+            setState(() {});
+            // return BlocProvider.of<AddTaskCubit>(context).important;
           },
-          initStateIsChecked: false,
         ),
       ],
       leading: IconButton(

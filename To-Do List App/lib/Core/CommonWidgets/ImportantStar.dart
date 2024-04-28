@@ -1,28 +1,24 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:todo_list_app/constants.dart';
 
-// ignore: must_be_immutable
-class ImportantStar extends StatefulWidget {
-  const ImportantStar({super.key, this.onPressed, required this.initStateIsChecked});
+class ImportantStar extends StatelessWidget {
+  const ImportantStar({super.key, this.onPressed, required this.isChecked});
 
   final Future<void> Function()? onPressed;
-  final bool initStateIsChecked;
+  final Icon checked = const Icon(Icons.star, color: Color(0xff68a5a0), size: 28);
+  final Icon notChecked = const Icon(Icons.star_border, color: Color(0xffbad7db), size: 26);
+  final bool isChecked;
 
-  @override
-  State<ImportantStar> createState() => _ImportantStarState();
-}
-
-class _ImportantStarState extends State<ImportantStar> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () async {
-        await widget.onPressed?.call();
-        setState(() {});
+        if (onPressed != null) {
+          await onPressed!();
+        }
       },
-      icon: widget.initStateIsChecked ? checked : notChecked,
+      icon: isChecked ? checked : notChecked,
     );
   }
 }

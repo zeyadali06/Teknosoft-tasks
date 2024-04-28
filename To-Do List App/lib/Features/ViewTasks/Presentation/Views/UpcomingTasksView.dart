@@ -10,10 +10,10 @@ class UpcomingTasksView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.appBar(context, 'Upcoming'),
-      body: const UpcomingTasksViewBody(),
-      floatingActionButton: const FloatingButton(),
+    return const Scaffold(
+      appBar: CustomAppBar(title: 'Upcoming'),
+      body: UpcomingTasksViewBody(),
+      floatingActionButton: FloatingButton(),
     );
   }
 }

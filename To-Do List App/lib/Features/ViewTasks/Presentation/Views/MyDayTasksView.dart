@@ -10,10 +10,10 @@ class MyDayTasksView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar.appBar(context, 'My Day'),
-      body: const MyDayTasksViewBody(),
-      floatingActionButton: const FloatingButton(),
+    return const Scaffold(
+      appBar: CustomAppBar(title: 'My Day'),
+      body: MyDayTasksViewBody(),
+      floatingActionButton: FloatingButton(),
     );
   }
 }

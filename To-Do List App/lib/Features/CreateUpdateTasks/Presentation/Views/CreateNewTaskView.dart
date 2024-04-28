@@ -11,9 +11,9 @@ class CreateNewTaskView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        appBar: CreateNewTaskViewAppBar.appBar(context),
-        body: const CreateNewTaskViewBody(),
+      child: const Scaffold(
+        appBar: CreateNewTaskViewAppBar(),
+        body: CreateNewTaskViewBody(),
       ),
     );
   }

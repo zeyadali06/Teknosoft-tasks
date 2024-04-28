@@ -97,12 +97,8 @@ class _CustomCalendarState extends State<CustomCalendar> {
           _selectedDay = selectedDay;
           _focusedDay = focusedDay;
           widget.onDaySelected.call(_selectedDay!);
-          // BlocProvider.of<UpcomingTasksCubit>(context).getTasks(_selectedDay!);
           setState(() {});
         }
-      },
-      onPageChanged: (focusedDay) {
-        _focusedDay = focusedDay;
       },
     );
   }
