@@ -13,7 +13,6 @@ class UpcomingTasksCubit extends Cubit<UpcomingTasksState> {
 
   List<TaskModel> getTasks(DateTime datetime) {
     try {
-      emit(UpcomingTasksLoading());
       List<TaskModel> allTasks = getData();
       tasks.clear();
 
@@ -25,7 +24,7 @@ class UpcomingTasksCubit extends Cubit<UpcomingTasksState> {
       emit(UpcomingTasksSuccessed());
       return tasks;
     } catch (e) {
-      emit(UpcomingTasksFailed(errMessage: "Error"));
+      emit(UpcomingTasksFailed(errMessage: "Error, try again later!"));
     }
     return [];
   }

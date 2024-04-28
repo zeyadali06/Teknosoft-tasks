@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 import 'package:todo_list_app/Core/Utils/HiveServices.dart';
-import 'package:todo_list_app/Features/Home/Presentation/Manager/HomePage/home_view_cubit.dart';
+import 'package:todo_list_app/Features/Home/Presentation/Manager/HomeView/home_view_cubit.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/widgets/RowOfTaskLevel.dart';
 import 'package:todo_list_app/constants.dart';
 
@@ -23,7 +23,7 @@ class TaskLevelContainer extends StatelessWidget {
         child: Column(
           children: [
             RowOfTaskLevel(
-              myDayTasks: BlocProvider.of<HomePageCubit>(context).myDayTasks,
+              myDayTasks: BlocProvider.of<HomeViewCubit>(context).myDayTasks,
               text: 'My Day',
               imagePath: 'assets/images/Screenshot 2024-04-24 224102.png',
               screenPath: AppRouter.kMyDayTasksPath,
@@ -37,7 +37,7 @@ class TaskLevelContainer extends StatelessWidget {
             ),
             Divider(color: Colors.blue.withOpacity(.15)),
             RowOfTaskLevel(
-              myDayTasks: BlocProvider.of<HomePageCubit>(context).importantTasks,
+              myDayTasks: BlocProvider.of<HomeViewCubit>(context).importantTasks,
               text: 'Important',
               imagePath: 'assets/images/Screenshot 2024-04-24 231442.png',
               screenPath: AppRouter.kImportantTasksPath,

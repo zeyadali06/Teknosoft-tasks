@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
-import 'package:todo_list_app/Features/Home/Presentation/Manager/HomePage/home_view_cubit.dart';
+import 'package:todo_list_app/Features/Home/Presentation/Manager/HomeView/home_view_cubit.dart';
 import 'package:todo_list_app/constants.dart';
 
 class TopBar extends StatelessWidget {
@@ -48,7 +48,7 @@ class TopBar extends StatelessWidget {
                   const CircularProgressIndicator(strokeWidth: 2.5, color: Color(0xffd1d5de), value: 1),
                   CircularProgressIndicator(
                     strokeWidth: 2.5,
-                    value: (BlocProvider.of<HomePageCubit>(context).finishedTasks) / (BlocProvider.of<HomePageCubit>(context).myDayTasks),
+                    value: (BlocProvider.of<HomeViewCubit>(context).finishedTasks) / (BlocProvider.of<HomeViewCubit>(context).myDayTasks),
                     color: kPrimaryColor,
                   ),
                 ],

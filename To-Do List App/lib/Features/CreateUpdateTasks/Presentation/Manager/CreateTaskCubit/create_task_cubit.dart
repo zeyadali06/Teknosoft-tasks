@@ -45,7 +45,7 @@ class AddTaskCubit extends Cubit<AddTaskState> {
       await addData(task);
       emit(AddTaskSuccessed());
     } catch (_) {
-      emit(AddTaskFailed(errMessage: "Error"));
+      emit(AddTaskFailed(errMessage: "Error, try again later!"));
     }
   }
 }

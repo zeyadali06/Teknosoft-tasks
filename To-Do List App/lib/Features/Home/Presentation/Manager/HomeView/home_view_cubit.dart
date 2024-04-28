@@ -6,8 +6,8 @@ import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.d
 
 part 'home_view_state.dart';
 
-class HomePageCubit extends Cubit<HomePageState> {
-  HomePageCubit() : super(HomePageInitial());
+class HomeViewCubit extends Cubit<HomeViewState> {
+  HomeViewCubit() : super(HomeViewInitial());
   late int myDayTasks;
   late int importantTasks;
   late int personalTasks;
@@ -26,7 +26,6 @@ class HomePageCubit extends Cubit<HomePageState> {
       shoppingTasks = 0;
       finishedTasks = 0;
 
-      emit(HomePageLoading());
       List<TaskModel> tasks = getData();
       for (TaskModel task in tasks) {
         if (task.category == Category.Personal.name) {
@@ -51,9 +50,9 @@ class HomePageCubit extends Cubit<HomePageState> {
           finishedTasks++;
         }
       }
-      emit(HomePageSuccessed());
+      emit(HomeViewSuccessed());
     } catch (_) {
-      emit(HomePageFailed(errMessage: "Error"));
+      emit(HomeViewFailed(errMessage: "Error, try again later!"));
     }
   }
 }

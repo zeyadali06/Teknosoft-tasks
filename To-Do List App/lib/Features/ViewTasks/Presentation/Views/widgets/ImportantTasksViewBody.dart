@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:todo_list_app/Core/CommonWidgets/CustomPopScope.dart';
 import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
 import 'package:todo_list_app/Core/CommonWidgets/NoThingToShow.dart';
@@ -23,7 +22,6 @@ class ImportantTasksViewBody extends StatefulWidget {
 
 class _ImportantTasksViewBodyState extends State<ImportantTasksViewBody> {
   List<TaskModel> tasks = [];
-  bool isLoading = false;
 
   @override
   void initState() {
@@ -33,43 +31,39 @@ class _ImportantTasksViewBodyState extends State<ImportantTasksViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ImportantTasksCubit, ImportantTasksState>(
-      listener: (context, state) {
-        if (state is ImportantTasksLoading) {
-          isLoading = true;
-        } else if (state is ImportantTasksSuccessed) {
-          isLoading = false;
-        } else if (state is ImportantTasksFailed) {
-          isLoading = false;
-          showSnakeBar(context, state.errMessage);
-        }
-      },
+    return BlocBuilder<ImportantTasksCubit, ImportantTasksState>(
       builder: (context, state) {
         return CustomPopScope(
           toScreenPath: AppRouter.kHomePath,
-          child: ModalProgressHUD(
-            inAsyncCall: isLoading,
-            child: GradientColor(
-              child: Column(
-                children: [
-                  CustomCalendar(
-                    onDaySelected: (dateTime) {
-                      BlocProvider.of<ImportantTasksCubit>(context).getTasks(dateTime);
-                    },
-                  ),
-                  tasks.isEmpty
-                      ? const Center(child: LottieImage())
-                      : Expanded(
-                          child: ListView.builder(
-                            padding: const EdgeInsets.all(kPadding),
-                            itemCount: tasks.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return CustomTaskContainer(task: tasks[index]);
-                            },
-                          ),
-                        )
-                ],
-              ),
+          child: GradientColor(
+            child: Builder(
+              builder: (context) {
+                if (state is ImportantTasksFailed) {
+                  showSnakeBar(context, state.errMessage);
+                  return const Column();
+                } else {
+                  return Column(
+                    children: [
+                      CustomCalendar(
+                        onDaySelected: (dateTime) {
+                          BlocProvider.of<ImportantTasksCubit>(context).getTasks(dateTime);
+                        },
+                      ),
+                      tasks.isEmpty
+                          ? const Center(child: LottieImage())
+                          : Expanded(
+                              child: ListView.builder(
+                                padding: const EdgeInsets.all(kPadding),
+                                itemCount: tasks.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return CustomTaskContainer(task: tasks[index]);
+                                },
+                              ),
+                            )
+                    ],
+                  );
+                }
+              },
             ),
           ),
         );

@@ -23,7 +23,7 @@ class TasksOfCategoreyCubit extends Cubit<TasksOfCategoreyState> {
       emit(TasksOfCategoreySuccessed());
       return tasks;
     } catch (_) {
-      emit(TasksOfCategoreyFailed(errMessage: "Error"));
+      emit(TasksOfCategoreyFailed(errMessage: "Error, try again later!"));
     }
     return [];
   }

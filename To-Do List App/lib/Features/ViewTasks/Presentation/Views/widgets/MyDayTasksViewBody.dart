@@ -3,7 +3,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:todo_list_app/Core/CommonWidgets/CustomPopScope.dart';
 import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
 import 'package:todo_list_app/Core/CommonWidgets/NoThingToShow.dart';
@@ -22,7 +21,6 @@ class MyDayTasksViewBody extends StatefulWidget {
 }
 
 class _MyDayTasksViewBodyState extends State<MyDayTasksViewBody> {
-  bool isLoading = false;
   late List<TaskModel> tasks;
   late Timer timer;
   Timer? longTimer;
@@ -54,32 +52,28 @@ class _MyDayTasksViewBodyState extends State<MyDayTasksViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MyDayTasksCubit, MyDayTasksState>(
-      listener: (context, state) {
-        if (state is MyDayTasksLoading) {
-          isLoading = true;
-        } else if (state is MyDayTasksSuccess) {
-          isLoading = false;
-        } else if (state is MyDayTasksFailed) {
-          isLoading = false;
-          showSnakeBar(context, state.errMessage);
-        }
-      },
+    return BlocBuilder<MyDayTasksCubit, MyDayTasksState>(
       builder: (context, state) {
         return CustomPopScope(
           toScreenPath: AppRouter.kHomePath,
-          child: ModalProgressHUD(
-            inAsyncCall: isLoading,
-            child: GradientColor(
-              child: tasks.isEmpty
-                  ? const Center(child: LottieImage())
-                  : ListView.builder(
-                      padding: const EdgeInsets.all(kPadding),
-                      itemCount: tasks.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return CustomTaskContainer(task: tasks[index]);
-                      },
-                    ),
+          child: GradientColor(
+            child: Builder(
+              builder: (BuildContext context) {
+                if (state is MyDayTasksFailed) {
+                  showSnakeBar(context, state.errMessage);
+                  return const Column();
+                } else {
+                  return tasks.isEmpty
+                      ? const Center(child: LottieImage())
+                      : ListView.builder(
+                          padding: const EdgeInsets.all(kPadding),
+                          itemCount: tasks.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return CustomTaskContainer(task: tasks[index]);
+                          },
+                        );
+                }
+              },
             ),
           ),
         );

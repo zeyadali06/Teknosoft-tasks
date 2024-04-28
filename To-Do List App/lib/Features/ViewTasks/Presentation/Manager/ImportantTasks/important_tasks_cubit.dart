@@ -12,7 +12,6 @@ class ImportantTasksCubit extends Cubit<ImportantTasksState> {
 
   List<TaskModel> getTasks(DateTime datetime) {
     try {
-      emit(ImportantTasksLoading());
       List<TaskModel> allTasks = getData();
       tasks.clear();
 
@@ -26,7 +25,7 @@ class ImportantTasksCubit extends Cubit<ImportantTasksState> {
       emit(ImportantTasksSuccessed());
       return tasks;
     } catch (e) {
-      emit(ImportantTasksFailed(errMessage: "Error"));
+      emit(ImportantTasksFailed(errMessage: "Error, try again later!"));
     }
     return [];
   }

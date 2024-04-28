@@ -5,8 +5,6 @@ sealed class UpcomingTasksState {}
 
 final class UpcomingTasksInitial extends UpcomingTasksState {}
 
-final class UpcomingTasksLoading extends UpcomingTasksState {}
-
 final class UpcomingTasksFailed extends UpcomingTasksState {
   UpcomingTasksFailed({required this.errMessage});
 

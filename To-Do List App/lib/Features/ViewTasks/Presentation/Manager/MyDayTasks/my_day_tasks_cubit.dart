@@ -11,8 +11,6 @@ class MyDayTasksCubit extends Cubit<MyDayTasksState> {
 
   List<TaskModel> getMyDayTasks() {
     try {
-      emit(MyDayTasksLoading());
-      emit(MyDayTasksLoading());
       List<TaskModel> tasks = getData();
       List<TaskModel> res = [];
 
