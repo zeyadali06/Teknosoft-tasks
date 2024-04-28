@@ -1,7 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
+import 'package:todo_list_app/Features/Home/Presentation/Manager/HomePage/home_view_cubit.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/widgets/TaskCategories.dart';
 
 class AllCategories extends StatelessWidget {
@@ -21,26 +23,26 @@ class AllCategories extends StatelessWidget {
         children: [
           TasksCategory(
             imagePath: 'assets/images/Screenshot 2024-04-25 002248.png',
-            category: 'Personal',
-            tasks: 1,
+            category: Category.Personal.name,
+            tasks: BlocProvider.of<HomePageCubit>(context).personalTasks,
             colorGradient: Category.Personal.gradient,
           ),
           TasksCategory(
             imagePath: 'assets/images/Screenshot 2024-04-25 011727.png',
-            category: 'Learning',
-            tasks: 2,
+            category: Category.Learning.name,
+            tasks: BlocProvider.of<HomePageCubit>(context).learningTasks,
             colorGradient: Category.Learning.gradient,
           ),
           TasksCategory(
             imagePath: 'assets/images/Screenshot 2024-04-25 011814.png',
-            category: 'Work',
-            tasks: 10,
+            category: Category.Work.name,
+            tasks: BlocProvider.of<HomePageCubit>(context).workTasks,
             colorGradient: Category.Work.gradient,
           ),
           TasksCategory(
             imagePath: 'assets/images/Screenshot 2024-04-25 012510.png',
-            category: 'Shopping',
-            tasks: 4,
+            category: Category.Shopping.name,
+            tasks: BlocProvider.of<HomePageCubit>(context).shoppingTasks,
             colorGradient: Category.Shopping.gradient,
           ),
         ],

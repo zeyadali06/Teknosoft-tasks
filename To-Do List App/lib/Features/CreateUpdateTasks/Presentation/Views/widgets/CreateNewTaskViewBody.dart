@@ -8,6 +8,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:todo_list_app/Core/CommonWidgets/CustomButton.dart';
 import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
 import 'package:todo_list_app/Core/CommonWidgets/SnackBar.dart';
+import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Manager/CreateTaskCubit/create_task_cubit.dart';
@@ -45,69 +46,75 @@ class _CreateNewTaskViewBodyState extends State<CreateNewTaskViewBody> {
           isLoading = true;
         } else if (state is AddTaskSuccessed) {
           isLoading = false;
-          GoRouter.of(context).pop();
+          GoRouter.of(context).pushReplacement(AppRouter.kHomePath);
         } else if (state is AddTaskFailed) {
           isLoading = false;
           showSnakeBar(context, state.errMessage);
         }
       },
       builder: (context, state) {
-        return ModalProgressHUD(
-          inAsyncCall: isLoading,
-          child: GradientColor(
-            child: Form(
-              key: formKey,
-              autovalidateMode: autovalidateMode,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(kPadding),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Title text field
-                    CustomTextFormField(
-                      hintText: 'Title',
-                      controller: titleController,
-                      inputFormatters: [LengthLimitingTextInputFormatter(25)],
-                      onSaved: onTitleSaved,
-                    ),
+        return PopScope(
+          canPop: false,
+          onPopInvoked: (didPop) {
+            GoRouter.of(context).pushReplacement(AppRouter.kHomePath);
+          },
+          child: ModalProgressHUD(
+            inAsyncCall: isLoading,
+            child: GradientColor(
+              child: Form(
+                key: formKey,
+                autovalidateMode: autovalidateMode,
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(kPadding),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Title text field
+                      CustomTextFormField(
+                        hintText: 'Title',
+                        controller: titleController,
+                        inputFormatters: [LengthLimitingTextInputFormatter(25)],
+                        onSaved: onTitleSaved,
+                      ),
 
-                    // Descripition text field
-                    const SizedBox(height: 15),
-                    CustomTextFormField(
-                      hintText: 'Descripition',
-                      controller: descripitionController,
-                      onSaved: onDescriptionSaved,
-                    ),
+                      // Descripition text field
+                      const SizedBox(height: 15),
+                      CustomTextFormField(
+                        hintText: 'Descripition',
+                        controller: descripitionController,
+                        onSaved: onDescriptionSaved,
+                      ),
 
-                    // Category text field
-                    const SizedBox(height: 20),
-                    Text('Category:', style: Styles.blue18Bold.copyWith(color: Colors.black)),
-                    const SizedBox(height: 5),
-                    CustomDropdownButton(
-                      thingsToDisplay: Category.all,
-                      initialText: Category.firstItem,
-                      onSelected: onCategorySelected,
-                    ),
+                      // Category text field
+                      const SizedBox(height: 20),
+                      Text('Category:', style: Styles.blue18Bold.copyWith(color: Colors.black)),
+                      const SizedBox(height: 5),
+                      CustomDropdownButton(
+                        thingsToDisplay: Category.all,
+                        initialText: Category.firstItem,
+                        onSelected: onCategorySelected,
+                      ),
 
-                    // Priority text field
-                    const SizedBox(height: 20),
-                    Text('Priority:', style: Styles.blue18Bold.copyWith(color: Colors.black)),
-                    const SizedBox(height: 5),
-                    CustomDropdownButton(
-                      thingsToDisplay: Priority.all,
-                      initialText: Priority.firstItem,
-                      onSelected: onPrioritySelected,
-                    ),
+                      // Priority text field
+                      const SizedBox(height: 20),
+                      Text('Priority:', style: Styles.blue18Bold.copyWith(color: Colors.black)),
+                      const SizedBox(height: 5),
+                      CustomDropdownButton(
+                        thingsToDisplay: Priority.all,
+                        initialText: Priority.firstItem,
+                        onSelected: onPrioritySelected,
+                      ),
 
-                    // Start and End date
-                    const SizedBox(height: 20),
-                    const EnterDateAndTimeField(),
+                      // Start and End date
+                      const SizedBox(height: 20),
+                      const EnterDateAndTimeField(),
 
-                    // Add New Task button
-                    const SizedBox(height: 20),
-                    CustomButton(onPressed: onPressed),
-                  ],
+                      // Add New Task button
+                      const SizedBox(height: 20),
+                      CustomButton(onPressed: onPressed),
+                    ],
+                  ),
                 ),
               ),
             ),

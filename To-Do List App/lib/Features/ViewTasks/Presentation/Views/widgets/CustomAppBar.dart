@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
 
 class CustomAppBar {
@@ -16,7 +17,7 @@ class CustomAppBar {
       leading: IconButton(
         icon: const Icon(Icons.arrow_back_ios_new),
         onPressed: () {
-          GoRouter.of(context).pop();
+          GoRouter.of(context).pushReplacement(AppRouter.kHomePath);
         },
       ),
     );

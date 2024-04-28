@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Manager/CreateTaskCubit/create_task_cubit.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/CreateNewTaskView.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/UpdateTaskView.dart';
+import 'package:todo_list_app/Features/Home/Presentation/Manager/HomePage/home_view_cubit.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/HomeView.dart';
 import 'package:todo_list_app/Features/Search/Presentation/Views/SearchView.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/ImportantTasks/important_tasks_cubit.dart';
@@ -28,13 +29,19 @@ abstract class AppRouter {
       GoRoute(
         path: '/',
         builder: (context, state) {
-          return const HomeView();
+          return BlocProvider(
+            create: (context) => HomePageCubit(),
+            child: const HomeView(),
+          );
         },
       ),
       GoRoute(
         path: kHomePath,
         builder: (context, state) {
-          return const HomeView();
+          return BlocProvider(
+            create: (context) => HomePageCubit(),
+            child: const HomeView(),
+          );
         },
       ),
       GoRoute(
