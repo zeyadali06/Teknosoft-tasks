@@ -44,26 +44,27 @@ class _TasksOfCategoryViewBodyState extends State<TasksOfCategoryViewBody> {
                     tasks = BlocProvider.of<TasksOfCategoreyCubit>(context).getTasks(datetime, widget.category);
                   },
                 ),
-                tasks.isEmpty
-                    ? const Center(child: LottieImage())
-                    : Expanded(
-                        child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          padding: const EdgeInsets.all(kPadding),
-                          itemCount: tasks.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return CustomTaskContainer(
-                              task: tasks[index],
-                              onDismissed: (direction) async {
-                                DateTime datetime = DateTime.parse(tasks[index].from.toString());
-                                String category = tasks[index].category;
-                                await tasks[index].delete();
-                                tasks = BlocProvider.of<TasksOfCategoreyCubit>(context).getTasks(datetime, Category.find(category)!);
-                              },
-                            );
+                if (tasks.isEmpty)
+                  const Expanded(child: Center(child: LottieImage()))
+                else
+                  Expanded(
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.all(kPadding),
+                      itemCount: tasks.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return CustomTaskContainer(
+                          task: tasks[index],
+                          onDismissed: (direction) async {
+                            DateTime datetime = DateTime.parse(tasks[index].from.toString());
+                            String category = tasks[index].category;
+                            await tasks[index].delete();
+                            tasks = BlocProvider.of<TasksOfCategoreyCubit>(context).getTasks(datetime, Category.find(category)!);
                           },
-                        ),
-                      )
+                        );
+                      },
+                    ),
+                  )
               ],
             ),
           ),

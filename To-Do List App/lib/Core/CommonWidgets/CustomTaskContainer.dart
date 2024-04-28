@@ -10,10 +10,11 @@ import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/Cust
 import 'package:todo_list_app/constants.dart';
 
 class CustomTaskContainer extends StatefulWidget {
-  const CustomTaskContainer({super.key, required this.task, required this.onDismissed});
+  const CustomTaskContainer({super.key, required this.task, this.dismiss = true, this.onDismissed});
 
   final TaskModel task;
-  final Future<void> Function(DismissDirection direction) onDismissed;
+  final Future<void> Function(DismissDirection direction)? onDismissed;
+  final bool dismiss;
 
   @override
   State<CustomTaskContainer> createState() => _CustomTaskContainerState();
@@ -41,40 +42,61 @@ class _CustomTaskContainerState extends State<CustomTaskContainer> {
           key: UniqueKey(),
           direction: DismissDirection.horizontal,
           onDismissed: widget.onDismissed,
-          child: Card(
-            margin: const EdgeInsets.symmetric(vertical: 5),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRaduis)),
-            clipBehavior: Clip.hardEdge,
-            elevation: 0,
-            child: ListTile(
-              contentPadding: const EdgeInsets.only(left: 15),
-              tileColor: const Color(0xfffcfdff),
-              leading: CustomCheckBox(
-                isChecked: widget.task.finished,
-                onPressed: () async {
-                  widget.task.finished = !widget.task.finished;
-                  if (widget.task.finished) {
-                    widget.task.finishDate = DateTime.now();
-                  } else {
-                    widget.task.finishDate = null;
-                  }
-                  await editData(widget.task);
-                  setState(() {});
-                },
-              ),
-              trailing: ImportantStar(
-                isChecked: widget.task.important,
-                onPressed: () async {
-                  widget.task.important = !widget.task.important;
-                  await editData(widget.task);
-                  setState(() {});
-                },
-              ),
-              title: CustomTaskContainerContent(task: widget.task),
-            ),
+          child: CardContent(
+            task: widget.task,
+            customCheckBoxOnPressed: () {
+              setState(() {});
+            },
+            importantStarOnPressed: () async {
+              setState(() {});
+            },
           ),
         ),
       ],
+    );
+  }
+}
+
+class CardContent extends StatelessWidget {
+  const CardContent({super.key, required this.task, required this.customCheckBoxOnPressed, required this.importantStarOnPressed});
+
+  final TaskModel task;
+  final void Function() customCheckBoxOnPressed;
+  final void Function() importantStarOnPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(kRaduis)),
+      clipBehavior: Clip.hardEdge,
+      elevation: 0,
+      child: ListTile(
+        contentPadding: const EdgeInsets.only(left: 15),
+        tileColor: const Color(0xfffcfdff),
+        leading: CustomCheckBox(
+          isChecked: task.finished,
+          onPressed: () async {
+            task.finished = !task.finished;
+            if (task.finished) {
+              task.finishDate = DateTime.now();
+            } else {
+              task.finishDate = null;
+            }
+            await editData(task);
+            customCheckBoxOnPressed.call();
+          },
+        ),
+        trailing: ImportantStar(
+          isChecked: task.important,
+          onPressed: () async {
+            task.important = !task.important;
+            await editData(task);
+            importantStarOnPressed.call();
+          },
+        ),
+        title: CustomTaskContainerContent(task: task),
+      ),
     );
   }
 }

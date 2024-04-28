@@ -63,22 +63,24 @@ class _MyDayTasksViewBodyState extends State<MyDayTasksViewBody> {
                   showSnakeBar(context, state.errMessage);
                   return const Column();
                 } else {
-                  return tasks.isEmpty
-                      ? const Center(child: LottieImage())
-                      : ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          padding: const EdgeInsets.all(kPadding),
-                          itemCount: tasks.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return CustomTaskContainer(
-                              task: tasks[index],
-                              onDismissed: (direction) async {
-                                await tasks[index].delete();
-                                tasks = BlocProvider.of<MyDayTasksCubit>(context).getMyDayTasks();
-                              },
-                            );
+                  if (tasks.isEmpty) {
+                    return const Expanded(child: Center(child: LottieImage()));
+                  } else {
+                    return ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.all(kPadding),
+                      itemCount: tasks.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return CustomTaskContainer(
+                          task: tasks[index],
+                          onDismissed: (direction) async {
+                            await tasks[index].delete();
+                            tasks = BlocProvider.of<MyDayTasksCubit>(context).getMyDayTasks();
                           },
                         );
+                      },
+                    );
+                  }
                 }
               },
             ),

@@ -64,25 +64,26 @@ class _UpcomingTasksViewBodyState extends State<UpcomingTasksViewBody> {
                           tasks = BlocProvider.of<UpcomingTasksCubit>(context).getTasks(date);
                         },
                       ),
-                      tasks.isEmpty
-                          ? const Center(child: LottieImage())
-                          : Expanded(
-                              child: ListView.builder(
-                                physics: const BouncingScrollPhysics(),
-                                padding: const EdgeInsets.all(kPadding),
-                                itemCount: tasks.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return CustomTaskContainer(
-                                    task: tasks[index],
-                                    onDismissed: (direction) async {
-                                      datetime = DateTime.parse(tasks[index].from.toString());
-                                      await tasks[index].delete();
-                                      tasks = BlocProvider.of<UpcomingTasksCubit>(context).getTasks(datetime);
-                                    },
-                                  );
+                      if (tasks.isEmpty)
+                        const Expanded(child: Center(child: LottieImage()))
+                      else
+                        Expanded(
+                          child: ListView.builder(
+                            physics: const BouncingScrollPhysics(),
+                            padding: const EdgeInsets.all(kPadding),
+                            itemCount: tasks.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return CustomTaskContainer(
+                                task: tasks[index],
+                                onDismissed: (direction) async {
+                                  datetime = DateTime.parse(tasks[index].from.toString());
+                                  await tasks[index].delete();
+                                  tasks = BlocProvider.of<UpcomingTasksCubit>(context).getTasks(datetime);
                                 },
-                              ),
-                            ),
+                              );
+                            },
+                          ),
+                        ),
                     ],
                   );
                 }

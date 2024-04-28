@@ -50,7 +50,7 @@ class _ImportantTasksViewBodyState extends State<ImportantTasksViewBody> {
                         },
                       ),
                       if (tasks.isEmpty)
-                        const Center(child: LottieImage())
+                        const Expanded(child: Center(child: LottieImage()))
                       else
                         Expanded(
                           child: ListView.builder(
