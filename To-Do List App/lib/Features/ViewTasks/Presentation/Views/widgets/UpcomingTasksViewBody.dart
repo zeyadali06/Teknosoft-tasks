@@ -45,7 +45,7 @@ class _UpcomingTasksViewBodyState extends State<UpcomingTasksViewBody> {
                   children: [
                     CustomCalendar(
                       onDaySelected: (dateTime) {
-                        BlocProvider.of<UpcomingTasksCubit>(context).getTasks(dateTime);
+                        tasks = BlocProvider.of<UpcomingTasksCubit>(context).getTasks(dateTime);
                       },
                     ),
                     tasks.isEmpty

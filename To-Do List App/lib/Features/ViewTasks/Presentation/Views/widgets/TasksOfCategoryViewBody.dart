@@ -39,9 +39,11 @@ class _TasksOfCategoryViewBodyState extends State<TasksOfCategoryViewBody> {
           child: GradientColor(
             child: Column(
               children: [
-                CustomCalendar(onDaySelected: (datetime) {
-                  BlocProvider.of<TasksOfCategoreyCubit>(context).getTasks(datetime, widget.category);
-                }),
+                CustomCalendar(
+                  onDaySelected: (datetime) {
+                    tasks = BlocProvider.of<TasksOfCategoreyCubit>(context).getTasks(datetime, widget.category);
+                  },
+                ),
                 tasks.isEmpty
                     ? const Center(child: LottieImage())
                     : Expanded(

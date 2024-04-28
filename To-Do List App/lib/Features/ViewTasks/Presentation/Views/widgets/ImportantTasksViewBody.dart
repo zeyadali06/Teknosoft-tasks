@@ -46,7 +46,7 @@ class _ImportantTasksViewBodyState extends State<ImportantTasksViewBody> {
                     children: [
                       CustomCalendar(
                         onDaySelected: (dateTime) {
-                          BlocProvider.of<ImportantTasksCubit>(context).getTasks(dateTime);
+                          tasks = BlocProvider.of<ImportantTasksCubit>(context).getTasks(dateTime);
                         },
                       ),
                       tasks.isEmpty

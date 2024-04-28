@@ -39,7 +39,6 @@ class TopBar extends StatelessWidget {
         const SizedBox(height: 10),
         Row(
           children: [
-            // const CircleAvatar(backgroundColor: Colors.black, radius: 10),
             CircleAvatar(
               radius: 7,
               backgroundColor: Colors.transparent,
@@ -48,7 +47,7 @@ class TopBar extends StatelessWidget {
                   const CircularProgressIndicator(strokeWidth: 2.5, color: Color(0xffd1d5de), value: 1),
                   CircularProgressIndicator(
                     strokeWidth: 2.5,
-                    value: (BlocProvider.of<HomeViewCubit>(context).finishedTasks) / (BlocProvider.of<HomeViewCubit>(context).myDayTasks),
+                    value: calcValue(context),
                     color: kPrimaryColor,
                   ),
                 ],
@@ -61,5 +60,14 @@ class TopBar extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  double calcValue(BuildContext context) {
+    int finishedTasks = BlocProvider.of<HomeViewCubit>(context).finishedTasks;
+    int myDayTasks = BlocProvider.of<HomeViewCubit>(context).myDayTasks;
+    if (myDayTasks == 0) {
+      return 0;
+    }
+    return finishedTasks / myDayTasks;
   }
 }

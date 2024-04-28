@@ -46,7 +46,7 @@ class HomeViewCubit extends Cubit<HomeViewState> {
         if (task.important) {
           importantTasks++;
         }
-        if (task.finished && isSameDay(task.finishDate, DateTime.now())) {
+        if (task.finished && isSameDay(task.finishDate, DateTime.now()) && isSameDay(DateTime.now(), task.from)) {
           finishedTasks++;
         }
       }

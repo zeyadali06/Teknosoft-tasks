@@ -16,7 +16,7 @@ class TasksOfCategoreyCubit extends Cubit<TasksOfCategoreyState> {
       tasks.clear();
 
       for (TaskModel task in allTasks) {
-        if (task.category == cat.name && isSameDay(DateTime.now(), datetime)) {
+        if (task.category == cat.name && isSameDay(datetime, task.from)) {
           tasks.add(task);
         }
       }

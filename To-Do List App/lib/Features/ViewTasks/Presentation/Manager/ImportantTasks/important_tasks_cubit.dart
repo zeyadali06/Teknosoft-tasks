@@ -16,10 +16,8 @@ class ImportantTasksCubit extends Cubit<ImportantTasksState> {
       tasks.clear();
 
       for (TaskModel task in allTasks) {
-        if (isSameDay(datetime, task.from)) {
-          if (task.important) {
-            tasks.add(task);
-          }
+        if (isSameDay(datetime, task.from) && task.important) {
+          tasks.add(task);
         }
       }
       emit(ImportantTasksSuccessed());
