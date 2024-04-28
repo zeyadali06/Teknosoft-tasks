@@ -3,8 +3,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:todo_list_app/Core/CommonWidgets/CustomPopScope.dart';
 import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
 import 'package:todo_list_app/Core/CommonWidgets/NoThingToShow.dart';
 import 'package:todo_list_app/Core/CommonWidgets/SnackBar.dart';
@@ -66,11 +66,8 @@ class _MyDayTasksViewBodyState extends State<MyDayTasksViewBody> {
         }
       },
       builder: (context, state) {
-        return PopScope(
-          canPop: false,
-          onPopInvoked: (didPop) {
-            GoRouter.of(context).pushReplacement(AppRouter.kHomePath);
-          },
+        return CustomPopScope(
+          toScreenPath: AppRouter.kHomePath,
           child: ModalProgressHUD(
             inAsyncCall: isLoading,
             child: GradientColor(
