@@ -11,6 +11,7 @@ import 'package:todo_list_app/Features/Home/Presentation/Views/HomeView.dart';
 import 'package:todo_list_app/Features/Search/Presentation/Views/SearchView.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/ImportantTasks/important_tasks_cubit.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/MyDayTasks/my_day_tasks_cubit.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/TasksOfCategorey/tasks_of_categorey_cubit.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/UpcomingTasks/upcoming_tasks_cubit.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/ImportantTasksView.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/MyDayTasksView.dart';
@@ -98,8 +99,10 @@ abstract class AppRouter {
       GoRoute(
         path: kTasksOfCategoryPath,
         builder: (context, state) {
-          Category cat = state.extra as Category;
-          return TasksOfCategoryView(category: cat.name);
+          return BlocProvider(
+            create: (context) => TasksOfCategoreyCubit(),
+            child: TasksOfCategoryView(category: state.extra as Category),
+          );
         },
       ),
     ],
