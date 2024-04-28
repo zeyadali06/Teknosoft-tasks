@@ -31,6 +31,9 @@ class TaskModel extends HiveObject {
   @HiveField(7)
   late bool finished;
 
+  @HiveField(8)
+  DateTime? finishDate;
+
   TaskModel({
     required this.title,
     this.description = '',
@@ -52,6 +55,7 @@ class TaskModel extends HiveObject {
       "priority": priority,
       "important": important,
       "finished": finished,
+      "finishDate": finishDate,
     };
   }
 }

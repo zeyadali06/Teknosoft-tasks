@@ -25,13 +25,13 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
       priority: fields[5] as String,
       important: fields[6] as bool,
       finished: fields[7] as bool,
-    );
+    )..finishDate = fields[8] as DateTime?;
   }
 
   @override
   void write(BinaryWriter writer, TaskModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.title)
       ..writeByte(1)
@@ -47,16 +47,14 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
       ..writeByte(6)
       ..write(obj.important)
       ..writeByte(7)
-      ..write(obj.finished);
+      ..write(obj.finished)
+      ..writeByte(8)
+      ..write(obj.finishDate);
   }
 
   @override
   int get hashCode => typeId.hashCode;
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is TaskModelAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+  bool operator ==(Object other) => identical(this, other) || other is TaskModelAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }
