@@ -13,10 +13,12 @@ import 'package:todo_list_app/Features/Search/Presentation/Views/SearchView.dart
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/ImportantTasks/important_tasks_cubit.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/MyDayTasks/my_day_tasks_cubit.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/TasksOfCategorey/tasks_of_categorey_cubit.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/TodayProgress/today_progress_cubit.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/UpcomingTasks/upcoming_tasks_cubit.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/ImportantTasksView.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/MyDayTasksView.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/TasksOfCategoryView.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/TodayProgressView.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/UpcomingTasksView.dart';
 
 abstract class AppRouter {
@@ -28,6 +30,7 @@ abstract class AppRouter {
   static const String kImportantTasksPath = "/ImportantTasksView";
   static const String kUpcomingTasksPath = "/UpcomingTasksView";
   static const String kTasksOfCategoryPath = "/TasksOfCategoryView";
+  static const String kTodayProgressPath = "/TodayProgressView";
 
   static final router = GoRouter(
     routes: [
@@ -106,6 +109,15 @@ abstract class AppRouter {
           return BlocProvider(
             create: (context) => TasksOfCategoreyCubit(),
             child: TasksOfCategoryView(category: state.extra as Category),
+          );
+        },
+      ),
+      GoRoute(
+        path: kTodayProgressPath,
+        builder: (context, state) {
+          return BlocProvider(
+            create: (context) => TodayProgressCubit(),
+            child: const TodayProgressView(),
           );
         },
       ),

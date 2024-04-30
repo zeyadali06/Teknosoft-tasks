@@ -15,6 +15,8 @@ class HomeViewCubit extends Cubit<HomeViewState> {
   late int workTasks;
   late int shoppingTasks;
   late int finishedTasks;
+  late int upcomingTasks;
+  late double circularIndicatorValue;
 
   void getNumOfEachTask() {
     try {
@@ -25,6 +27,8 @@ class HomeViewCubit extends Cubit<HomeViewState> {
       workTasks = 0;
       shoppingTasks = 0;
       finishedTasks = 0;
+      circularIndicatorValue = 0;
+      upcomingTasks = getData().length;
 
       List<TaskModel> tasks = getData();
       for (TaskModel task in tasks) {
@@ -46,10 +50,17 @@ class HomeViewCubit extends Cubit<HomeViewState> {
         if (task.important) {
           importantTasks++;
         }
-        if (task.finished && isSameDay(task.finishDate, DateTime.now()) && isSameDay(DateTime.now(), task.from)) {
+        if (task.finished && isSameDay(task.finishDate, DateTime.now())) {
           finishedTasks++;
         }
       }
+
+      if (getData().isEmpty) {
+        circularIndicatorValue = 0;
+      } else {
+        circularIndicatorValue = finishedTasks / getData().length;
+      }
+
       emit(HomeViewSuccessed());
     } catch (_) {
       emit(HomeViewFailed(errMessage: "Error, try again later!"));

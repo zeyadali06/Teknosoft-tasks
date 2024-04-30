@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Core/Utils/AppRouter.dart';
-import 'package:todo_list_app/Core/Utils/HiveServices.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Manager/HomeView/home_view_cubit.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/widgets/RowOfTaskLevel.dart';
 import 'package:todo_list_app/constants.dart';
@@ -30,7 +29,7 @@ class TaskLevelContainer extends StatelessWidget {
             ),
             Divider(color: Colors.blue.withOpacity(.15)),
             RowOfTaskLevel(
-              myDayTasks: getData().length,
+              myDayTasks: BlocProvider.of<HomeViewCubit>(context).upcomingTasks,
               text: 'Upcoming',
               imagePath: 'assets/images/Screenshot 2024-04-24 231327.png',
               screenPath: AppRouter.kUpcomingTasksPath,

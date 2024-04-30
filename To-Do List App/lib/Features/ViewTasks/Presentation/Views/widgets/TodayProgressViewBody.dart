@@ -3,46 +3,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Core/CommonWidgets/CustomPopScope.dart';
+import 'package:todo_list_app/Core/CommonWidgets/CustomTaskContainer.dart';
 import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
 import 'package:todo_list_app/Core/CommonWidgets/NoThingToShow.dart';
 import 'package:todo_list_app/Core/CommonWidgets/SnackBar.dart';
 import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
-import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/MyDayTasks/my_day_tasks_cubit.dart';
-import 'package:todo_list_app/Core/CommonWidgets/CustomTaskContainer.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/TodayProgress/today_progress_cubit.dart';
 import 'package:todo_list_app/constants.dart';
 
-class MyDayTasksViewBody extends StatefulWidget {
-  const MyDayTasksViewBody({super.key});
+class TodayProgressViewBody extends StatefulWidget {
+  const TodayProgressViewBody({super.key});
 
   @override
-  State<MyDayTasksViewBody> createState() => _MyDayTasksViewBodyState();
+  State<TodayProgressViewBody> createState() => _TodayProgressViewBodyState();
 }
 
-class _MyDayTasksViewBodyState extends State<MyDayTasksViewBody> {
+class _TodayProgressViewBodyState extends State<TodayProgressViewBody> {
   late List<TaskModel> tasks;
 
   @override
   void initState() {
-    tasks = BlocProvider.of<MyDayTasksCubit>(context).getMyDayTasks();
-    BlocProvider.of<MyDayTasksCubit>(context).startMidNightTimer();
+    tasks = BlocProvider.of<TodayProgressCubit>(context).getTodayFinishedTasks();
+    BlocProvider.of<TodayProgressCubit>(context).startMidNightTimer();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MyDayTasksCubit, MyDayTasksState>(
+    return BlocBuilder<TodayProgressCubit, TodayProgressState>(
       builder: (context, state) {
         return CustomPopScope(
           toScreenPath: AppRouter.kHomePath,
           child: GradientColor(
             child: Builder(
               builder: (BuildContext context) {
-                if (state is MyDayTasksFailed) {
+                if (state is TodayProgressFailed) {
                   showSnakeBar(context, state.errMessage);
                   return const Column();
                 } else {
-                  tasks = BlocProvider.of<MyDayTasksCubit>(context).tasks;
+                  tasks = BlocProvider.of<TodayProgressCubit>(context).tasks;
                   if (tasks.isEmpty) {
                     return const Expanded(child: Center(child: LottieImage()));
                   } else {
@@ -55,7 +55,7 @@ class _MyDayTasksViewBodyState extends State<MyDayTasksViewBody> {
                           task: tasks[index],
                           onDismissed: (direction) async {
                             await tasks[index].delete();
-                            tasks = BlocProvider.of<MyDayTasksCubit>(context).getMyDayTasks();
+                            tasks = BlocProvider.of<TodayProgressCubit>(context).getTodayFinishedTasks();
                           },
                         );
                       },

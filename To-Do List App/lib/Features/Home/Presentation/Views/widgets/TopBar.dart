@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_list_app/Core/Utils/AppRouter.dart';
@@ -47,27 +48,21 @@ class TopBar extends StatelessWidget {
                   const CircularProgressIndicator(strokeWidth: 2.5, color: Color(0xffd1d5de), value: 1),
                   CircularProgressIndicator(
                     strokeWidth: 2.5,
-                    value: calcValue(context),
+                    value: BlocProvider.of<HomeViewCubit>(context).circularIndicatorValue,
                     color: kPrimaryColor,
                   ),
                 ],
               ),
             ),
             const SizedBox(width: 7),
-            const Text("Today's Progress", style: Styles.blue12Bold),
+            GestureDetector(
+              onTap: () => GoRouter.of(context).push(AppRouter.kTodayProgressPath),
+              child: const Text("Today's Progress", style: Styles.blue12Bold),
+            ),
             Text(" $task tasks left", style: Styles.grey12Bold),
           ],
         ),
       ],
     );
-  }
-
-  double calcValue(BuildContext context) {
-    int finishedTasks = BlocProvider.of<HomeViewCubit>(context).finishedTasks;
-    int myDayTasks = BlocProvider.of<HomeViewCubit>(context).myDayTasks;
-    if (myDayTasks == 0) {
-      return 0;
-    }
-    return finishedTasks / myDayTasks;
   }
 }
