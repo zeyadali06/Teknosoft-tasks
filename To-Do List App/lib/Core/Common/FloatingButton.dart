@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 
 class FloatingButton extends StatelessWidget {
@@ -20,7 +19,7 @@ class FloatingButton extends StatelessWidget {
       ),
       child: IconButton(
         onPressed: () {
-          GoRouter.of(context).push(AppRouter.kCreateTaskPath);
+          Navigator.of(context).pushReplacementNamed(AppRoutes.kCreateTaskPath);
         },
         icon: const CircleAvatar(
           backgroundColor: Colors.transparent,

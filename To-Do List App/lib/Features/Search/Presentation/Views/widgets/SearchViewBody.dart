@@ -22,7 +22,7 @@ class SearchViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPopScope(
-      toScreenPath: AppRouter.kHomePath,
+      toScreenPath: AppRoutes.kHomePath,
       child: GradientColor(
         child: Column(
           children: [

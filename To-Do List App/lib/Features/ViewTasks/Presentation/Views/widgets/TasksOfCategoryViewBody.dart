@@ -35,7 +35,7 @@ class _TasksOfCategoryViewBodyState extends State<TasksOfCategoryViewBody> {
     return BlocBuilder<TasksOfCategoreyCubit, TasksOfCategoreyState>(
       builder: (context, state) {
         return CustomPopScope(
-          toScreenPath: AppRouter.kHomePath,
+          toScreenPath: AppRoutes.kHomePath,
           child: GradientColor(
             child: Column(
               children: [

@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
@@ -19,7 +18,7 @@ class TasksCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).push(AppRouter.kTasksOfCategoryPath, extra: category);
+        Navigator.of(context).pushReplacementNamed(AppRoutes.kTasksOfCategoryPath, arguments: category);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),

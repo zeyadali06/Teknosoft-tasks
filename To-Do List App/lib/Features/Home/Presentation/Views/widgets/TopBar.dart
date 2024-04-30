@@ -1,9 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Manager/HomeView/home_view_cubit.dart';
@@ -27,7 +25,7 @@ class TopBar extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    GoRouter.of(context).push(AppRouter.kSearchPath);
+                    Navigator.of(context).pushReplacementNamed(AppRoutes.kSearchPath);
                   },
                   child: Image.asset('assets/images/Screenshot 2024-04-24 213002.png', fit: BoxFit.fill, width: 30),
                 ),
@@ -56,7 +54,7 @@ class TopBar extends StatelessWidget {
             ),
             const SizedBox(width: 7),
             GestureDetector(
-              onTap: () => GoRouter.of(context).push(AppRouter.kTodayProgressPath),
+              onTap: () => Navigator.of(context).pushReplacementNamed(AppRoutes.kTodayProgressPath),
               child: const Text("Today's Progress", style: Styles.blue12Bold),
             ),
             Text(" $task tasks left", style: Styles.grey12Bold),

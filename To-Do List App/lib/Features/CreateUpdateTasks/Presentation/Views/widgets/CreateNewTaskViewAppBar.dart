@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:todo_list_app/Core/Common/ImportantStar.dart';
+import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Manager/CreateTaskCubit/create_task_cubit.dart';
 
@@ -33,14 +33,13 @@ class _CreateNewTaskViewAppBarState extends State<CreateNewTaskViewAppBar> {
           onPressed: () async {
             BlocProvider.of<AddTaskCubit>(context).important = !(BlocProvider.of<AddTaskCubit>(context).important);
             setState(() {});
-            // return BlocProvider.of<AddTaskCubit>(context).important;
           },
         ),
       ],
       leading: IconButton(
         icon: const Icon(Icons.arrow_back_ios_new),
         onPressed: () {
-          GoRouter.of(context).pop();
+          Navigator.of(context).pushReplacementNamed(AppRoutes.kHomePath);
         },
       ),
     );

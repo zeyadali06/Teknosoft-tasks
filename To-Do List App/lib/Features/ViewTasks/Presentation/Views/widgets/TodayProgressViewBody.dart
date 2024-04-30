@@ -34,7 +34,7 @@ class _TodayProgressViewBodyState extends State<TodayProgressViewBody> {
     return BlocBuilder<TodayProgressCubit, TodayProgressState>(
       builder: (context, state) {
         return CustomPopScope(
-          toScreenPath: AppRouter.kHomePath,
+          toScreenPath: AppRoutes.kHomePath,
           child: GradientColor(
             child: Builder(
               builder: (BuildContext context) {

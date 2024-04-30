@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:todo_list_app/Core/Common/CustomButton.dart';
 import 'package:todo_list_app/Core/Common/CustomPopScope.dart';
@@ -47,7 +46,7 @@ class _CreateNewTaskViewBodyState extends State<CreateNewTaskViewBody> {
           isLoading = true;
         } else if (state is AddTaskSuccessed) {
           isLoading = false;
-          GoRouter.of(context).pushReplacement(AppRouter.kHomePath);
+          Navigator.of(context).pushReplacementNamed(AppRoutes.kHomePath);
         } else if (state is AddTaskFailed) {
           isLoading = false;
           showSnakeBar(context, state.errMessage);
@@ -55,7 +54,7 @@ class _CreateNewTaskViewBodyState extends State<CreateNewTaskViewBody> {
       },
       builder: (context, state) {
         return CustomPopScope(
-          toScreenPath: AppRouter.kHomePath,
+          toScreenPath: AppRoutes.kHomePath,
           child: ModalProgressHUD(
             inAsyncCall: isLoading,
             child: GradientColor(

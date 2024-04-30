@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Manager/CreateTaskCubit/create_task_cubit.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/CreateNewTaskView.dart';
@@ -21,7 +21,7 @@ import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/TasksOfCateg
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/TodayProgressView.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/UpcomingTasksView.dart';
 
-abstract class AppRouter {
+abstract class AppRoutes {
   static const String kHomePath = "/HomeView";
   static const String kSearchPath = "/SearchView";
   static const String kCreateTaskPath = "/CreateNewTaskView";
@@ -32,95 +32,57 @@ abstract class AppRouter {
   static const String kTasksOfCategoryPath = "/TasksOfCategoryView";
   static const String kTodayProgressPath = "/TodayProgressView";
 
-  static final router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) {
-          return BlocProvider(
-            create: (context) => HomeViewCubit(),
-            child: const HomeView(),
-          );
-        },
-      ),
-      GoRoute(
-        path: kHomePath,
-        builder: (context, state) {
-          return BlocProvider(
-            create: (context) => HomeViewCubit(),
-            child: const HomeView(),
-          );
-        },
-      ),
-      GoRoute(
-        path: kSearchPath,
-        builder: (context, state) {
-          return BlocProvider(
-            create: (context) => SearchViewCubit(),
-            child: const SearchView(),
-          );
-        },
-      ),
-      GoRoute(
-        path: kCreateTaskPath,
-        builder: (context, state) {
-          return BlocProvider(
-            create: (context) => AddTaskCubit(),
-            child: const CreateNewTaskView(),
-          );
-        },
-      ),
-      GoRoute(
-        path: kUpdateTaskPath,
-        builder: (context, state) {
-          return const UpdateTaskView();
-        },
-      ),
-      GoRoute(
-        path: kMyDayTasksPath,
-        builder: (context, state) {
-          return BlocProvider(
-            create: (context) => MyDayTasksCubit(),
-            child: const MyDayTasksView(),
-          );
-        },
-      ),
-      GoRoute(
-        path: kImportantTasksPath,
-        builder: (context, state) {
-          return BlocProvider(
-            create: (context) => ImportantTasksCubit(),
-            child: const ImportantTasksView(),
-          );
-        },
-      ),
-      GoRoute(
-        path: kUpcomingTasksPath,
-        builder: (context, state) {
-          return BlocProvider(
-            create: (context) => UpcomingTasksCubit(),
-            child: const UpcomingTasksView(),
-          );
-        },
-      ),
-      GoRoute(
-        path: kTasksOfCategoryPath,
-        builder: (context, state) {
-          return BlocProvider(
-            create: (context) => TasksOfCategoreyCubit(),
-            child: TasksOfCategoryView(category: state.extra as Category),
-          );
-        },
-      ),
-      GoRoute(
-        path: kTodayProgressPath,
-        builder: (context, state) {
-          return BlocProvider(
-            create: (context) => TodayProgressCubit(),
-            child: const TodayProgressView(),
-          );
-        },
-      ),
-    ],
-  );
+  static Map<String, Widget Function(BuildContext)> routes = {
+    kHomePath: (context) {
+      return BlocProvider(
+        create: (context) => HomeViewCubit(),
+        child: const HomeView(),
+      );
+    },
+    kSearchPath: (context) {
+      return BlocProvider(
+        create: (context) => SearchViewCubit(),
+        child: const SearchView(),
+      );
+    },
+    kCreateTaskPath: (context) {
+      return BlocProvider(
+        create: (context) => AddTaskCubit(),
+        child: const CreateNewTaskView(),
+      );
+    },
+    kUpdateTaskPath: (context) {
+      return const UpdateTaskView();
+    },
+    kMyDayTasksPath: (context) {
+      return BlocProvider(
+        create: (context) => MyDayTasksCubit(),
+        child: const MyDayTasksView(),
+      );
+    },
+    kImportantTasksPath: (context) {
+      return BlocProvider(
+        create: (context) => ImportantTasksCubit(),
+        child: const ImportantTasksView(),
+      );
+    },
+    kUpcomingTasksPath: (context) {
+      return BlocProvider(
+        create: (context) => UpcomingTasksCubit(),
+        child: const UpcomingTasksView(),
+      );
+    },
+    kTasksOfCategoryPath: (context) {
+      return BlocProvider(
+        create: (context) => TasksOfCategoreyCubit(),
+        child: TasksOfCategoryView(category: ModalRoute.of(context)!.settings.arguments as Category),
+      );
+    },
+    kTodayProgressPath: (context) {
+      return BlocProvider(
+        create: (context) => TodayProgressCubit(),
+        child: const TodayProgressView(),
+      );
+    },
+  };
 }

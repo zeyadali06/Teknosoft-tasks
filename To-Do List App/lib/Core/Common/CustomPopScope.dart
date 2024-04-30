@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class CustomPopScope extends StatelessWidget {
   const CustomPopScope({super.key, required this.child, required this.toScreenPath});
@@ -14,7 +13,7 @@ class CustomPopScope extends StatelessWidget {
     return PopScope(
       canPop: false,
       onPopInvoked: (value) {
-        GoRouter.of(context).pushReplacement(toScreenPath);
+        Navigator.of(context).pushReplacementNamed(toScreenPath);
       },
       child: child,
     );

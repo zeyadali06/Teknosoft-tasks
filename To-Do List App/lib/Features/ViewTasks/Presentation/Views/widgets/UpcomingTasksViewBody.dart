@@ -37,7 +37,7 @@ class _UpcomingTasksViewBodyState extends State<UpcomingTasksViewBody> {
     return BlocBuilder<UpcomingTasksCubit, UpcomingTasksState>(
       builder: (context, state) {
         return CustomPopScope(
-          toScreenPath: AppRouter.kHomePath,
+          toScreenPath: AppRoutes.kHomePath,
           child: GradientColor(
             child: Builder(
               builder: (context) {

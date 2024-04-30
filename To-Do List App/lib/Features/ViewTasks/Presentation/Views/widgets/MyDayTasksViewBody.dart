@@ -34,7 +34,7 @@ class _MyDayTasksViewBodyState extends State<MyDayTasksViewBody> {
     return BlocBuilder<MyDayTasksCubit, MyDayTasksState>(
       builder: (context, state) {
         return CustomPopScope(
-          toScreenPath: AppRouter.kHomePath,
+          toScreenPath: AppRoutes.kHomePath,
           child: GradientColor(
             child: Builder(
               builder: (BuildContext context) {

@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
 
 class RowOfTaskLevel extends StatelessWidget {
@@ -18,7 +17,7 @@ class RowOfTaskLevel extends StatelessWidget {
       width: double.infinity,
       child: MaterialButton(
         onPressed: () {
-          GoRouter.of(context).push(screenPath);
+          Navigator.of(context).pushReplacementNamed(screenPath);
         },
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
