@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:todo_list_app/Core/CommonWidgets/HourMinuteFormate.dart';
+import 'package:todo_list_app/Core/Common/HourMinuteFormate.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
 import 'package:todo_list_app/constants.dart';
 

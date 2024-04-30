@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_list_app/Core/CommonWidgets/CustomPopScope.dart';
-import 'package:todo_list_app/Core/CommonWidgets/CustomTaskContainer.dart';
-import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
-import 'package:todo_list_app/Core/CommonWidgets/NoThingToShow.dart';
-import 'package:todo_list_app/Core/CommonWidgets/SnackBar.dart';
+import 'package:todo_list_app/Core/Common/CustomPopScope.dart';
+import 'package:todo_list_app/Core/Common/CustomTaskContainer.dart';
+import 'package:todo_list_app/Core/Common/LinearGrdientColor.dart';
+import 'package:todo_list_app/Core/Common/NoThingToShow.dart';
+import 'package:todo_list_app/Core/Common/SnackBar.dart';
 import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/TodayProgress/today_progress_cubit.dart';
