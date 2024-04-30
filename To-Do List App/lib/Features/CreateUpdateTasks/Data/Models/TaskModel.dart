@@ -34,6 +34,9 @@ class TaskModel extends HiveObject {
   @HiveField(8)
   DateTime? finishDate;
 
+  @HiveField(9)
+  late DateTime createdAt;
+
   TaskModel({
     required this.title,
     this.description = '',
@@ -43,6 +46,7 @@ class TaskModel extends HiveObject {
     required this.priority,
     this.important = false,
     this.finished = false,
+    required this.createdAt,
   });
 
   Map<String, dynamic> toMap() {
@@ -56,6 +60,7 @@ class TaskModel extends HiveObject {
       "important": important,
       "finished": finished,
       "finishDate": finishDate,
+      "createdAt": createdAt,
     };
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Manager/CreateTaskCubit/create_task_cubit.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Manager/UpdateTaskCubit/update_task_cubit.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/CreateNewTaskView.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/UpdateTaskView.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Manager/HomeView/home_view_cubit.dart';
@@ -52,7 +53,10 @@ abstract class AppRoutes {
       );
     },
     kUpdateTaskPath: (context) {
-      return const UpdateTaskView();
+      return BlocProvider(
+        create: (context) => UpdateTaskCubit(),
+        child: UpdateTaskView(task: ModalRoute.of(context)!.settings.arguments as TaskModel),
+      );
     },
     kMyDayTasksPath: (context) {
       return BlocProvider(

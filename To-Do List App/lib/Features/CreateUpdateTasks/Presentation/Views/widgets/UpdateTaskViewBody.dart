@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, must_be_immutable
+// ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,25 +11,32 @@ import 'package:todo_list_app/Core/Common/SnackBar.dart';
 import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
-import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Manager/CreateTaskCubit/create_task_cubit.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Manager/UpdateTaskCubit/update_task_cubit.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/widgets/CustomDropDownButton.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/widgets/CustomTextFormField.dart';
-import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/widgets/CreateTaskEnterDateAndTimeField.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Views/widgets/UpdateTaskEnterDateAndTimeField.dart';
 import 'package:todo_list_app/constants.dart';
 
-class CreateNewTaskViewBody extends StatefulWidget {
-  const CreateNewTaskViewBody({super.key});
+class UpdateTaskViewBody extends StatefulWidget {
+  const UpdateTaskViewBody({super.key});
 
   @override
-  State<CreateNewTaskViewBody> createState() => _CreateNewTaskViewBodyState();
+  State<UpdateTaskViewBody> createState() => _UpdateTaskViewBodyState();
 }
 
-class _CreateNewTaskViewBodyState extends State<CreateNewTaskViewBody> {
+class _UpdateTaskViewBodyState extends State<UpdateTaskViewBody> {
   GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   TextEditingController titleController = TextEditingController();
   TextEditingController descripitionController = TextEditingController();
   bool isLoading = false;
+
+  @override
+  void initState() {
+    titleController.text = BlocProvider.of<UpdateTaskCubit>(context).task.title;
+    descripitionController.text = BlocProvider.of<UpdateTaskCubit>(context).task.description;
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -40,14 +47,14 @@ class _CreateNewTaskViewBodyState extends State<CreateNewTaskViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AddTaskCubit, AddTaskState>(
+    return BlocConsumer<UpdateTaskCubit, UpdateTaskState>(
       listener: (context, state) {
-        if (state is AddTaskLoading) {
+        if (state is UpdateTaskLoading) {
           isLoading = true;
-        } else if (state is AddTaskSuccessed) {
+        } else if (state is UpdateTaskSuccessed) {
           isLoading = false;
           Navigator.of(context).pushReplacementNamed(AppRoutes.kHomePath);
-        } else if (state is AddTaskFailed) {
+        } else if (state is UpdateTaskFailed) {
           isLoading = false;
           showSnakeBar(context, state.errMessage);
         }
@@ -90,7 +97,7 @@ class _CreateNewTaskViewBodyState extends State<CreateNewTaskViewBody> {
                       const SizedBox(height: 5),
                       CustomDropdownButton(
                         thingsToDisplay: Category.all,
-                        initialText: Category.firstItem,
+                        initialText: BlocProvider.of<UpdateTaskCubit>(context).task.category,
                         onSelected: onCategorySelected,
                       ),
 
@@ -100,17 +107,17 @@ class _CreateNewTaskViewBodyState extends State<CreateNewTaskViewBody> {
                       const SizedBox(height: 5),
                       CustomDropdownButton(
                         thingsToDisplay: Priority.all,
-                        initialText: Priority.firstItem,
+                        initialText: BlocProvider.of<UpdateTaskCubit>(context).task.priority,
                         onSelected: onPrioritySelected,
                       ),
 
                       // Start and End date
                       const SizedBox(height: 20),
-                      const CreateTaskEnterDateAndTimeField(),
+                      const UpdateTaskEnterDateAndTimeField(),
 
                       // Add New Task button
                       const SizedBox(height: 20),
-                      CustomButton(buttonText: 'Add New Task', onPressed: onPressed),
+                      CustomButton(buttonText: 'Save Changes', onPressed: onPressed),
                     ],
                   ),
                 ),
@@ -122,15 +129,15 @@ class _CreateNewTaskViewBodyState extends State<CreateNewTaskViewBody> {
     );
   }
 
-  void onTitleSaved(String? title) => BlocProvider.of<AddTaskCubit>(context).title = title!;
-  void onDescriptionSaved(String? description) => BlocProvider.of<AddTaskCubit>(context).description = description!;
-  void onCategorySelected(String? category) => BlocProvider.of<AddTaskCubit>(context).category = Category.find(category!)!;
-  void onPrioritySelected(String? priority) => BlocProvider.of<AddTaskCubit>(context).priority = Priority.find(priority!)!;
+  void onTitleSaved(String? title) => BlocProvider.of<UpdateTaskCubit>(context).task.title = title!;
+  void onDescriptionSaved(String? description) => BlocProvider.of<UpdateTaskCubit>(context).task.description = description!;
+  void onCategorySelected(String? category) => BlocProvider.of<UpdateTaskCubit>(context).task.category = Category.find(category!)!.name;
+  void onPrioritySelected(String? priority) => BlocProvider.of<UpdateTaskCubit>(context).task.priority = Priority.find(priority!)!.name;
 
   Future<void> onPressed() async {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-      await BlocProvider.of<AddTaskCubit>(context).addTask();
+      await BlocProvider.of<UpdateTaskCubit>(context).saveTask();
     } else {
       autovalidateMode = AutovalidateMode.always;
       setState(() {});

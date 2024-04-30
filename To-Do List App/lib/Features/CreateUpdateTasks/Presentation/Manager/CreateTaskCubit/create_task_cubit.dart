@@ -22,6 +22,7 @@ class AddTaskCubit extends Cubit<AddTaskState> {
         emit(AddTaskFailed(errMessage: "Enter Start Date"));
         return;
       }
+
       if (to == null) {
         emit(AddTaskFailed(errMessage: "Enter End Date"));
         return;
@@ -29,6 +30,11 @@ class AddTaskCubit extends Cubit<AddTaskState> {
 
       if (from!.isAfter(to!)) {
         emit(AddTaskFailed(errMessage: "End Date should be after Start Date"));
+        return;
+      }
+
+      if (from == to) {
+        emit(AddTaskFailed(errMessage: "Start Date shouldn't equal to End Date"));
         return;
       }
 
@@ -40,6 +46,7 @@ class AddTaskCubit extends Cubit<AddTaskState> {
         to: to!,
         description: description,
         important: important,
+        createdAt: DateTime.now(),
       );
       emit(AddTaskLoading());
       await addData(task);
