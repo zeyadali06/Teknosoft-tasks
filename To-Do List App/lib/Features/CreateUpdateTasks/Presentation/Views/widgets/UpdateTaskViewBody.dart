@@ -5,10 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:todo_list_app/Core/Common/CustomButton.dart';
-import 'package:todo_list_app/Core/Common/CustomPopScope.dart';
 import 'package:todo_list_app/Core/Common/LinearGrdientColor.dart';
 import 'package:todo_list_app/Core/Common/SnackBar.dart';
-import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Presentation/Manager/UpdateTaskCubit/update_task_cubit.dart';
@@ -60,66 +58,63 @@ class _UpdateTaskViewBodyState extends State<UpdateTaskViewBody> {
         }
       },
       builder: (context, state) {
-        return CustomPopScope(
-          toScreenPath: AppRoutes.kHomePath,
-          child: ModalProgressHUD(
-            inAsyncCall: isLoading,
-            child: GradientColor(
-              child: Form(
-                key: formKey,
-                autovalidateMode: autovalidateMode,
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.all(kPadding),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Title text field
-                      CustomTextFormField(
-                        hintText: 'Title',
-                        controller: titleController,
-                        inputFormatters: [LengthLimitingTextInputFormatter(25)],
-                        onSaved: onTitleSaved,
-                      ),
-
-                      // Descripition text field
-                      const SizedBox(height: 15),
-                      CustomTextFormField(
-                        hintText: 'Descripition',
-                        controller: descripitionController,
-                        onSaved: onDescriptionSaved,
-                      ),
-
-                      // Category text field
-                      const SizedBox(height: 20),
-                      Text('Category:', style: Styles.blue18Bold.copyWith(color: Colors.black)),
-                      const SizedBox(height: 5),
-                      CustomDropdownButton(
-                        thingsToDisplay: Category.all,
-                        initialText: BlocProvider.of<UpdateTaskCubit>(context).task.category,
-                        onSelected: onCategorySelected,
-                      ),
-
-                      // Priority text field
-                      const SizedBox(height: 20),
-                      Text('Priority:', style: Styles.blue18Bold.copyWith(color: Colors.black)),
-                      const SizedBox(height: 5),
-                      CustomDropdownButton(
-                        thingsToDisplay: Priority.all,
-                        initialText: BlocProvider.of<UpdateTaskCubit>(context).task.priority,
-                        onSelected: onPrioritySelected,
-                      ),
-
-                      // Start and End date
-                      const SizedBox(height: 20),
-                      const UpdateTaskEnterDateAndTimeField(),
-
-                      // Add New Task button
-                      const SizedBox(height: 20),
-                      CustomButton(buttonText: 'Save Changes', onPressed: onPressed),
-                    ],
-                  ),
+        return ModalProgressHUD(
+          inAsyncCall: isLoading,
+          child: GradientColor(
+            child: Form(
+              key: formKey,
+              autovalidateMode: autovalidateMode,
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.all(kPadding),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Title text field
+                    CustomTextFormField(
+                      hintText: 'Title',
+                      controller: titleController,
+                      inputFormatters: [LengthLimitingTextInputFormatter(25)],
+                      onSaved: onTitleSaved,
+                    ),
+        
+                    // Descripition text field
+                    const SizedBox(height: 15),
+                    CustomTextFormField(
+                      hintText: 'Descripition',
+                      controller: descripitionController,
+                      onSaved: onDescriptionSaved,
+                    ),
+        
+                    // Category text field
+                    const SizedBox(height: 20),
+                    Text('Category:', style: Styles.blue18Bold.copyWith(color: Colors.black)),
+                    const SizedBox(height: 5),
+                    CustomDropdownButton(
+                      thingsToDisplay: Category.all,
+                      initialText: BlocProvider.of<UpdateTaskCubit>(context).task.category,
+                      onSelected: onCategorySelected,
+                    ),
+        
+                    // Priority text field
+                    const SizedBox(height: 20),
+                    Text('Priority:', style: Styles.blue18Bold.copyWith(color: Colors.black)),
+                    const SizedBox(height: 5),
+                    CustomDropdownButton(
+                      thingsToDisplay: Priority.all,
+                      initialText: BlocProvider.of<UpdateTaskCubit>(context).task.priority,
+                      onSelected: onPrioritySelected,
+                    ),
+        
+                    // Start and End date
+                    const SizedBox(height: 20),
+                    const UpdateTaskEnterDateAndTimeField(),
+        
+                    // Add New Task button
+                    const SizedBox(height: 20),
+                    CustomButton(buttonText: 'Save Changes', onPressed: onPressed),
+                  ],
                 ),
               ),
             ),
