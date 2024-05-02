@@ -1,7 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Core/Common/FloatingButton.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/UpcomingTasks/upcoming_tasks_cubit.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/CustomAppBar.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/UpcomingTasksViewBody.dart';
 
@@ -10,10 +12,10 @@ class UpcomingTasksView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: CustomAppBar(title: 'Upcoming'),
-      body: UpcomingTasksViewBody(),
-      floatingActionButton: FloatingButton(),
+    return Scaffold(
+      appBar: const CustomAppBar(title: 'Upcoming'),
+      body: const UpcomingTasksViewBody(),
+      floatingActionButton: FloatingButton(onPop: () => BlocProvider.of<UpcomingTasksCubit>(context).getTasks(BlocProvider.of<UpcomingTasksCubit>(context).whenRefreshDateTime)),
     );
   }
 }

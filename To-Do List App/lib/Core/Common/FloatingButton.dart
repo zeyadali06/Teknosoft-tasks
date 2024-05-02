@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 
 class FloatingButton extends StatelessWidget {
-  const FloatingButton({super.key});
+  const FloatingButton({super.key, this.onPop});
+
+  final void Function()? onPop;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +20,11 @@ class FloatingButton extends StatelessWidget {
         ),
       ),
       child: IconButton(
-        onPressed: () {
-          Navigator.of(context).pushReplacementNamed(AppRoutes.kCreateTaskPath);
+        onPressed: () async {
+          await Navigator.of(context).pushNamed(AppRoutes.kCreateTaskPath);
+          if (onPop != null) {
+            onPop!();
+          }
         },
         icon: const CircleAvatar(
           backgroundColor: Colors.transparent,

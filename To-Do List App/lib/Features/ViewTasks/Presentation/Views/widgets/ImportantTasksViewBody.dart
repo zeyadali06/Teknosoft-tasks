@@ -26,6 +26,8 @@ class _ImportantTasksViewBodyState extends State<ImportantTasksViewBody> {
   @override
   void initState() {
     tasks = BlocProvider.of<ImportantTasksCubit>(context).getTasks(DateTime.now());
+    BlocProvider.of<ImportantTasksCubit>(context).timerDateTime = DateTime.now().add(const Duration(days: 1));
+    BlocProvider.of<ImportantTasksCubit>(context).startMidNightTimer();
     super.initState();
   }
 
@@ -42,10 +44,13 @@ class _ImportantTasksViewBodyState extends State<ImportantTasksViewBody> {
                   showSnakeBar(context, state.errMessage);
                   return const Column();
                 } else {
+                  tasks = BlocProvider.of<ImportantTasksCubit>(context).tasks;
                   return Column(
                     children: [
                       CustomCalendar(
                         onDaySelected: (dateTime) {
+                          BlocProvider.of<ImportantTasksCubit>(context).whenRefreshDateTime = dateTime;
+                          BlocProvider.of<ImportantTasksCubit>(context).timerDateTime = dateTime;
                           tasks = BlocProvider.of<ImportantTasksCubit>(context).getTasks(dateTime);
                         },
                       ),

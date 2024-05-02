@@ -6,7 +6,9 @@ import 'package:todo_list_app/Features/Search/Presentation/Manager/SearchViewCub
 import 'package:todo_list_app/constants.dart';
 
 class SearchTextField extends StatelessWidget {
-  const SearchTextField({super.key});
+  const SearchTextField({super.key, required this.onChanged});
+
+  final void Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +17,7 @@ class SearchTextField extends StatelessWidget {
       child: TextField(
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         onChanged: (str) {
+          onChanged(str);
           BlocProvider.of<SearchViewCubit>(context).getRelatedTasks(str);
         },
         cursorOpacityAnimates: true,

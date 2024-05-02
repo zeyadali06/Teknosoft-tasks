@@ -53,7 +53,7 @@ class _UpdateTaskViewBodyState extends State<UpdateTaskViewBody> {
           isLoading = true;
         } else if (state is UpdateTaskSuccessed) {
           isLoading = false;
-          Navigator.of(context).pushReplacementNamed(AppRoutes.kHomePath);
+          Navigator.of(context).pop();
         } else if (state is UpdateTaskFailed) {
           isLoading = false;
           showSnakeBar(context, state.errMessage);

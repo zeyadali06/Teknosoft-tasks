@@ -14,10 +14,16 @@ import 'package:todo_list_app/Features/Search/Presentation/Manager/SearchViewCub
 import 'package:todo_list_app/Features/Search/Presentation/Views/widgets/SearchTextField.dart';
 import 'package:todo_list_app/constants.dart';
 
-class SearchViewBody extends StatelessWidget {
-  SearchViewBody({super.key});
+class SearchViewBody extends StatefulWidget {
+  const SearchViewBody({super.key});
 
+  @override
+  State<SearchViewBody> createState() => _SearchViewBodyState();
+}
+
+class _SearchViewBodyState extends State<SearchViewBody> {
   List<TaskModel> res = getData();
+  String searchText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,7 @@ class SearchViewBody extends StatelessWidget {
       child: GradientColor(
         child: Column(
           children: [
-            const SearchTextField(),
+            SearchTextField(onChanged: (value) => searchText = value),
             Expanded(
               child: BlocBuilder<SearchViewCubit, SearchViewState>(
                 builder: (context, state) {
@@ -37,7 +43,10 @@ class SearchViewBody extends StatelessWidget {
                       padding: const EdgeInsets.all(kPadding),
                       itemCount: res.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return CustomTaskContainer(task: res[index]);
+                        return CustomTaskContainer(
+                          task: res[index],
+                          onDismissed: (direction) => onDismissed(direction, index),
+                        );
                       },
                     );
                   } else if (state is SearchViewInitial) {
@@ -46,7 +55,10 @@ class SearchViewBody extends StatelessWidget {
                       padding: const EdgeInsets.all(kPadding),
                       itemCount: getData().length,
                       itemBuilder: (BuildContext context, int index) {
-                        return CustomTaskContainer(task: getData()[index]);
+                        return CustomTaskContainer(
+                          task: getData()[index],
+                          onDismissed: (direction) => onDismissed(direction, index),
+                        );
                       },
                     );
                   } else {
@@ -59,5 +71,10 @@ class SearchViewBody extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> onDismissed(DismissDirection direction, int index) async {
+    await res[index].delete();
+    BlocProvider.of<SearchViewCubit>(context).getRelatedTasks(searchText);
   }
 }

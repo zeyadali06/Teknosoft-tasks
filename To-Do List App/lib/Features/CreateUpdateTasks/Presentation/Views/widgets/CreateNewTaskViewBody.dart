@@ -46,7 +46,7 @@ class _CreateNewTaskViewBodyState extends State<CreateNewTaskViewBody> {
           isLoading = true;
         } else if (state is AddTaskSuccessed) {
           isLoading = false;
-          Navigator.of(context).pushReplacementNamed(AppRoutes.kHomePath);
+          Navigator.of(context).pop();
         } else if (state is AddTaskFailed) {
           isLoading = false;
           showSnakeBar(context, state.errMessage);

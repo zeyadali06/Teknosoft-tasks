@@ -11,9 +11,9 @@ class CustomPopScope extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
+      canPop: true,
       onPopInvoked: (value) {
-        Navigator.of(context).pushReplacementNamed(toScreenPath);
+        // Navigator.of(context).pop();
       },
       child: child,
     );

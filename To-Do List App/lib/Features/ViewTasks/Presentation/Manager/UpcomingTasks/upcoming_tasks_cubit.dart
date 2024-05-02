@@ -10,7 +10,9 @@ part 'upcoming_tasks_state.dart';
 class UpcomingTasksCubit extends Cubit<UpcomingTasksState> {
   UpcomingTasksCubit() : super(UpcomingTasksInitial());
 
-  late DateTime datetime;
+  late DateTime timerDateTime;
+  DateTime whenRefreshDateTime = DateTime.now();
+
   List<TaskModel> tasks = [];
 
   List<TaskModel> getTasks(DateTime datetime) {
@@ -36,6 +38,6 @@ class UpcomingTasksCubit extends Cubit<UpcomingTasksState> {
     final DateTime now = DateTime.now();
     final DateTime nextMidnight = DateTime(now.year, now.month, now.day + 1, 0, 0, 0);
     final Duration duration = nextMidnight.difference(now);
-    Timer(duration, () => getTasks(datetime));
+    Timer(duration, () => getTasks(timerDateTime));
   }
 }

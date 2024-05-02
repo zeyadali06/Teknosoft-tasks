@@ -22,12 +22,11 @@ class UpcomingTasksViewBody extends StatefulWidget {
 
 class _UpcomingTasksViewBodyState extends State<UpcomingTasksViewBody> {
   late List<TaskModel> tasks;
-  DateTime datetime = DateTime.now();
 
   @override
   void initState() {
     tasks = BlocProvider.of<UpcomingTasksCubit>(context).getTasks(DateTime.now());
-    BlocProvider.of<UpcomingTasksCubit>(context).datetime = DateTime.now().add(const Duration(days: 1));
+    BlocProvider.of<UpcomingTasksCubit>(context).timerDateTime = DateTime.now().add(const Duration(days: 1));
     BlocProvider.of<UpcomingTasksCubit>(context).startMidNightTimer();
     super.initState();
   }
@@ -50,8 +49,8 @@ class _UpcomingTasksViewBodyState extends State<UpcomingTasksViewBody> {
                     children: [
                       CustomCalendar(
                         onDaySelected: (date) {
-                          datetime = date;
-                          BlocProvider.of<UpcomingTasksCubit>(context).datetime = date;
+                          BlocProvider.of<UpcomingTasksCubit>(context).whenRefreshDateTime = date;
+                          BlocProvider.of<UpcomingTasksCubit>(context).timerDateTime = date;
                           tasks = BlocProvider.of<UpcomingTasksCubit>(context).getTasks(date);
                         },
                       ),
@@ -67,7 +66,7 @@ class _UpcomingTasksViewBodyState extends State<UpcomingTasksViewBody> {
                               return CustomTaskContainer(
                                 task: tasks[index],
                                 onDismissed: (direction) async {
-                                  datetime = DateTime.parse(tasks[index].from.toString());
+                                  DateTime datetime = DateTime.parse(tasks[index].from.toString());
                                   await tasks[index].delete();
                                   tasks = BlocProvider.of<UpcomingTasksCubit>(context).getTasks(datetime);
                                 },

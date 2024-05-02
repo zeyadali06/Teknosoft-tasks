@@ -10,8 +10,15 @@ import 'package:todo_list_app/Features/Home/Presentation/Views/widgets/TaskLevel
 import 'package:todo_list_app/Features/Home/Presentation/Views/widgets/TopBar.dart';
 import 'package:todo_list_app/constants.dart';
 
-class HomeViewBody extends StatelessWidget {
+class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
+
+  @override
+  State<HomeViewBody> createState() => _HomeViewBodyState();
+}
+
+class _HomeViewBodyState extends State<HomeViewBody> {
+  void refresh() => setState(() {});
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +39,13 @@ class HomeViewBody extends StatelessWidget {
                       padding: const EdgeInsets.all(kPadding),
                       child: Column(
                         children: [
-                          TopBar(task: BlocProvider.of<HomeViewCubit>(context).finishedTasks),
+                          TopBar(task: BlocProvider.of<HomeViewCubit>(context).finishedTasks, onPop: refresh),
                           const SizedBox(height: 10),
                           Divider(color: Colors.grey.withOpacity(.15)),
                           const SizedBox(height: 10),
-                          const TaskLevelContainer(),
+                          TaskLevelContainer(onPop: refresh),
                           const SizedBox(height: 25),
-                          const AllCategories(),
+                          AllCategories(onPop: refresh),
                         ],
                       ),
                     ),

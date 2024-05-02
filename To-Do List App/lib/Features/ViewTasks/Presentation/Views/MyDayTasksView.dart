@@ -1,7 +1,9 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Core/Common/FloatingButton.dart';
+import 'package:todo_list_app/Features/ViewTasks/Presentation/Manager/MyDayTasks/my_day_tasks_cubit.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/CustomAppBar.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/MyDayTasksViewBody.dart';
 
@@ -10,10 +12,10 @@ class MyDayTasksView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: CustomAppBar(title: 'My Day'),
-      body: MyDayTasksViewBody(),
-      floatingActionButton: FloatingButton(),
+    return Scaffold(
+      appBar: const CustomAppBar(title: 'My Day'),
+      body: const MyDayTasksViewBody(),
+      floatingActionButton: FloatingButton(onPop: () => BlocProvider.of<MyDayTasksCubit>(context).getMyDayTasks()),
     );
   }
 }

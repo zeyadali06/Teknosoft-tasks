@@ -8,7 +8,9 @@ import 'package:todo_list_app/Features/Home/Presentation/Views/widgets/RowOfTask
 import 'package:todo_list_app/constants.dart';
 
 class TaskLevelContainer extends StatelessWidget {
-  const TaskLevelContainer({super.key});
+  const TaskLevelContainer({super.key, required this.onPop});
+
+  final void Function() onPop;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class TaskLevelContainer extends StatelessWidget {
               text: 'My Day',
               imagePath: 'assets/images/Screenshot 2024-04-24 224102.png',
               screenPath: AppRoutes.kMyDayTasksPath,
+              onPop: onPop,
             ),
             Divider(color: Colors.blue.withOpacity(.15)),
             RowOfTaskLevel(
@@ -33,6 +36,7 @@ class TaskLevelContainer extends StatelessWidget {
               text: 'Upcoming',
               imagePath: 'assets/images/Screenshot 2024-04-24 231327.png',
               screenPath: AppRoutes.kUpcomingTasksPath,
+              onPop: onPop,
             ),
             Divider(color: Colors.blue.withOpacity(.15)),
             RowOfTaskLevel(
@@ -40,6 +44,7 @@ class TaskLevelContainer extends StatelessWidget {
               text: 'Important',
               imagePath: 'assets/images/Screenshot 2024-04-24 231442.png',
               screenPath: AppRoutes.kImportantTasksPath,
+              onPop: onPop,
             ),
           ],
         ),
