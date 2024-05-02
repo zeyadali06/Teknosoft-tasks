@@ -9,6 +9,7 @@ class SearchViewCubit extends Cubit<SearchViewState> {
   SearchViewCubit() : super(SearchViewInitial());
 
   List<TaskModel> tasks = getData();
+  String word = '';
 
   List<TaskModel> getRelatedTasks(String str) {
     List<TaskModel> res = [];

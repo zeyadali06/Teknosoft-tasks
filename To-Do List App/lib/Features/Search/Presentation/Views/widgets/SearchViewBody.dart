@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, must_be_immutable
+// ignore_for_file: file_names, must_be_immutable, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -32,7 +32,12 @@ class _SearchViewBodyState extends State<SearchViewBody> {
       child: GradientColor(
         child: Column(
           children: [
-            SearchTextField(onChanged: (value) => searchText = value),
+            SearchTextField(
+              onChanged: (value) {
+                searchText = value;
+                BlocProvider.of<SearchViewCubit>(context).word = value;
+              },
+            ),
             Expanded(
               child: BlocBuilder<SearchViewCubit, SearchViewState>(
                 builder: (context, state) {
