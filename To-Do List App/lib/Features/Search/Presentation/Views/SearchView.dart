@@ -15,7 +15,12 @@ class SearchView extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBar(title: 'Search'),
       body: const SearchViewBody(),
-      floatingActionButton: FloatingButton(onPop: () => BlocProvider.of<SearchViewCubit>(context).getRelatedTasks(BlocProvider.of<SearchViewCubit>(context).word)),
+      floatingActionButton: FloatingButton(
+        onPop: () => BlocProvider.of<SearchViewCubit>(context).getRelatedTasks(
+          BlocProvider.of<SearchViewCubit>(context).word,
+          BlocProvider.of<SearchViewCubit>(context).priority,
+        ),
+      ),
     );
   }
 }

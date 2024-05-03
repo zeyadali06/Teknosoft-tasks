@@ -18,7 +18,7 @@ class SearchTextField extends StatelessWidget {
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         onChanged: (str) {
           onChanged(str);
-          BlocProvider.of<SearchViewCubit>(context).getRelatedTasks(str);
+          BlocProvider.of<SearchViewCubit>(context).getRelatedTasks(str, BlocProvider.of<SearchViewCubit>(context).priority);
         },
         cursorOpacityAnimates: true,
         cursorColor: kPrimaryColor,

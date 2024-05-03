@@ -10,11 +10,12 @@ class SearchViewCubit extends Cubit<SearchViewState> {
 
   List<TaskModel> tasks = getData();
   String word = '';
+  Priority priority = Priority.firstItem;
 
-  List<TaskModel> getRelatedTasks(String str) {
+  List<TaskModel> getRelatedTasks(String str, Priority priority) {
     List<TaskModel> res = [];
     for (TaskModel task in getData()) {
-      if (task.title.contains(str)) {
+      if (task.title.contains(str) && task.priority == priority.name) {
         res.add(task);
       }
     }

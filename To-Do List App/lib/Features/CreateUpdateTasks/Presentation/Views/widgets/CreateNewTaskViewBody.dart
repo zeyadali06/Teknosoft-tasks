@@ -71,7 +71,7 @@ class _CreateNewTaskViewBodyState extends State<CreateNewTaskViewBody> {
                       inputFormatters: [LengthLimitingTextInputFormatter(25)],
                       onSaved: onTitleSaved,
                     ),
-        
+
                     // Descripition text field
                     const SizedBox(height: 15),
                     CustomTextFormField(
@@ -79,31 +79,31 @@ class _CreateNewTaskViewBodyState extends State<CreateNewTaskViewBody> {
                       controller: descripitionController,
                       onSaved: onDescriptionSaved,
                     ),
-        
+
                     // Category text field
                     const SizedBox(height: 20),
                     Text('Category:', style: Styles.blue18Bold.copyWith(color: Colors.black)),
                     const SizedBox(height: 5),
                     CustomDropdownButton(
-                      thingsToDisplay: Category.all,
-                      initialText: Category.firstItem,
+                      thingsToDisplay: Category.allToString,
+                      initialText: Category.firstItem.name,
                       onSelected: onCategorySelected,
                     ),
-        
+
                     // Priority text field
                     const SizedBox(height: 20),
                     Text('Priority:', style: Styles.blue18Bold.copyWith(color: Colors.black)),
                     const SizedBox(height: 5),
                     CustomDropdownButton(
-                      thingsToDisplay: Priority.all,
-                      initialText: Priority.firstItem,
+                      thingsToDisplay: Priority.allToString,
+                      initialText: Priority.firstItem.name,
                       onSelected: onPrioritySelected,
                     ),
-        
+
                     // Start and End date
                     const SizedBox(height: 20),
                     const CreateTaskEnterDateAndTimeField(),
-        
+
                     // Add New Task button
                     const SizedBox(height: 20),
                     CustomButton(buttonText: 'Add New Task', onPressed: onPressed),

@@ -78,7 +78,7 @@ class _UpdateTaskViewBodyState extends State<UpdateTaskViewBody> {
                       inputFormatters: [LengthLimitingTextInputFormatter(25)],
                       onSaved: onTitleSaved,
                     ),
-        
+
                     // Descripition text field
                     const SizedBox(height: 15),
                     CustomTextFormField(
@@ -86,31 +86,31 @@ class _UpdateTaskViewBodyState extends State<UpdateTaskViewBody> {
                       controller: descripitionController,
                       onSaved: onDescriptionSaved,
                     ),
-        
+
                     // Category text field
                     const SizedBox(height: 20),
                     Text('Category:', style: Styles.blue18Bold.copyWith(color: Colors.black)),
                     const SizedBox(height: 5),
                     CustomDropdownButton(
-                      thingsToDisplay: Category.all,
+                      thingsToDisplay: Category.allToString,
                       initialText: BlocProvider.of<UpdateTaskCubit>(context).task.category,
                       onSelected: onCategorySelected,
                     ),
-        
+
                     // Priority text field
                     const SizedBox(height: 20),
                     Text('Priority:', style: Styles.blue18Bold.copyWith(color: Colors.black)),
                     const SizedBox(height: 5),
                     CustomDropdownButton(
-                      thingsToDisplay: Priority.all,
+                      thingsToDisplay: Priority.allToString,
                       initialText: BlocProvider.of<UpdateTaskCubit>(context).task.priority,
                       onSelected: onPrioritySelected,
                     ),
-        
+
                     // Start and End date
                     const SizedBox(height: 20),
                     const UpdateTaskEnterDateAndTimeField(),
-        
+
                     // Add New Task button
                     const SizedBox(height: 20),
                     CustomButton(buttonText: 'Save Changes', onPressed: onPressed),

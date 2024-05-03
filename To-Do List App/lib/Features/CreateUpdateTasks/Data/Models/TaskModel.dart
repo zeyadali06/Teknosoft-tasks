@@ -84,9 +84,11 @@ enum Category {
     return null;
   }
 
-  static String get firstItem => Personal.name;
+  static Category get firstItem => Personal;
 
-  static List<String> get all => [Personal.name, Learning.name, Work.name, Shopping.name];
+  static List<Category> get all => [Personal, Learning, Work, Shopping];
+
+  static List<String> get allToString => [Personal.name, Learning.name, Work.name, Shopping.name];
 }
 
 enum Priority {
@@ -103,7 +105,9 @@ enum Priority {
     return null;
   }
 
-  static String get firstItem => High.name;
+  static Priority get firstItem => High;
 
-  static List<String> get all => [High.name, Medium.name, Low.name];
+  static List<Priority> get all => [High, Medium, Low];
+
+  static List<String> get allToString => [High.name, Medium.name, Low.name];
 }
