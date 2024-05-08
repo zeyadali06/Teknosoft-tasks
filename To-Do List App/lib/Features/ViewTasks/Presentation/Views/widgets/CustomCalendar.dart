@@ -19,12 +19,10 @@ class _CustomCalendarState extends State<CustomCalendar> {
   DateTime? _selectedDay;
 
   Map<int, String> weekdays = {1: 'M', 2: 'T', 3: 'W', 4: 'T', 5: 'F', 6: 'S', 7: 'S'};
-  late Offset offset;
 
   @override
   void initState() {
     _focusedDay = DateTime.now();
-    offset = const Offset(0, 0);
     super.initState();
   }
 
@@ -59,7 +57,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
           );
         },
         selectedBuilder: (context, day, focusedDay) {
-          if (focusedDay.day == _focusedDay.day) {
+          if (isSameDay(focusedDay, _focusedDay)) {
             return Center(
               child: CircleAvatar(
                 radius: 20,
@@ -90,7 +88,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
         tablePadding: const EdgeInsets.symmetric(horizontal: kPadding),
       ),
       selectedDayPredicate: (day) {
-        return isSameDay(_selectedDay, day);
+        return isSameDay(_focusedDay, day);
       },
       onDaySelected: (selectedDay, focusedDay) {
         if (!isSameDay(_selectedDay, selectedDay)) {
