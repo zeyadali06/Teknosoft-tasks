@@ -9,6 +9,8 @@ class UpdateTaskCubit extends Cubit<UpdateTaskState> {
   late TaskModel task;
   DateTime? enteredDate;
   TimeOfDay? enteredTime;
+  Category category = Category.firstItem;
+  Priority priority = Priority.firstItem;
 
   Future<void> saveTask() async {
     try {
@@ -23,6 +25,8 @@ class UpdateTaskCubit extends Cubit<UpdateTaskState> {
       }
 
       emit(UpdateTaskLoading());
+      task.category = category.name;
+      task.priority = priority.name;
       await task.save();
       emit(UpdateTaskSuccessed());
     } catch (_) {

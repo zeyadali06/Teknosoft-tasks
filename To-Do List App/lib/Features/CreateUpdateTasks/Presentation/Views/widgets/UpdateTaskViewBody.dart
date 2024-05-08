@@ -135,13 +135,11 @@ class _UpdateTaskViewBodyState extends State<UpdateTaskViewBody> {
   }
 
   void onCategorySelected(String? category) {
-    BlocProvider.of<UpdateTaskCubit>(context).task.category = Category.find(category!)!.name;
-    BlocProvider.of<UpdateTaskCubit>(context).task.save();
+    BlocProvider.of<UpdateTaskCubit>(context).category = Category.find(category!)!;
   }
 
   void onPrioritySelected(String? priority) {
-    BlocProvider.of<UpdateTaskCubit>(context).task.priority = Priority.find(priority!)!.name;
-    BlocProvider.of<UpdateTaskCubit>(context).task.save();
+    BlocProvider.of<UpdateTaskCubit>(context).priority = Priority.find(priority!)!;
   }
 
   Future<void> onPressed() async {
