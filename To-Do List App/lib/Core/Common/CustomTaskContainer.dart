@@ -11,10 +11,11 @@ import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/Cust
 import 'package:todo_list_app/constants.dart';
 
 class CustomTaskContainer extends StatefulWidget {
-  const CustomTaskContainer({super.key, required this.task, this.onDismissed});
+  const CustomTaskContainer({super.key, required this.task, this.onDismissed, this.onPop});
 
   final TaskModel task;
   final Future<void> Function(DismissDirection direction)? onDismissed;
+  final void Function()? onPop;
 
   @override
   State<CustomTaskContainer> createState() => _CustomTaskContainerState();
@@ -26,6 +27,7 @@ class _CustomTaskContainerState extends State<CustomTaskContainer> {
     return GestureDetector(
       onTap: () async {
         await Navigator.of(context).pushNamed(AppRoutes.kUpdateTaskPath, arguments: widget.task);
+        widget.onPop?.call();
         setState(() {});
       },
       child: Stack(

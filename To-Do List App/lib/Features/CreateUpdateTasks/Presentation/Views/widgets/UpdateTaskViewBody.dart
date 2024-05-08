@@ -124,10 +124,25 @@ class _UpdateTaskViewBodyState extends State<UpdateTaskViewBody> {
     );
   }
 
-  void onTitleSaved(String? title) => BlocProvider.of<UpdateTaskCubit>(context).task.title = title!;
-  void onDescriptionSaved(String? description) => BlocProvider.of<UpdateTaskCubit>(context).task.description = description!;
-  void onCategorySelected(String? category) => BlocProvider.of<UpdateTaskCubit>(context).task.category = Category.find(category!)!.name;
-  void onPrioritySelected(String? priority) => BlocProvider.of<UpdateTaskCubit>(context).task.priority = Priority.find(priority!)!.name;
+  void onTitleSaved(String? title) {
+    BlocProvider.of<UpdateTaskCubit>(context).task.title = title!;
+    BlocProvider.of<UpdateTaskCubit>(context).task.save();
+  }
+
+  void onDescriptionSaved(String? description) {
+    BlocProvider.of<UpdateTaskCubit>(context).task.description = description!;
+    BlocProvider.of<UpdateTaskCubit>(context).task.save();
+  }
+
+  void onCategorySelected(String? category) {
+    BlocProvider.of<UpdateTaskCubit>(context).task.category = Category.find(category!)!.name;
+    BlocProvider.of<UpdateTaskCubit>(context).task.save();
+  }
+
+  void onPrioritySelected(String? priority) {
+    BlocProvider.of<UpdateTaskCubit>(context).task.priority = Priority.find(priority!)!.name;
+    BlocProvider.of<UpdateTaskCubit>(context).task.save();
+  }
 
   Future<void> onPressed() async {
     if (formKey.currentState!.validate()) {

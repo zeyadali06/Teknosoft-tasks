@@ -67,6 +67,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                     itemCount: res.length,
                     itemBuilder: (BuildContext context, int index) {
                       return CustomTaskContainer(
+                        onPop: () => BlocProvider.of<SearchViewCubit>(context).getRelatedTasks(searchText, pri),
                         task: res[index],
                         onDismissed: (direction) => onDismissed(direction, index),
                       );
@@ -79,6 +80,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                     itemCount: getData().length,
                     itemBuilder: (BuildContext context, int index) {
                       return CustomTaskContainer(
+                        onPop: () => BlocProvider.of<SearchViewCubit>(context).getRelatedTasks(searchText, pri),
                         task: getData()[index],
                         onDismissed: (direction) => onDismissed(direction, index),
                       );
