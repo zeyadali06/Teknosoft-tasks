@@ -8,13 +8,15 @@ class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
     super.key,
     required this.hintText,
-    required this.controller,
+    this.controller,
     this.onSaved,
     this.inputFormatters,
+    required this.label,
   });
 
   final String hintText;
-  final TextEditingController controller;
+  final String label;
+  final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
   final void Function(String?)? onSaved;
 
@@ -60,7 +62,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
           focusedBorder: outlineInputBorder(2),
           errorBorder: outlineInputBorder(2),
           hintText: widget.hintText,
-          label: Text(widget.hintText),
+          labelStyle: TextStyle(color: color),
+          label: Text(widget.label),
         ),
       ),
     );
