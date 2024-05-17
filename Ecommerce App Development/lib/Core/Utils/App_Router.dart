@@ -5,6 +5,7 @@ import 'package:e_commerce_app_development/Features/Authentication_Feature/Prese
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Manager/SignUp_View_Cubit/sign_up_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Login_View.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/SignUp_View.dart';
+import 'package:e_commerce_app_development/Features/Splash_Feature/Presentation/Manager/cubit/splash_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Splash_Feature/Presentation/Views/Splash_View.dart';
 import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Views/Cart_View.dart';
 import 'package:e_commerce_app_development/Features/Favourate_Feature/Presentation/Views/Favourate_View.dart';
@@ -15,7 +16,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class AppRouter {
-  static const Widget splashViewPath = SplashView();
+  static Widget splashViewPath = BlocProvider(
+    create: (context) => SplashViewCubit(),
+    child: const SplashView(),
+  );
   static Widget loginViewPath = BlocProvider(
     create: (context) => LoginViewCubit(AuthRepoImplementation()),
     child: const LoginView(),

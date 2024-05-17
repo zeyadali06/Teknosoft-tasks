@@ -26,8 +26,9 @@ class AuthRepoImplementation implements AuthRepo {
         }
         email = loginData.email;
       }
-      await SignIn.signIn(email!, loginData.password);
-      return right(AuthCompletedSuccessfully());
+      loginData.email = email;
+      await SignIn.signIn(email!, loginData.password!);
+      return right(AuthCompletedSuccessfully(loginData));
     } catch (e) {
       return left(AuthFailure(e));
     }
@@ -40,17 +41,17 @@ class AuthRepoImplementation implements AuthRepo {
         return left(AuthFailure(FirebaseAuthException(code: "username-already-in-use")));
       }
       await Register.register(registerData.toMap()..remove('password'), registerData.password);
-      return right(AuthCompletedSuccessfully());
+      return right(AuthCompletedSuccessfully(LoginData(usernameOrEmail: registerData.email, password: registerData.password)));
     } catch (e) {
       return left(AuthFailure(e));
     }
   }
 
   @override
-  Future<Either<AuthFailure, AuthCompletedSuccessfully>> signInWithGoogle() async {
+  Future<Either<AuthFailure, GoogleSignInSuccessed>> signInWithGoogle() async {
     try {
       await SignIn.signInWithGoogle();
-      return right(AuthCompletedSuccessfully());
+      return right(GoogleSignInSuccessed());
     } catch (e) {
       return left(AuthFailure(e));
     }

@@ -30,11 +30,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<LoginViewCubit, LoginViewState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is LoginViewLoading) {
           isLoading = true;
         } else if (state is LoginViewSuccessed) {
           isLoading = false;
+          await BlocProvider.of<LoginViewCubit>(context).setPrefs(true, state.loginData.email, state.loginData.password);
           Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.shoppingViewPath));
         } else if (state is LoginViewFailed) {
           isLoading = false;

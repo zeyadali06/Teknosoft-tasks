@@ -48,7 +48,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
           isLoading = true;
         } else if (state is SignUpViewSuccessed) {
           isLoading = false;
-          Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.shoppingViewPath));
+          Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.loginViewPath));
         } else if (state is SignUpViewFailed) {
           isLoading = false;
           showSnackBar(context, state.errMessage);

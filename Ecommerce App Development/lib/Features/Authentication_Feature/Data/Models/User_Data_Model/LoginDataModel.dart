@@ -3,7 +3,7 @@
 class LoginData {
   String? username;
   String? email;
-  final String password;
+  final String? password;
   bool usingUserName = false;
   bool usingemail = false;
 
