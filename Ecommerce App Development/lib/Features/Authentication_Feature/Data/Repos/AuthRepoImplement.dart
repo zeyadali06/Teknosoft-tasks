@@ -34,7 +34,7 @@ class AuthRepoImplementation implements AuthRepo {
   }
 
   @override
-  Future<Either<AuthFailure, AuthCompletedSuccessfully>> register(RegisterData registerData) async {
+  Future<Either<AuthFailure, AuthCompletedSuccessfully>> signUp(SignUpData registerData) async {
     try {
       if (await AccountData.getUIDFromFirestoreUsingUsername(registerData.username) != null) {
         return left(AuthFailure(FirebaseAuthException(code: "username-already-in-use")));

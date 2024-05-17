@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
-class RegisterData {
-  RegisterData({required this.username, required this.email, required this.phone, required this.password});
+class SignUpData {
+  SignUpData({required this.username, required this.email, required this.phone, required this.password});
 
   final String username;
   final String email;
