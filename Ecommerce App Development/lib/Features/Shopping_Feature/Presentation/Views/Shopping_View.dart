@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentaion/Views/Widgets/Shopping_View_Body.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Shopping_View_Body.dart';
 import 'package:flutter/material.dart';
 
 class ShoppingView extends StatelessWidget {

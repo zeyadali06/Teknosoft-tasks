@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:e_commerce_app_development/Core/Utils/App_Router.dart';
-import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentaion/Views/Widgets/Lottie_Image.dart';
+import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Lottie_Image.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,7 +19,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 1), () {
       Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.loginViewPath));
     });
   }
