@@ -1,3 +1,4 @@
+import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
 import 'package:e_commerce_app_development/Core/Utils/AuthServices.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/UserDataModel.dart';
 import 'package:e_commerce_app_development/constants.dart';
@@ -24,8 +25,8 @@ class SplashViewCubit extends Cubit<SplashViewState> {
       } else {
         emit(SplashViewSuccess(false, null, null));
       }
-    } catch (_) {
-      emit(SplashViewFailed("Error"));
+    } catch (exc) {
+      emit(SplashViewFailed(AuthFailure(exc).errMessage));
     }
   }
 }
