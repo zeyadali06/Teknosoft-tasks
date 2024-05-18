@@ -8,9 +8,9 @@ final class LoginViewInitial extends LoginViewState {}
 final class LoginViewLoading extends LoginViewState {}
 
 final class LoginViewSuccessed extends LoginViewState {
-  LoginViewSuccessed(this.loginData);
+  LoginViewSuccessed(this.userData);
 
-  final LoginData loginData;
+  final UserData userData;
 }
 
 final class LoginViewFailed extends LoginViewState {

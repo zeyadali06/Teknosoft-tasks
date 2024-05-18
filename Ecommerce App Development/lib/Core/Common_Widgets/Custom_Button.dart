@@ -9,7 +9,7 @@ class CustomButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.buttonText,
-    this.fontColor = Colors.white,
+    this.fontColor = Colors.black,
     this.backgroundColor = kPrimaryColor,
   });
 
@@ -24,9 +24,9 @@ class CustomButton extends StatelessWidget {
       onPressed: onPressed,
       minWidth: double.infinity,
       color: backgroundColor,
-      padding: const EdgeInsets.all(15),
+      height: 45,
       shape: OutlineInputBorder(borderRadius: BorderRadius.circular(kRadius), borderSide: BorderSide(width: 0, color: backgroundColor)),
-      child: Text(buttonText, style: Styles.black21w500),
+      child: Text(buttonText, style: Styles.black18w500.copyWith(color: fontColor)),
     );
   }
 }

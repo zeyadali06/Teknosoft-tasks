@@ -1,4 +1,5 @@
 import 'package:e_commerce_app_development/Core/Utils/App_Router.dart';
+import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/UserDataModel.dart';
 import 'package:e_commerce_app_development/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -20,3 +21,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+UserData? allUserData;

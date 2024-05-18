@@ -38,7 +38,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
       listener: (context, state) {
         if (state is SplashViewSuccess) {
           if (state.loggedin) {
-            Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.shoppingViewPath));
+            Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.navigationBarPath));
           } else {
             Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.loginViewPath));
           }

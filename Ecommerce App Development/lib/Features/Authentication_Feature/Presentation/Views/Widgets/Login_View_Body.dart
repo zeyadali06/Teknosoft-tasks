@@ -9,6 +9,7 @@ import 'package:e_commerce_app_development/Features/Authentication_Feature/Prese
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Login_Text_Fields_Part.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Lottie_Image.dart';
 import 'package:e_commerce_app_development/constants.dart';
+import 'package:e_commerce_app_development/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -35,8 +36,9 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           isLoading = true;
         } else if (state is LoginViewSuccessed) {
           isLoading = false;
-          await BlocProvider.of<LoginViewCubit>(context).setPrefs(true, state.loginData.email, state.loginData.password);
-          Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.shoppingViewPath));
+          await BlocProvider.of<LoginViewCubit>(context).setPrefs(true, state.userData.email, passwordController.text);
+          allUserData = state.userData;
+          Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.navigationBarPath));
         } else if (state is LoginViewFailed) {
           isLoading = false;
           showSnackBar(context, state.errMessage);

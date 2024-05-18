@@ -34,6 +34,8 @@ class AuthFailure implements Failure {
         _message = 'Wrong password';
       } else if (e.code == 'invalid-credential') {
         _message = 'Error, Please enter correct data';
+      } else if (e.code == "requires-recent-login") {
+        _message = 'Make this operation after recent login';
       } else {
         _message = 'Error try again later';
       }

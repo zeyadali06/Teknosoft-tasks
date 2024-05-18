@@ -39,7 +39,7 @@ class LoginTextFieldsPart extends StatelessWidget {
                 const SizedBox(height: 20),
 
                 // Password TextField
-                CustomPasswordTextFormField(
+                CustomObsecureTextFormField(
                   controller: passwordController,
                 ),
               ],

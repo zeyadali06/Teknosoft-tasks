@@ -63,11 +63,11 @@ class SignUpTextFieldsPart extends StatelessWidget {
             const SizedBox(height: 10),
 
             // passowrd field
-            CustomPasswordTextFormField(controller: passwordController),
+            CustomObsecureTextFormField(controller: passwordController),
             const SizedBox(height: 10),
 
             // confirm passowrd field
-            CustomPasswordTextFormField(controller: confirmPasswordController),
+            CustomObsecureTextFormField(controller: confirmPasswordController),
           ],
         ),
       ),

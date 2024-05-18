@@ -5,6 +5,7 @@ import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
 import 'package:e_commerce_app_development/Core/Utils/AuthServices.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/LoginDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/RegisterDataModel.dart';
+import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/UserDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/AuthRepo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -26,9 +27,10 @@ class AuthRepoImplementation implements AuthRepo {
         }
         email = loginData.email;
       }
-      loginData.email = email;
-      await SignIn.signIn(email!, loginData.password!);
-      return right(AuthCompletedSuccessfully(loginData));
+      Map<String, dynamic>? data = await AccountData.getUserDataFromFirestore(uid!);
+      UserCredential user = await SignIn.signIn(email!, loginData.password!);
+      UserData userData = UserData(email: email, username: data!['username'], phone: data['phone'], uid: user.user!.uid);
+      return right(AuthCompletedSuccessfully(userData));
     } catch (e) {
       return left(AuthFailure(e));
     }
@@ -40,8 +42,9 @@ class AuthRepoImplementation implements AuthRepo {
       if (await AccountData.getUIDFromFirestoreUsingUsername(registerData.username) != null) {
         return left(AuthFailure(FirebaseAuthException(code: "username-already-in-use")));
       }
-      await Register.register(registerData.toMap()..remove('password'), registerData.password);
-      return right(AuthCompletedSuccessfully(LoginData(usernameOrEmail: registerData.email, password: registerData.password)));
+      UserCredential user = await Register.register(registerData.toMap()..remove('password'), registerData.password);
+      UserData userData = UserData(email: registerData.email, username: registerData.username, phone: registerData.phone, uid: user.user!.uid);
+      return right(AuthCompletedSuccessfully(userData));
     } catch (e) {
       return left(AuthFailure(e));
     }

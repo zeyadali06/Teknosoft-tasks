@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app_development/constants.dart';
 
-class CustomPasswordTextFormField extends StatefulWidget {
-  const CustomPasswordTextFormField({
+class CustomObsecureTextFormField extends StatefulWidget {
+  const CustomObsecureTextFormField({
     super.key,
     this.controller,
     this.onSaved,
@@ -14,10 +14,10 @@ class CustomPasswordTextFormField extends StatefulWidget {
   final void Function(String?)? onSaved;
 
   @override
-  State<CustomPasswordTextFormField> createState() => _CustomPasswordTextFormFieldState();
+  State<CustomObsecureTextFormField> createState() => _CustomObsecureTextFormFieldState();
 }
 
-class _CustomPasswordTextFormFieldState extends State<CustomPasswordTextFormField> {
+class _CustomObsecureTextFormFieldState extends State<CustomObsecureTextFormField> {
   Color color = Colors.grey;
   bool foucsed = false;
   late bool obsecureText;
