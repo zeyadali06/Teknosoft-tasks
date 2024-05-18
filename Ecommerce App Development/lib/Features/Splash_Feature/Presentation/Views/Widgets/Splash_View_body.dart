@@ -16,14 +16,37 @@ class SplashViewBody extends StatefulWidget {
 }
 
 class _SplashViewBodyState extends State<SplashViewBody> {
+  bool navigated = false;
+
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-    Future.delayed(const Duration(seconds: 3), () {
-      BlocProvider.of<SplashViewCubit>(context).getPrefs();
+    _initialize();
+  }
+
+  Future<void> _initialize() async {
+    await BlocProvider.of<SplashViewCubit>(context).getPrefs();
+    await Future.delayed(const Duration(seconds: 1), () {
+      _navigateToNextScreen();
     });
+  }
+
+  void _navigateToNextScreen() {
+    if (!navigated) {
+      final state = BlocProvider.of<SplashViewCubit>(context).state;
+      if (state is SplashViewSuccess) {
+        if (state.loggedin) {
+          navigated = true;
+          Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.navigationBarPath));
+        } else {
+          Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.loginViewPath));
+        }
+      } else {
+        Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.loginViewPath));
+      }
+    }
   }
 
   @override
@@ -36,14 +59,8 @@ class _SplashViewBodyState extends State<SplashViewBody> {
   Widget build(BuildContext context) {
     return BlocListener<SplashViewCubit, SplashViewState>(
       listener: (context, state) {
-        if (state is SplashViewSuccess) {
-          if (state.loggedin) {
-            Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.navigationBarPath));
-          } else {
-            Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.loginViewPath));
-          }
-        } else {
-          Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.loginViewPath));
+        if (state is SplashViewSuccess || state is SplashViewFailed) {
+          _navigateToNextScreen();
         }
       },
       child: Scaffold(
