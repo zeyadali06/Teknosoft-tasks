@@ -5,6 +5,7 @@ class ProductModel {
   int id, price, stock, discountPercentage;
   final String title, description, brand, category, thumbnail;
   final List<dynamic> images;
+  bool favourate = false;
 
   ProductModel({
     required this.rating,
@@ -18,6 +19,7 @@ class ProductModel {
     required this.discountPercentage,
     required this.description,
     required this.title,
+    required this.favourate,
   });
 
   ProductModel.fromJson(Map<String, dynamic> json)

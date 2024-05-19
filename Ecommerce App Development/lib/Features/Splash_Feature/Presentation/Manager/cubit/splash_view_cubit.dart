@@ -14,16 +14,15 @@ class SplashViewCubit extends Cubit<SplashViewState> {
   Future<bool> checkLoginStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
-      if (prefs.getBool(loginStatusPrefKey) != null && prefs.getBool(loginStatusPrefKey) == true) {
-        if (prefs.getString(emailPrefKey) != null) {
+      if (prefs.getBool(loginStatusPrefKey) == true) {
+        if (prefs.getString(emailPrefKey) != "") {
           String? uid = await AccountData.getUIDFromFirestoreUsingEmail(prefs.getString(emailPrefKey)!);
           Map<String, dynamic>? data = await AccountData.getUserDataFromFirestore(uid!);
           allUserData = UserData(email: data!['email'], phone: data['phone'], uid: data['uid'], username: data['username']);
+          return true;
         }
-        return true;
-      } else {
-        return false;
       }
+      return false;
     } catch (exc) {
       return false;
     }

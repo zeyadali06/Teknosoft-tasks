@@ -83,6 +83,7 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
     } else {
       emit(ShoppingViewSpecificSuccessed());
     }
+
     specificBrandProducts = products;
     return products;
   }

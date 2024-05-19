@@ -35,6 +35,8 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool(loginStatusPrefKey, false);
+      await prefs.setString(emailPrefKey, "");
+      await prefs.setString(passwordPrefKey, "");
       await FirebaseAuth.instance.signOut();
       allUserData = null;
       emit(ProfileSettingsViewLoggedout());
@@ -47,7 +49,10 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool(loginStatusPrefKey, false);
+      await prefs.setString(emailPrefKey, "");
+      await prefs.setString(passwordPrefKey, "");
       await DataBase.deleteDoc(collectionPath: usersCollection, docName: allUserData!.uid);
+      await DataBase.deleteDoc(collectionPath: favourateCollection, docName: allUserData!.uid);
       await FirebaseAuth.instance.currentUser!.delete();
       allUserData = null;
       emit(ProfileSettingsViewAccountDeleted());

@@ -7,3 +7,5 @@ const String usersCollection = 'usersCollection';
 const String loginStatusPrefKey = 'loginstatus';
 const String emailPrefKey = 'email';
 const String passwordPrefKey = 'password';
+const String favourateCollection = 'favourateCollection';
+const String favouratesField = 'favourates';

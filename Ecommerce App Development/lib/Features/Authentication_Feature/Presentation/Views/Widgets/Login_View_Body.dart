@@ -38,7 +38,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
           isLoading = false;
           await BlocProvider.of<LoginViewCubit>(context).setPrefs(true, state.userData.email, passwordController.text);
           allUserData = state.userData;
-          Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.navigationBarPath));
+          Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.splashViewPath));
         } else if (state is LoginViewFailed) {
           isLoading = false;
           showSnackBar(context, state.errMessage);

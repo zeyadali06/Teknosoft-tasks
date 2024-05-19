@@ -3,11 +3,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
 import 'package:e_commerce_app_development/Core/Utils/AuthServices.dart';
+import 'package:e_commerce_app_development/Core/Utils/FirebaseFirestoreServices.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/LoginDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/RegisterDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/UserDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/AuthRepo.dart';
+import 'package:e_commerce_app_development/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepoImplementation implements AuthRepo {
   @override
@@ -42,13 +45,18 @@ class AuthRepoImplementation implements AuthRepo {
       if (await AccountData.getUIDFromFirestoreUsingUsername(registerData.username) != null) {
         return left(AuthFailure(FirebaseAuthException(code: "username-already-in-use")));
       }
+
       UserCredential user = await Register.register(registerData.toMap()..remove('password'), registerData.password);
       UserData userData = UserData(email: registerData.email, username: registerData.username, phone: registerData.phone, uid: user.user!.uid);
+
+      await DataBase.setField(collectionPath: favourateCollection, docName: userData.uid, data: {favouratesField: []});
+
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      await pref.setBool(loginStatusPrefKey, false);
+
       return right(AuthCompletedSuccessfully(userData));
     } catch (e) {
       return left(AuthFailure(e));
     }
   }
-
-  
 }

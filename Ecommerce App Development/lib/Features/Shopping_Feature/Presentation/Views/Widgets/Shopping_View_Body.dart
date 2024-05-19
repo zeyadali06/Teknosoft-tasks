@@ -4,7 +4,7 @@ import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Shopping_View_Cubit.dart/shopping_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Brands_Bar.dart';
-import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Product_Item.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Shopping_View_Product_Item.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Section_Title.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Shopping_View_Image.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Specified_Brand_Products.dart';
@@ -59,7 +59,7 @@ class _ShoppingViewBodyState extends State<ShoppingViewBody> {
                   const ShoppingViewImage(),
                   const TitleRow(text: 'Available'),
                   SizedBox(
-                    height: 172,
+                    height: 175,
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
@@ -67,9 +67,8 @@ class _ShoppingViewBodyState extends State<ShoppingViewBody> {
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: EdgeInsets.only(left: kPadding, right: (index == 4) ? kPadding : 0),
-                          child: ProductItem(
+                          child: ShoppingViewProductItem(
                             product: products[index],
-                            isFavourate: true,
                           ),
                         );
                       },

@@ -13,6 +13,7 @@ import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Pre
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Views/Change_Phone_View.dart';
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Views/Profile_Settings_View.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo_Implement.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Product_Item_Cubit.dart/product_item_cubit.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Shopping_View_Cubit.dart/shopping_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Shopping_View.dart';
 import 'package:e_commerce_app_development/Features/Splash_Feature/Presentation/Manager/cubit/splash_view_cubit.dart';
@@ -60,6 +61,9 @@ abstract class AppRouter {
       ),
       BlocProvider(
         create: (context) => ProfileSettingsViewCubit(),
+      ),
+      BlocProvider(
+        create: (context) => ProductItemCubit(),
       ),
     ],
     child: MaterialApp(

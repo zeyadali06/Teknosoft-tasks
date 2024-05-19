@@ -11,8 +11,10 @@ class DataBase {
   }
 
   static Future<dynamic> getField({required String collectionPath, required String docName, required String key}) async {
-    var data = await FirebaseFirestore.instance.collection(collectionPath).doc(docName).get();
-    return data.data()![key];
+    try {
+      var data = await FirebaseFirestore.instance.collection(collectionPath).doc(docName).get();
+      return data.data()![key];
+    } catch (_) {}
   }
 
   static Future<void> setField({required String collectionPath, required String docName, required Map<String, dynamic> data, bool merge = true}) async {

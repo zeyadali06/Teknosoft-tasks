@@ -62,8 +62,8 @@ class AccountData {
 
   // UID using username
   static Future<String?> getUIDFromFirestoreUsingUsername(String username) async {
-    QuerySnapshot uidDocument = await FirebaseFirestore.instance.collection(usersCollection).where('username', isEqualTo: username).limit(1).get();
     try {
+      QuerySnapshot uidDocument = await FirebaseFirestore.instance.collection(usersCollection).where('username', isEqualTo: username).limit(1).get();
       return uidDocument.docs[0].id;
     } catch (e) {
       return null;

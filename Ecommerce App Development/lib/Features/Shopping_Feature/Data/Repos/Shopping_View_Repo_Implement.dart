@@ -3,9 +3,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
+import 'package:e_commerce_app_development/Core/Utils/FirebaseFirestoreServices.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Capitalize_String.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_List.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo.dart';
+import 'package:e_commerce_app_development/constants.dart';
+import 'package:e_commerce_app_development/main.dart';
 
 class ShoppingRepoImplement implements ShoppingRepo {
   @override
@@ -116,6 +120,17 @@ class ShoppingRepoImplement implements ShoppingRepo {
         ProductModel product = ProductModel.fromJson(json);
         products.add(product);
       }
+
+      var result = await DataBase.getField(collectionPath: favourateCollection, docName: allUserData!.uid, key: favouratesField);
+      List<int> favourates = toListOfInt(result)!;
+      if (favourates.isNotEmpty) {
+        for (ProductModel prod in products) {
+          if (favourates.contains(prod.id)) {
+            prod.favourate = true;
+          }
+        }
+      }
+
       return right(products);
     } catch (e) {
       return left(AuthFailure(e));
