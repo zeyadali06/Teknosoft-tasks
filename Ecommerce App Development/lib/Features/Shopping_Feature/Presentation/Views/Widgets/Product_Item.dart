@@ -47,8 +47,9 @@ class _ProductItemState extends State<ProductItem> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
-                color: Colors.red,
+                color: Colors.transparent,
                 borderRadius: BorderRadius.circular(15),
               ),
               child: AspectRatio(

@@ -14,6 +14,7 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
   late List<ProductModel> avaliableProducts;
   late List<ProductModel> specificBrandProducts;
   late List<String> allBrands;
+  String selectedBrand = "All";
 
   Future<List<ProductModel>> getAvaliableProducts() async {
     List<ProductModel> products = [];
@@ -51,7 +52,6 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
     if (brands.isEmpty) {
       emit(ShoppingViewBrandsNoDataFound());
     } else {
-      brands.add("All");
       emit(ShoppingViewBrandsSuccessed());
     }
     allBrands = brands;

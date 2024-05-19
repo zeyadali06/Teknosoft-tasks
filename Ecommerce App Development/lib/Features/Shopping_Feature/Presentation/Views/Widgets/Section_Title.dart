@@ -5,29 +5,18 @@ import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter/material.dart';
 
 class TitleRow extends StatelessWidget {
-  const TitleRow({super.key, required this.rightText, required this.leftText});
+  const TitleRow({super.key, required this.text});
 
-  final String rightText;
-  final String leftText;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: kPadding, vertical: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(leftText, style: Styles.black21w500),
-          GestureDetector(
-            onTap: () {},
-            child: SizedBox(
-              width: 60,
-              height: 40,
-              child: Center(
-                child: Text(rightText, style: Styles.grey12w500),
-              ),
-            ),
-          ),
+          Text(text, style: Styles.black21w500),
         ],
       ),
     );

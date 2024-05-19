@@ -3,6 +3,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Capitalize_String.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo.dart';
 
@@ -86,8 +87,11 @@ class ShoppingRepoImplement implements ShoppingRepo {
         },
       );
 
+      brands.add("All");
       for (ProductModel prod in ret) {
-        brands.add(prod.brand);
+        if (!brands.contains(capitalizeEachWord(prod.brand.trim()))) {
+          brands.add(capitalizeEachWord(prod.brand.trim()));
+        }
       }
 
       return right(brands);
