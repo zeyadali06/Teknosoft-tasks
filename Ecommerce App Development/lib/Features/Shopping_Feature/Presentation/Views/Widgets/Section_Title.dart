@@ -13,7 +13,7 @@ class TitleRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: kPadding),
+      padding: const EdgeInsets.symmetric(horizontal: kPadding, vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

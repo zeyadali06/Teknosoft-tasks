@@ -4,9 +4,7 @@ import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter/material.dart';
 
 class ShoppingViewImage extends StatelessWidget {
-  const ShoppingViewImage({
-    super.key,
-  });
+  const ShoppingViewImage({super.key});
 
   @override
   Widget build(BuildContext context) {

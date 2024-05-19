@@ -1,4 +1,3 @@
-import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
 import 'package:e_commerce_app_development/Core/Utils/AuthServices.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/UserDataModel.dart';
 import 'package:e_commerce_app_development/constants.dart';
@@ -12,7 +11,7 @@ part 'splash_view_state.dart';
 class SplashViewCubit extends Cubit<SplashViewState> {
   SplashViewCubit() : super(SplashViewInitial());
 
-  Future<void> getPrefs() async {
+  Future<bool> checkLoginStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       if (prefs.getBool(loginStatusPrefKey) != null && prefs.getBool(loginStatusPrefKey) == true) {
@@ -21,12 +20,12 @@ class SplashViewCubit extends Cubit<SplashViewState> {
           Map<String, dynamic>? data = await AccountData.getUserDataFromFirestore(uid!);
           allUserData = UserData(email: data!['email'], phone: data['phone'], uid: data['uid'], username: data['username']);
         }
-        emit(SplashViewSuccess(prefs.getBool(loginStatusPrefKey)!, prefs.getString(emailPrefKey), prefs.getString(passwordPrefKey)));
+        return true;
       } else {
-        emit(SplashViewSuccess(false, null, null));
+        return false;
       }
     } catch (exc) {
-      emit(SplashViewFailed(AuthFailure(exc).errMessage));
+      return false;
     }
   }
 }

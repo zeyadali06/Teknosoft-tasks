@@ -1,14 +1,35 @@
 // ignore_for_file: file_names
 
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Shopping_View_Cubit.dart/shopping_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Product_Item.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Section_Title.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Shopping_View_Image.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ShoppingViewBody extends StatelessWidget {
+class ShoppingViewBody extends StatefulWidget {
   const ShoppingViewBody({super.key});
+
+  @override
+  State<ShoppingViewBody> createState() => _ShoppingViewBodyState();
+}
+
+class _ShoppingViewBodyState extends State<ShoppingViewBody> {
+  late List<ProductModel> products;
+  late List<String> brands;
+  late List<ProductModel> specificBrandProducts;
+
+  @override
+  void initState() {
+    products = BlocProvider.of<ShoppingViewCubit>(context).avaliableProducts;
+    brands = BlocProvider.of<ShoppingViewCubit>(context).allBrands;
+    specificBrandProducts = BlocProvider.of<ShoppingViewCubit>(context).specificBrandProducts;
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +38,11 @@ class ShoppingViewBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const SizedBox(height: 30),
             const Text('Shopping', style: Styles.black21w500),
+            const SizedBox(height: 30),
             const ShoppingViewImage(),
-            const TitleRow(leftText: 'New Arrival', rightText: 'See all'),
+            const TitleRow(leftText: 'Available', rightText: 'See all'),
             SizedBox(
               height: 172,
               child: ListView.builder(
@@ -29,18 +52,16 @@ class ShoppingViewBody extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: EdgeInsets.only(left: kPadding, right: (index == 4) ? kPadding : 0),
-                    child: const ProductItem(
-                      name: "Nike Blazer Low '77 Jumbo",
-                      category: "Women's Shoes",
-                      imagePath: "https",
+                    child: ProductItem(
+                      product: products[index],
                       isFavourate: true,
-                      price: 120.11,
                     ),
                   );
                 },
               ),
             ),
-            const TitleRow(leftText: 'Best Seller', rightText: 'See all'),
+            const SizedBox(height: 15),
+            const TitleRow(leftText: 'Brands', rightText: 'See all'),
             Padding(
               padding: const EdgeInsets.only(right: kPadding),
               child: GridView.builder(
@@ -51,14 +72,11 @@ class ShoppingViewBody extends StatelessWidget {
                 ),
                 itemCount: 5,
                 itemBuilder: (BuildContext context, int index) {
-                  return const Padding(
-                    padding: EdgeInsets.only(left: kPadding),
+                  return Padding(
+                    padding: const EdgeInsets.only(left: kPadding),
                     child: ProductItem(
-                      name: "Nike Blazer Low '77 Jumbo",
-                      category: "Women's Shoes",
-                      imagePath: "https",
+                      product: specificBrandProducts[index],
                       isFavourate: true,
-                      price: 120.11,
                     ),
                   );
                 },

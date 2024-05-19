@@ -12,6 +12,8 @@ import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Pre
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Views/Change_Password_View.dart';
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Views/Change_Phone_View.dart';
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Views/Profile_Settings_View.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo_Implement.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Shopping_View_Cubit.dart/shopping_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Shopping_View.dart';
 import 'package:e_commerce_app_development/Features/Splash_Feature/Presentation/Manager/cubit/splash_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Splash_Feature/Presentation/Views/Splash_View.dart';
@@ -20,7 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class AppRouter {
-  static const Widget navigationBarPath = CustomNavigationBar();
+  static Widget navigationBarPath = const CustomNavigationBar();
 
   static Widget splashViewPath = BlocProvider(
     create: (context) => SplashViewCubit(),
@@ -45,19 +47,25 @@ abstract class AppRouter {
 
   static const Widget productDetailsViewPath = ProductDetailsView();
 
-  static Widget profileSettingsViewPath = BlocProvider(
-    create: (context) => ProfileSettingsViewCubit(),
-    child: const ProfileSettingsView(),
-  );
+  static Widget profileSettingsViewPath = const ProfileSettingsView();
 
-  static Widget changePhoneViewPath = BlocProvider(
-    create: (context) => ProfileSettingsViewCubit(),
-    child: const ChangePhoneView(),
-  );
+  static Widget changePhoneViewPath = const ChangePhoneView();
 
-  static Widget changePasswordViewPath = BlocProvider(
-    create: (context) => ProfileSettingsViewCubit(),
-    child: const ChangePasswordView(),
+  static Widget changePasswordViewPath = const ChangePasswordView();
+
+  static Widget fromMaterial = MultiBlocProvider(
+    providers: [
+      BlocProvider(
+        create: (context) => ShoppingViewCubit(ShoppingRepoImplement()),
+      ),
+      BlocProvider(
+        create: (context) => ProfileSettingsViewCubit(),
+      ),
+    ],
+    child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: AppRouter.splashViewPath,
+    ),
   );
 
   static MaterialPageRoute goTo(BuildContext context, Widget toView) {

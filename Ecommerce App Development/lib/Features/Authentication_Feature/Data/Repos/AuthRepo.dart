@@ -9,7 +9,6 @@ import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/
 abstract class AuthRepo {
   Future<Either<AuthFailure, AuthCompletedSuccessfully>> login(LoginData loginData);
   Future<Either<AuthFailure, AuthCompletedSuccessfully>> signUp(SignUpData userdata);
-  Future<Either<AuthFailure, GoogleSignInSuccessed>> signInWithGoogle();
 }
 
 class AuthCompletedSuccessfully {
@@ -17,5 +16,3 @@ class AuthCompletedSuccessfully {
 
   AuthCompletedSuccessfully(this.userData);
 }
-
-class GoogleSignInSuccessed {}

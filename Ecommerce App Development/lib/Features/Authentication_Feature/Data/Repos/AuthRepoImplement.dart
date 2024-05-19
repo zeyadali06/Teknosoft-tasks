@@ -50,13 +50,5 @@ class AuthRepoImplementation implements AuthRepo {
     }
   }
 
-  @override
-  Future<Either<AuthFailure, GoogleSignInSuccessed>> signInWithGoogle() async {
-    try {
-      await SignIn.signInWithGoogle();
-      return right(GoogleSignInSuccessed());
-    } catch (e) {
-      return left(AuthFailure(e));
-    }
-  }
+  
 }

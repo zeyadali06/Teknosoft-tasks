@@ -1,23 +1,15 @@
 // ignore_for_file: file_names
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce_app_development/Core/Utils/App_Router.dart';
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:flutter/material.dart';
 
 class ProductItem extends StatefulWidget {
-  const ProductItem({
-    super.key,
-    required this.name,
-    required this.category,
-    required this.price,
-    required this.isFavourate,
-    required this.imagePath,
-  });
+  const ProductItem({super.key, required this.isFavourate, required this.product});
 
-  final String imagePath;
-  final String name;
-  final String category;
-  final double price;
+  final ProductModel product;
   final bool isFavourate;
 
   @override
@@ -30,7 +22,7 @@ class _ProductItemState extends State<ProductItem> {
   late Icon icon;
   static const Icon isPressedIcon = Icon(Icons.favorite, color: Colors.red);
   static const Icon isNotPressedIcon = Icon(Icons.favorite_outline_rounded, color: Colors.black);
- 
+
   @override
   void initState() {
     if (widget.isFavourate) {
@@ -39,7 +31,7 @@ class _ProductItemState extends State<ProductItem> {
       icon = isNotPressedIcon;
     }
     fav = widget.isFavourate;
-    
+
     super.initState();
   }
 
@@ -61,19 +53,19 @@ class _ProductItemState extends State<ProductItem> {
               ),
               child: AspectRatio(
                 aspectRatio: 1.8 / 1,
-                child: Container(),
+                child: CachedNetworkImage(imageUrl: widget.product.images[0]),
               ),
             ),
             const SizedBox(height: 10),
-            Text(widget.name, style: Styles.black14w500, maxLines: 2, overflow: TextOverflow.ellipsis),
+            Text(widget.product.title, style: Styles.black14w500, maxLines: 2, overflow: TextOverflow.ellipsis),
             Row(
               children: [
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(widget.category, style: Styles.grey12w500, maxLines: 1, overflow: TextOverflow.ellipsis),
-                      Text("\$${widget.price}", style: Styles.black14w500),
+                      Text(widget.product.category, style: Styles.grey12w500, maxLines: 1, overflow: TextOverflow.ellipsis),
+                      Text("\$${widget.product.price}", style: Styles.black14w500),
                     ],
                   ),
                 ),

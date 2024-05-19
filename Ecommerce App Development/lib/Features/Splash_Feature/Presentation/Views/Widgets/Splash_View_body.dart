@@ -2,6 +2,7 @@
 
 import 'package:e_commerce_app_development/Core/Utils/App_Router.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Lottie_Image.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Shopping_View_Cubit.dart/shopping_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Splash_Feature/Presentation/Manager/cubit/splash_view_cubit.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter/material.dart';
@@ -23,30 +24,23 @@ class _SplashViewBodyState extends State<SplashViewBody> {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-    _initialize();
+    _getData();
   }
 
-  Future<void> _initialize() async {
-    await BlocProvider.of<SplashViewCubit>(context).getPrefs();
-    await Future.delayed(const Duration(seconds: 1), () {
-      _navigateToNextScreen();
-    });
-  }
-
-  void _navigateToNextScreen() {
-    if (!navigated) {
-      final state = BlocProvider.of<SplashViewCubit>(context).state;
-      if (state is SplashViewSuccess) {
-        if (state.loggedin) {
-          navigated = true;
-          Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.navigationBarPath));
-        } else {
-          Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.loginViewPath));
-        }
-      } else {
+  Future<void> _getData() async {
+    bool loggedIn = await BlocProvider.of<SplashViewCubit>(context).checkLoginStatus();
+    if (!loggedIn) {
+      await Future.delayed(const Duration(seconds: 1), () {
         Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.loginViewPath));
-      }
+      });
+      return;
     }
+    await BlocProvider.of<ShoppingViewCubit>(context).getAvaliableProducts();
+    await BlocProvider.of<ShoppingViewCubit>(context).getBrands();
+    await BlocProvider.of<ShoppingViewCubit>(context).getSpecificBrandProducts("All");
+    await Future.delayed(const Duration(seconds: 1), () {
+      Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.navigationBarPath));
+    });
   }
 
   @override
@@ -57,15 +51,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return
-        // BlocListener<SplashViewCubit, SplashViewState>(
-        //   listener: (context, state) {
-        //     if (state is SplashViewSuccess || state is SplashViewFailed) {
-        //       // _navigateToNextScreen();
-        //     }
-        //   },
-        // child:
-        Scaffold(
+    return Scaffold(
       body: Container(
         width: double.infinity,
         color: Colors.white,
@@ -78,7 +64,6 @@ class _SplashViewBodyState extends State<SplashViewBody> {
           ],
         ),
       ),
-      // ),
     );
   }
 }
