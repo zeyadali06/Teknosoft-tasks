@@ -23,30 +23,38 @@ class ImagesBar extends StatelessWidget {
           itemCount: product.images.length,
           physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.only(left: kPadding, right: (index == 4) ? kPadding : 0),
-              child: GestureDetector(
-                onTap: () {
-                  onImageSelected(index);
-                },
-                child: CircleAvatar(
-                  radius: 36,
-                  backgroundColor: index == selecetdIndex ? kPrimaryColor : Colors.white,
-                  child: Container(
-                    clipBehavior: Clip.hardEdge,
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
-                    child: CircleAvatar(
-                      backgroundColor: const Color(0xfff6f6f6),
-                      radius: 34,
-                      child: ProductImage(
-                        url: product.images[index],
-                        boxFit: BoxFit.fill,
+            try {
+              return Padding(
+                padding: EdgeInsets.only(left: kPadding, right: (index == 4) ? kPadding : 0),
+                child: GestureDetector(
+                  onTap: () {
+                    onImageSelected(index);
+                  },
+                  child: CircleAvatar(
+                    radius: 36,
+                    backgroundColor: index == selecetdIndex ? kPrimaryColor : Colors.white,
+                    child: Container(
+                      clipBehavior: Clip.hardEdge,
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
+                      child: CircleAvatar(
+                        backgroundColor: const Color(0xfff6f6f6),
+                        radius: 34,
+                        child: SizedBox(
+                          height: 100,
+                          width: 100,
+                          child: ProductImage(
+                            url: product.images[index],
+                            boxFit: BoxFit.fill,
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            );
+              );
+            } catch (_) {
+              return const Icon(Icons.sim_card_alert_outlined);
+            }
           },
         ),
       ),
