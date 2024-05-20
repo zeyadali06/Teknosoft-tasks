@@ -12,6 +12,7 @@ import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Pre
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Views/Change_Password_View.dart';
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Views/Change_Phone_View.dart';
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Views/Profile_Settings_View.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo_Implement.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Product_Item_Cubit.dart/product_item_cubit.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Shopping_View_Cubit.dart/shopping_view_cubit.dart';
@@ -46,7 +47,7 @@ abstract class AppRouter {
 
   static const Widget favourateViewPath = FavourateView();
 
-  static const Widget productDetailsViewPath = ProductDetailsView();
+  static Function(ProductModel product) productDetailsViewPath = (product) => ProductDetailsView(product: product);
 
   static Widget profileSettingsViewPath = const ProfileSettingsView();
 

@@ -29,7 +29,7 @@ class CartViewProductItem extends StatelessWidget {
             child: AspectRatio(
               aspectRatio: 1 / 1,
               child: ProductImage(
-                product: product,
+                url: product.thumbnail,
                 boxFit: BoxFit.fill,
               ),
             ),

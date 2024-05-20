@@ -15,7 +15,7 @@ class ShoppingViewProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(AppRouter.goTo(context, AppRouter.productDetailsViewPath));
+        Navigator.of(context).push(AppRouter.goTo(context, AppRouter.productDetailsViewPath(product)));
       },
       child: SizedBox(
         width: 150,
@@ -30,7 +30,7 @@ class ShoppingViewProductItem extends StatelessWidget {
               ),
               child: AspectRatio(
                 aspectRatio: 1.8 / 1,
-                child: ProductImage(product: product),
+                child: ProductImage(url: product.thumbnail),
               ),
             ),
             const SizedBox(height: 10),
