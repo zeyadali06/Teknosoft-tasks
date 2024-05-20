@@ -17,7 +17,7 @@ class ProductDetailsView extends StatelessWidget {
         title: const Text('Details Products', style: Styles.black21w500),
         centerTitle: true,
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.grey.withOpacity(.1),
+        backgroundColor: const Color(0xfff6f6f6),
         leading: GestureDetector(
           onTap: () => Navigator.of(context).pop(),
           child: const Padding(

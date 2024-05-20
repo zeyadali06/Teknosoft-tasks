@@ -87,4 +87,26 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
     specificBrandProducts = products;
     return products;
   }
+
+  Future<ProductModel?> getProduct(int id) async {
+    ProductModel? product;
+    try {
+      emit(ShoppingViewProductGettedLoading());
+      var res = await repo.getAllProducts();
+      res.fold((l) {
+        throw l;
+      }, (r) {
+        for (ProductModel prod in r) {
+          if (prod.id == id) {
+            product = prod;
+          }
+        }
+      });
+      emit(ShoppingViewProductGettedSuccessed());
+      return product;
+    } catch (e) {
+      emit(ShoppingViewProductGettedFailed(errMessage: AuthFailure(e).errMessage));
+    }
+    return null;
+  }
 }

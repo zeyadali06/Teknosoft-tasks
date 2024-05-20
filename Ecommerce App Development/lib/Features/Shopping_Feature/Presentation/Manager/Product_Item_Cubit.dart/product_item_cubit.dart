@@ -22,15 +22,4 @@ class ProductItemCubit extends Cubit<ProductItemState> {
 
     await DataBase.setField(collectionPath: favourateCollection, docName: allUserData!.uid, data: {favouratesField: favourates.toSet().toList()});
   }
-
-  Future<bool> getFavourateStatus(ProductModel product) async {
-    var ret = await DataBase.getField(collectionPath: favourateCollection, docName: allUserData!.uid, key: favouratesField);
-    List<int> favourates = toListOfInt(ret)!;
-
-    if (favourates.contains(product.id)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }

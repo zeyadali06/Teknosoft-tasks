@@ -1,11 +1,15 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Manager/Product_Details_Cubit/product_details_cubit.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavourateIconButton extends StatefulWidget {
-  const FavourateIconButton({super.key, required this.isPressed});
+  const FavourateIconButton({super.key, required this.product, required this.isPressed});
 
   final bool isPressed;
+  final ProductModel product;
 
   @override
   State<FavourateIconButton> createState() => _FavourateIconButtonState();
@@ -35,13 +39,14 @@ class _FavourateIconButtonState extends State<FavourateIconButton> {
       radius: 16,
       backgroundColor: Colors.transparent,
       child: IconButton(
-        onPressed: () {
+        onPressed: () async {
           fav = !fav;
           if (fav) {
             icon = isPressedIcon;
           } else {
             icon = isNotPressedIcon;
           }
+          await BlocProvider.of<ProductDetailsCubit>(context).changeFavourateStatus(widget.product, fav);
           setState(() {});
         },
         padding: EdgeInsets.zero,

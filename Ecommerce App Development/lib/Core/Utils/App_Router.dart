@@ -7,6 +7,7 @@ import 'package:e_commerce_app_development/Features/Authentication_Feature/Prese
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/SignUp_View.dart';
 import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Views/Cart_View.dart';
 import 'package:e_commerce_app_development/Features/Favourate_Feature/Presentation/Views/Favourate_View.dart';
+import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Manager/Product_Details_Cubit/product_details_cubit.dart';
 import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Views/Product_Details_View.dart';
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Manager/Profile_Settings_View_Cubit.dart/profile_settings_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Views/Change_Password_View.dart';
@@ -47,7 +48,10 @@ abstract class AppRouter {
 
   static const Widget favourateViewPath = FavourateView();
 
-  static Function(ProductModel product) productDetailsViewPath = (product) => ProductDetailsView(product: product);
+  static Function(ProductModel product) productDetailsViewPath = (product) => BlocProvider(
+        create: (context) => ProductDetailsCubit(),
+        child: ProductDetailsView(product: product),
+      );
 
   static Widget profileSettingsViewPath = const ProfileSettingsView();
 

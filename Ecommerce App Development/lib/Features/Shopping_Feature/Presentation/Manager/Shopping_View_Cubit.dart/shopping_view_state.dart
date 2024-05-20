@@ -40,3 +40,13 @@ final class ShoppingViewSpecificFailed extends ShoppingViewState {
 
   ShoppingViewSpecificFailed({required this.errMessage});
 }
+
+final class ShoppingViewProductGettedSuccessed extends ShoppingViewState {}
+
+final class ShoppingViewProductGettedFailed extends ShoppingViewState {
+  final String errMessage;
+
+  ShoppingViewProductGettedFailed({required this.errMessage});
+}
+
+final class ShoppingViewProductGettedLoading extends ShoppingViewState {}

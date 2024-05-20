@@ -39,7 +39,7 @@ class _ShoppingViewBodyState extends State<ShoppingViewBody> {
   Widget build(BuildContext context) {
     return BlocConsumer<ShoppingViewCubit, ShoppingViewState>(
       listener: (context, state) {
-        if (state is ShoppingViewSpecificLoading) {
+        if (state is ShoppingViewSpecificLoading || state is ShoppingViewProductGettedLoading) {
           isLoading = true;
         } else {
           isLoading = false;
