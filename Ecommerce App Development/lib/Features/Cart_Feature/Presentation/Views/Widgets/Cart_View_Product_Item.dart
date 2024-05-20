@@ -43,7 +43,7 @@ class CartViewProductItem extends StatelessWidget {
                 Text(product.title, style: Styles.black14w500, maxLines: 1, overflow: TextOverflow.ellipsis),
                 Text(product.category, style: Styles.grey12w500, maxLines: 1, overflow: TextOverflow.ellipsis),
                 const SizedBox(height: 10),
-                Text("\$${product.price}", style: Styles.black14w500.copyWith(fontSize: 16)),
+                Text("\$${product.price.toStringAsFixed(2)}", style: Styles.black14w500.copyWith(fontSize: 16)),
               ],
             ),
           ),
