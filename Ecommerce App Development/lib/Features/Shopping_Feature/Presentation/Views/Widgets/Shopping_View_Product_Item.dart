@@ -1,6 +1,6 @@
 // ignore_for_file: file_names
 
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce_app_development/Core/Common_Widgets/Product_Image.dart';
 import 'package:e_commerce_app_development/Core/Utils/App_Router.dart';
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
@@ -30,7 +30,7 @@ class ShoppingViewProductItem extends StatelessWidget {
               ),
               child: AspectRatio(
                 aspectRatio: 1.8 / 1,
-                child: CachedNetworkImage(imageUrl: product.images[0]),
+                child: ProductImage(product: product),
               ),
             ),
             const SizedBox(height: 10),
