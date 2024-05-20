@@ -6,9 +6,10 @@ import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter/material.dart';
 
 class ImagesBar extends StatelessWidget {
-  const ImagesBar({super.key, required this.product, required this.onImageSelected});
+  const ImagesBar({super.key, required this.product, required this.onImageSelected, required this.selecetdIndex});
 
   final ProductModel product;
+  final int selecetdIndex;
   final void Function(int imageIndex) onImageSelected;
 
   @override
@@ -30,12 +31,12 @@ class ImagesBar extends StatelessWidget {
                 },
                 child: CircleAvatar(
                   radius: 36,
-                  backgroundColor: Colors.white,
+                  backgroundColor: index == selecetdIndex ? kPrimaryColor : Colors.white,
                   child: Container(
                     clipBehavior: Clip.hardEdge,
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
                     child: CircleAvatar(
-                      backgroundColor: Colors.grey.withOpacity(.1),
+                      backgroundColor: const Color(0xfff6f6f6),
                       radius: 34,
                       child: ProductImage(
                         url: product.images[index],

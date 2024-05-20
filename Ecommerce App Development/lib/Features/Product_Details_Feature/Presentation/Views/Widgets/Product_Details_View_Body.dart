@@ -26,7 +26,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey.withOpacity(.1),
+      color: const Color(0xfff6f6f6),
       child: Column(
         children: [
           SizedBox(
@@ -39,6 +39,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
               imageIndex = index;
               setState(() {});
             },
+            selecetdIndex: imageIndex,
           ),
         ],
       ),
