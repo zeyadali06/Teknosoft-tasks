@@ -83,24 +83,30 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(kPadding),
-                    child: Row(
-                      children: [
-                        NumberPicker(
-                          onNumberChanged: (number) {},
-                          maxItemsInStock: widget.product.stock,
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: CustomButton(
-                            onPressed: () {},
-                            buttonText: 'Add to cart',
+                  if (widget.product.stock == 0)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: kPadding),
+                      child: Text('Out of stock', style: Styles.black18w500.copyWith(color: Colors.red)),
+                    )
+                  else
+                    Padding(
+                      padding: const EdgeInsets.all(kPadding),
+                      child: Row(
+                        children: [
+                          NumberPicker(
+                            onNumberChanged: (number) {},
+                            maxItemsInStock: widget.product.stock,
                           ),
-                        ),
-                      ],
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: CustomButton(
+                              onPressed: () {},
+                              buttonText: 'Add to cart',
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
