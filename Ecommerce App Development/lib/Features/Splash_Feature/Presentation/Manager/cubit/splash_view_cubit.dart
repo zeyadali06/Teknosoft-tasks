@@ -12,8 +12,8 @@ class SplashViewCubit extends Cubit<SplashViewState> {
   SplashViewCubit() : super(SplashViewInitial());
 
   Future<bool> checkLoginStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
       if (prefs.getBool(loginStatusPrefKey) == true) {
         if (prefs.getString(emailPrefKey) != "") {
           String? uid = await AccountData.getUIDFromFirestoreUsingEmail(prefs.getString(emailPrefKey)!);
@@ -22,9 +22,7 @@ class SplashViewCubit extends Cubit<SplashViewState> {
           return true;
         }
       }
-      return false;
-    } catch (exc) {
-      return false;
-    }
+    } catch (_) {}
+    return false;
   }
 }
