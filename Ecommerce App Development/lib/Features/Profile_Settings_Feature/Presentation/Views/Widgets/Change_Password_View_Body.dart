@@ -22,41 +22,42 @@ class _ChangePasswordViewBodyState extends State<ChangePasswordViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProfileSettingsViewCubit, ProfileSettingsViewState>(
+    return BlocConsumer<ProfileSettingsViewCubit, ProfileSettingsViewState>(
       listener: (context, state) {
-        isLoading = false;
-        if (state is ProfileSettingsViewPasswordChanged) {
+        if (state is ProfileSettingsViewLoading) {
+          isLoading = true;
+          return;
+        } else if (state is ProfileSettingsViewPasswordChanged) {
           showSnackBar(context, "Password changed successfully.");
           Navigator.pop(context);
         } else if (state is ProfileSettingsViewFailed) {
           showSnackBar(context, state.errMessage);
         }
+        isLoading = false;
       },
-      child: ModalProgressHUD(
-        inAsyncCall: isLoading,
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(kPadding),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CustomObsecureTextFormField(
-                  controller: controller,
-                ),
-                const SizedBox(height: 50),
-                CustomButton(
-                  onPressed: () async {
-                    isLoading = true;
-                    setState(() {});
-                    await BlocProvider.of<ProfileSettingsViewCubit>(context).changePassword(controller.text);
-                  },
-                  buttonText: 'Change',
-                )
-              ],
+      builder: (context, state) {
+        return ModalProgressHUD(
+          inAsyncCall: isLoading,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(kPadding),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomObsecureTextFormField(
+                    controller: controller,
+                  ),
+                  const SizedBox(height: 50),
+                  CustomButton(
+                    onPressed: () async => await BlocProvider.of<ProfileSettingsViewCubit>(context).changePassword(controller.text),
+                    buttonText: 'Change',
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

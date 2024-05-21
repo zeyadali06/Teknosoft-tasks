@@ -5,9 +5,9 @@ sealed class ProfileSettingsViewState {}
 
 final class ProfileSettingsViewInitial extends ProfileSettingsViewState {}
 
-final class ProfileSettingsViewLoggedout extends ProfileSettingsViewState {}
+final class ProfileSettingsViewLoading extends ProfileSettingsViewState {}
 
-final class ProfileSettingsViewAccountDeleted extends ProfileSettingsViewState {}
+final class ProfileSettingsViewExitFromAccount extends ProfileSettingsViewState {}
 
 final class ProfileSettingsViewPasswordChanged extends ProfileSettingsViewState {}
 

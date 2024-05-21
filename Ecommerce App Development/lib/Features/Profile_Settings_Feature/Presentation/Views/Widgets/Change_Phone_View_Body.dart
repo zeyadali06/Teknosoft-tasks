@@ -22,43 +22,44 @@ class _ChangePhoneViewBodyState extends State<ChangePhoneViewBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProfileSettingsViewCubit, ProfileSettingsViewState>(
+    return BlocConsumer<ProfileSettingsViewCubit, ProfileSettingsViewState>(
       listener: (context, state) {
-        isLoading = false;
-        if (state is ProfileSettingsViewPhoneChanged) {
+        if (state is ProfileSettingsViewLoading) {
+          isLoading = true;
+          return;
+        } else if (state is ProfileSettingsViewPhoneChanged) {
           showSnackBar(context, "Phone changed successfully.");
           Navigator.pop(context);
         } else if (state is ProfileSettingsViewFailed) {
           showSnackBar(context, state.errMessage);
         }
+        isLoading = false;
       },
-      child: ModalProgressHUD(
-        inAsyncCall: isLoading,
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(kPadding),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CustomTextFormField(
-                  hintText: 'Enter new phone number',
-                  label: 'Phone',
-                  controller: controller,
-                ),
-                const SizedBox(height: 50),
-                CustomButton(
-                  onPressed: () async {
-                    isLoading = true;
-                    setState(() {});
-                    await BlocProvider.of<ProfileSettingsViewCubit>(context).changePhone(controller.text);
-                  },
-                  buttonText: 'Change',
-                )
-              ],
+      builder: (context, state) {
+        return ModalProgressHUD(
+          inAsyncCall: isLoading,
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(kPadding),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomTextFormField(
+                    hintText: 'Enter new phone number',
+                    label: 'Phone',
+                    controller: controller,
+                  ),
+                  const SizedBox(height: 50),
+                  CustomButton(
+                    onPressed: () async => await BlocProvider.of<ProfileSettingsViewCubit>(context).changePhone(controller.text),
+                    buttonText: 'Change',
+                  )
+                ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

@@ -42,7 +42,9 @@ class LoginViewCubit extends Cubit<LoginViewState> {
         await prefs.setString(passwordPrefKey, password);
       }
     } catch (e) {
-      emit(LoginViewFailed(AuthFailure(e).errMessage));
+      try {
+        emit(LoginViewFailed(AuthFailure(e).errMessage));
+      } catch (_) {}
     }
   }
 }

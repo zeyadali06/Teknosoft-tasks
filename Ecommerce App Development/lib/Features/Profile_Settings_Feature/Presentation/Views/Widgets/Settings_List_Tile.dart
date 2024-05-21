@@ -15,9 +15,7 @@ class SettingsListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(AppRouter.goTo(context, toView));
-      },
+      onTap: () => Navigator.of(context).push(AppRouter.goTo(context, toView)),
       child: ListTile(
         title: Text(listTileText, style: Styles.black21w500),
         leading: Icon(icon, color: kPrimaryColor),

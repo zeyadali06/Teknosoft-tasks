@@ -25,14 +25,15 @@ class _ProfileSettingsViewBodyState extends State<ProfileSettingsViewBody> {
   Widget build(BuildContext context) {
     return BlocConsumer<ProfileSettingsViewCubit, ProfileSettingsViewState>(
       listener: (context, state) {
-        isLoading = false;
-        if (state is ProfileSettingsViewFailed) {
+        if (state is ProfileSettingsViewLoading) {
+          isLoading = true;
+          return;
+        } else if (state is ProfileSettingsViewFailed) {
           showSnackBar(context, state.errMessage);
-        } else if (state is ProfileSettingsViewAccountDeleted) {
-          Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.loginViewPath));
-        } else if (state is ProfileSettingsViewLoggedout) {
+        } else if (state is ProfileSettingsViewExitFromAccount) {
           Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.loginViewPath));
         }
+        isLoading = false;
       },
       builder: (context, state) {
         return ModalProgressHUD(
@@ -52,22 +53,14 @@ class _ProfileSettingsViewBodyState extends State<ProfileSettingsViewBody> {
                     children: [
                       CustomButton(
                         buttonText: "Logout",
-                        onPressed: () async {
-                          isLoading = true;
-                          setState(() {});
-                          await BlocProvider.of<ProfileSettingsViewCubit>(context).logout();
-                        },
+                        onPressed: () async => await BlocProvider.of<ProfileSettingsViewCubit>(context).logout(),
                       ),
                       const SizedBox(height: 15),
                       CustomButton(
                         backgroundColor: Colors.red,
                         fontColor: Colors.white,
                         buttonText: "Delete Account",
-                        onPressed: () async {
-                          isLoading = true;
-                          setState(() {});
-                          await BlocProvider.of<ProfileSettingsViewCubit>(context).deleteAccount();
-                        },
+                        onPressed: () async => await BlocProvider.of<ProfileSettingsViewCubit>(context).deleteAccount(),
                       ),
                     ],
                   ),

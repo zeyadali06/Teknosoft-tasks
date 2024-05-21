@@ -13,28 +13,28 @@ class ProfileImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Stack(
+        const Stack(
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 70,
               backgroundImage: AssetImage("assets/images/profile-user.png"),
               backgroundColor: Colors.white,
             ),
-            Positioned(
-              bottom: 3,
-              right: 5,
-              child: Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), color: Colors.deepPurple[100]),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.edit),
-                  color: Colors.indigo[600],
-                  iconSize: 20,
-                ),
-              ),
-            )
+            // Positioned(
+            //   bottom: 3,
+            //   right: 5,
+            //   child: Container(
+            //     width: 40,
+            //     height: 40,
+            //     decoration: BoxDecoration(borderRadius: BorderRadius.circular(100), color: Colors.deepPurple[100]),
+            //     child: IconButton(
+            //       onPressed: () {},
+            //       icon: const Icon(Icons.edit),
+            //       color: Colors.indigo[600],
+            //       iconSize: 20,
+            //     ),
+            //   ),
+            // )
           ],
         ),
         const SizedBox(height: 15),

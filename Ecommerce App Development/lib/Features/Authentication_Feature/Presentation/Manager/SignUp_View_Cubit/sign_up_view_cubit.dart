@@ -22,7 +22,9 @@ class SignUpViewCubit extends Cubit<SignUpViewState> {
         emit(SignUpViewSuccessed());
       });
     } catch (e) {
-      emit(SignUpViewFailed(AuthFailure(e).errMessage));
+      try {
+        emit(SignUpViewFailed(AuthFailure(e).errMessage));
+      } catch (_) {}
     }
   }
 }

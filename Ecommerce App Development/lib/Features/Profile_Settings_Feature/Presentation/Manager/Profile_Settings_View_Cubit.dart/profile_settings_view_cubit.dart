@@ -14,39 +14,49 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
 
   Future<void> changePhone(String phone) async {
     try {
+      emit(ProfileSettingsViewLoading());
       allUserData!.phone = phone;
       await DataBase.updateField(collectionPath: usersCollection, docName: allUserData!.uid, data: allUserData!.toMap());
       emit(ProfileSettingsViewPhoneChanged());
     } catch (exc) {
-      emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+      try {
+        emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+      } catch (_) {}
     }
   }
 
   Future<void> changePassword(String password) async {
     try {
+      emit(ProfileSettingsViewLoading());
       await FirebaseAuth.instance.currentUser!.updatePassword(password);
       emit(ProfileSettingsViewPasswordChanged());
     } catch (exc) {
-      emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+      try {
+        emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+      } catch (_) {}
     }
   }
 
   Future<void> logout() async {
     try {
+      emit(ProfileSettingsViewLoading());
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool(loginStatusPrefKey, false);
       await prefs.setString(emailPrefKey, "");
       await prefs.setString(passwordPrefKey, "");
       await FirebaseAuth.instance.signOut();
       allUserData = null;
-      emit(ProfileSettingsViewLoggedout());
+      emit(ProfileSettingsViewExitFromAccount());
     } catch (exc) {
-      emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+      try {
+        emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+      } catch (_) {}
     }
   }
 
   Future<void> deleteAccount() async {
     try {
+      emit(ProfileSettingsViewLoading());
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool(loginStatusPrefKey, false);
       await prefs.setString(emailPrefKey, "");
@@ -55,9 +65,11 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
       await DataBase.deleteDoc(collectionPath: favourateCollection, docName: allUserData!.uid);
       await FirebaseAuth.instance.currentUser!.delete();
       allUserData = null;
-      emit(ProfileSettingsViewAccountDeleted());
+      emit(ProfileSettingsViewExitFromAccount());
     } catch (exc) {
-      emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+      try {
+        emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+      } catch (_) {}
     }
   }
 }
