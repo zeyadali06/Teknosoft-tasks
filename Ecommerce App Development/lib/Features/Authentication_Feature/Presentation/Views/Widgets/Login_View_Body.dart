@@ -34,15 +34,15 @@ class _LoginViewBodyState extends State<LoginViewBody> {
       listener: (context, state) async {
         if (state is LoginViewLoading) {
           isLoading = true;
+          return;
         } else if (state is LoginViewSuccessed) {
-          isLoading = false;
           await BlocProvider.of<LoginViewCubit>(context).setPrefs(true, state.userData.email, passwordController.text);
           allUserData = state.userData;
           Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.splashViewPath));
         } else if (state is LoginViewFailed) {
-          isLoading = false;
           showSnackBar(context, state.errMessage);
         }
+        isLoading = false;
       },
       builder: (context, state) {
         return ModalProgressHUD(

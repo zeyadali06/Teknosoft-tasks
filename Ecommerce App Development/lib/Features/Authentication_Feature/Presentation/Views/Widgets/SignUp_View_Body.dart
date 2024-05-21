@@ -46,13 +46,13 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
       listener: (context, state) {
         if (state is SignUpViewLoading) {
           isLoading = true;
+          return;
         } else if (state is SignUpViewSuccessed) {
-          isLoading = false;
           Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.splashViewPath));
         } else if (state is SignUpViewFailed) {
-          isLoading = false;
           showSnackBar(context, state.errMessage);
         }
+        isLoading = false;
       },
       builder: (context, state) {
         return ModalProgressHUD(
