@@ -14,8 +14,8 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductDetailsCubit() : super(ProductDetailsInitial());
 
   Future<void> changeFavourateStatus(ProductModel product, bool status) async {
-    emit(ProductDetailsLoading());
     try {
+      emit(ProductDetailsLoading());
       var res = await DataBase.getField(collectionPath: favourateCollection, docName: allUserData!.uid, key: favouratesField);
 
       List<int> favourates = convertToList(res)!;
@@ -28,18 +28,9 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
       emit(ProductDetailsFavourateSuccessed());
     } catch (e) {
-      emit(ProductDetailsFailed(errMessage: AuthFailure(e).errMessage));
-    }
-  }
-
-  Future<bool> getFavourateStatus(ProductModel product) async {
-    var ret = await DataBase.getField(collectionPath: favourateCollection, docName: allUserData!.uid, key: favouratesField);
-    List<int> favourates = convertToList(ret)!;
-
-    if (favourates.contains(product.id)) {
-      return true;
-    } else {
-      return false;
+      try {
+        emit(ProductDetailsFailed(errMessage: AuthFailure(e).errMessage));
+      } catch (_) {}
     }
   }
 
@@ -47,9 +38,10 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     try {
       emit(ProductDetailsLoading());
       if (numberOfItems == 0) {
-        emit(ProductDetailsNOItemsEqualZero());
+        emit(ProductDetailsCartNOItemsEqualZero());
         return;
       }
+      
       var res = await DataBase.getField(collectionPath: cartCollection, docName: allUserData!.uid, key: cartField);
       Map<String, int> data = convertToMap(res)!;
 

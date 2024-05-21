@@ -44,8 +44,11 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
         if (state is ProductDetailsLoading) {
           isLoading = true;
           return;
-        } else if (state is ProductDetailsNOItemsEqualZero) {
+        } else if (state is ProductDetailsCartNOItemsEqualZero) {
           showSnackBar(context, "Please, enter a number.");
+        } else if (state is ProductDetailsCartSuccessed) {
+          showSnackBar(context, "Items added to cart successfully");
+          Navigator.of(context).pop();
         }
         isLoading = false;
       },
