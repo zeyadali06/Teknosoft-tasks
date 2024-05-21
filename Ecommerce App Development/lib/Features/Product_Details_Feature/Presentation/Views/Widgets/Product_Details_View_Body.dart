@@ -2,6 +2,7 @@
 
 import 'package:e_commerce_app_development/Core/Common_Widgets/Custom_Button.dart';
 import 'package:e_commerce_app_development/Core/Common_Widgets/Product_Image.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/SnackBar.dart';
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
 import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Manager/Product_Details_Cubit/product_details_cubit.dart';
 import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Views/Widgets/Description_Text_Product_Details_View.dart';
@@ -27,10 +28,12 @@ class ProductDetailsViewBody extends StatefulWidget {
 class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
   late int imageIndex;
   bool isLoading = false;
+  late int numberOfItems;
 
   @override
   void initState() {
     imageIndex = 0;
+    numberOfItems = widget.product.itemsInCart;
     super.initState();
   }
 
@@ -40,9 +43,11 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
       listener: (context, state) {
         if (state is ProductDetailsLoading) {
           isLoading = true;
-        } else if (state is ProductDetailsFavourateSuccessed || state is ProductDetailsCartSuccessed) {
-          isLoading = false;
+          return;
+        } else if (state is ProductDetailsNOItemsEqualZero) {
+          showSnackBar(context, "Please, enter a number.");
         }
+        isLoading = false;
       },
       builder: (context, state) {
         return ModalProgressHUD(
@@ -109,13 +114,18 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                             child: Row(
                               children: [
                                 NumberPicker(
-                                  onNumberChanged: (number) {},
+                                  onNumberChanged: (number) {
+                                    numberOfItems = number;
+                                  },
+                                  initNumberOfItems: widget.product.itemsInCart,
                                   maxItemsInStock: widget.product.stock,
                                 ),
                                 const SizedBox(width: 10),
                                 Expanded(
                                   child: CustomButton(
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      await BlocProvider.of<ProductDetailsCubit>(context).addToCart(widget.product, numberOfItems);
+                                    },
                                     buttonText: 'Add to cart',
                                   ),
                                 ),

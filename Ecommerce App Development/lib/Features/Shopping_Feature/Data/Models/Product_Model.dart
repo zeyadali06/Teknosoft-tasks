@@ -6,6 +6,7 @@ class ProductModel {
   final String title, description, brand, category, thumbnail;
   final List<dynamic> images;
   bool favourate = false;
+  int itemsInCart = 0;
 
   ProductModel({
     required this.rating,

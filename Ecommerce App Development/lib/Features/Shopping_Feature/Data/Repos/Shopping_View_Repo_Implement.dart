@@ -122,7 +122,7 @@ class ShoppingRepoImplement implements ShoppingRepo {
       }
 
       var result = await DataBase.getField(collectionPath: favourateCollection, docName: allUserData!.uid, key: favouratesField);
-      List<int> favourates = toListOfInt(result)!;
+      List<int> favourates = convertToList(result)!;
       if (favourates.isNotEmpty) {
         for (ProductModel prod in products) {
           if (favourates.contains(prod.id)) {

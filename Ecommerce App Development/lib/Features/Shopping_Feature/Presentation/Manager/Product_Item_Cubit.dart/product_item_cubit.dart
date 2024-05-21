@@ -13,7 +13,7 @@ class ProductItemCubit extends Cubit<ProductItemState> {
 
   Future<void> changeFavourateStatus(ProductModel product, bool status) async {
     var ret = await DataBase.getField(collectionPath: favourateCollection, docName: allUserData!.uid, key: favouratesField);
-    List<int> favourates = toListOfInt(ret)!;
+    List<int> favourates = convertToList(ret)!;
     if (status) {
       favourates.add(product.id);
     } else {

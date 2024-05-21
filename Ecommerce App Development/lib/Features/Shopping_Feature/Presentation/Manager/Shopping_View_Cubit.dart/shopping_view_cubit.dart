@@ -1,7 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
+import 'package:e_commerce_app_development/Core/Utils/FirebaseFirestoreServices.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_Map.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo.dart';
+import 'package:e_commerce_app_development/constants.dart';
+import 'package:e_commerce_app_development/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -102,6 +106,15 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
           }
         }
       });
+
+      var result = await DataBase.getField(collectionPath: cartCollection, docName: allUserData!.uid, key: cartField);
+      Map<String, int> itemsInCart = convertToMap(result)!;
+      if (itemsInCart.isNotEmpty) {
+        if (itemsInCart.containsKey(id.toString())) {
+          product!.itemsInCart = itemsInCart[id.toString()]!;
+        }
+      }
+
       emit(ShoppingViewProductGettedSuccessed());
       return product;
     } catch (e) {

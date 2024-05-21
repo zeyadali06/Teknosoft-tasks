@@ -1,6 +1,7 @@
 import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
 import 'package:e_commerce_app_development/Core/Utils/FirebaseFirestoreServices.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_List.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_Map.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:e_commerce_app_development/main.dart';
@@ -17,7 +18,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     try {
       var res = await DataBase.getField(collectionPath: favourateCollection, docName: allUserData!.uid, key: favouratesField);
 
-      List<int> favourates = toListOfInt(res)!;
+      List<int> favourates = convertToList(res)!;
       if (status) {
         favourates.add(product.id);
       } else {
@@ -27,13 +28,13 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
       emit(ProductDetailsFavourateSuccessed());
     } catch (e) {
-      emit(ProductDetailsFavourateFailed(errMessage: AuthFailure(e).errMessage));
+      emit(ProductDetailsFailed(errMessage: AuthFailure(e).errMessage));
     }
   }
 
   Future<bool> getFavourateStatus(ProductModel product) async {
     var ret = await DataBase.getField(collectionPath: favourateCollection, docName: allUserData!.uid, key: favouratesField);
-    List<int> favourates = toListOfInt(ret)!;
+    List<int> favourates = convertToList(ret)!;
 
     if (favourates.contains(product.id)) {
       return true;
@@ -42,5 +43,31 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     }
   }
 
-  Future<void> addToCart(ProductModel product, int items) async {}
+  Future<void> addToCart(ProductModel product, int numberOfItems) async {
+    try {
+      emit(ProductDetailsLoading());
+      if (numberOfItems == 0) {
+        emit(ProductDetailsNOItemsEqualZero());
+        return;
+      }
+      var res = await DataBase.getField(collectionPath: cartCollection, docName: allUserData!.uid, key: cartField);
+      Map<String, int> data = convertToMap(res)!;
+
+      if (data.containsKey(product.id.toString())) {
+        data.update(product.id.toString(), (value) {
+          return numberOfItems;
+        });
+      } else {
+        data[product.id.toString()] = numberOfItems;
+      }
+
+      await DataBase.updateField(collectionPath: cartCollection, docName: allUserData!.uid, data: {cartField: data});
+
+      emit(ProductDetailsCartSuccessed());
+    } catch (e) {
+      try {
+        emit(ProductDetailsFailed(errMessage: AuthFailure(e).errMessage));
+      } catch (_) {}
+    }
+  }
 }

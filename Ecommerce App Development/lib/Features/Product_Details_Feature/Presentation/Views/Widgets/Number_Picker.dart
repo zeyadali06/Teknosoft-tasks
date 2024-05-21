@@ -4,10 +4,11 @@ import 'package:e_commerce_app_development/Core/Utils/Functions/SnackBar.dart';
 import 'package:flutter/material.dart';
 
 class NumberPicker extends StatefulWidget {
-  const NumberPicker({super.key, required this.onNumberChanged, required this.maxItemsInStock});
+  const NumberPicker({super.key, required this.onNumberChanged, required this.maxItemsInStock, required this.initNumberOfItems});
 
   final void Function(int number) onNumberChanged;
   final int maxItemsInStock;
+  final int initNumberOfItems;
 
   @override
   State<NumberPicker> createState() => _NumberPickerState();
@@ -18,7 +19,7 @@ class _NumberPickerState extends State<NumberPicker> {
 
   @override
   void initState() {
-    value = 1;
+    value = widget.initNumberOfItems;
     super.initState();
   }
 
@@ -37,7 +38,7 @@ class _NumberPickerState extends State<NumberPicker> {
         children: [
           GestureDetector(
             onTap: () {
-              if (value > 1) {
+              if (value > 0) {
                 value -= 1;
                 setState(() {});
                 widget.onNumberChanged(value);
