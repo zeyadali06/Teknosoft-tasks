@@ -25,7 +25,7 @@ class _NumberPickerState extends State<NumberPicker> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 110,
+      width: 120,
       height: 40,
       padding: const EdgeInsets.all(5),
       decoration: BoxDecoration(
