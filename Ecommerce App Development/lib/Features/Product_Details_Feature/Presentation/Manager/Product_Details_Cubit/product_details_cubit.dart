@@ -41,16 +41,17 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         emit(ProductDetailsCartNOItemsEqualZero());
         return;
       }
-      
-      var res = await DataBase.getField(collectionPath: cartCollection, docName: allUserData!.uid, key: cartField);
-      Map<String, int> data = convertToMap(res)!;
 
-      if (data.containsKey(product.id.toString())) {
-        data.update(product.id.toString(), (value) {
-          return numberOfItems;
-        });
-      } else {
-        data[product.id.toString()] = numberOfItems;
+      var res = await DataBase.getField(collectionPath: cartCollection, docName: allUserData!.uid, key: cartField);
+      Map<String, int>? data = convertToMap(res);
+      if (data != null) {
+        if (data.containsKey(product.id.toString())) {
+          data.update(product.id.toString(), (value) {
+            return numberOfItems;
+          });
+        } else {
+          data[product.id.toString()] = numberOfItems;
+        }
       }
 
       await DataBase.updateField(collectionPath: cartCollection, docName: allUserData!.uid, data: {cartField: data});

@@ -6,6 +6,7 @@ import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
 import 'package:e_commerce_app_development/Core/Utils/FirebaseFirestoreServices.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Capitalize_String.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_List.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_Map.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo.dart';
 import 'package:e_commerce_app_development/constants.dart';
@@ -13,28 +14,17 @@ import 'package:e_commerce_app_development/main.dart';
 
 class ShoppingRepoImplement implements ShoppingRepo {
   @override
-  Future<Either<AuthFailure, List<ProductModel>>> getAvaliableProducts() async {
+  Either<Failure, List<ProductModel>> getAvaliableProducts(List<ProductModel> allProducts) {
     try {
-      List<ProductModel> ret = [];
-      List<ProductModel> products = [];
-      Either<Failure, List<ProductModel>> response = await getAllProducts();
+      List<ProductModel> res = [];
 
-      response.fold(
-        (l) {
-          throw l;
-        },
-        (r) {
-          ret = r;
-        },
-      );
-
-      for (ProductModel prod in ret) {
+      for (ProductModel prod in allProducts) {
         if (prod.stock > 0) {
-          products.add(prod);
+          res.add(prod);
         }
       }
 
-      return right(products);
+      return right(res);
     } catch (e) {
       if (e is AuthFailure) {
         return left(e);
@@ -45,28 +35,17 @@ class ShoppingRepoImplement implements ShoppingRepo {
   }
 
   @override
-  Future<Either<Failure, List<ProductModel>>> getSpecificBrandProducts(String brand) async {
+  Either<Failure, List<ProductModel>> getSpecificBrandProducts(List<ProductModel> allProducts, String brand) {
     try {
-      List<ProductModel> ret = [];
-      List<ProductModel> products = [];
-      Either<Failure, List<ProductModel>> response = await getAllProducts();
+      List<ProductModel> res = [];
 
-      response.fold(
-        (l) {
-          throw l;
-        },
-        (r) {
-          ret = r;
-        },
-      );
-
-      for (ProductModel prod in ret) {
+      for (ProductModel prod in allProducts) {
         if (prod.brand == brand) {
-          products.add(prod);
+          res.add(prod);
         }
       }
 
-      return right(products);
+      return right(res);
     } catch (e) {
       if (e is AuthFailure) {
         return left(e);
@@ -77,22 +56,12 @@ class ShoppingRepoImplement implements ShoppingRepo {
   }
 
   @override
-  Future<Either<Failure, List<String>>> getBrands() async {
+  Either<Failure, List<String>> getBrands(List<ProductModel> allProducts) {
     try {
-      List<ProductModel> ret = [];
       List<String> brands = [];
-      Either<Failure, List<ProductModel>> response = await getAllProducts();
-      response.fold(
-        (l) {
-          throw l;
-        },
-        (r) {
-          ret = r;
-        },
-      );
 
       brands.add("All");
-      for (ProductModel prod in ret) {
+      for (ProductModel prod in allProducts) {
         if (!brands.contains(capitalizeEachWord(prod.brand.trim()))) {
           brands.add(capitalizeEachWord(prod.brand.trim()));
         }
@@ -121,12 +90,22 @@ class ShoppingRepoImplement implements ShoppingRepo {
         products.add(product);
       }
 
-      var result = await DataBase.getField(collectionPath: favourateCollection, docName: allUserData!.uid, key: favouratesField);
-      List<int> favourates = convertToList(result)!;
-      if (favourates.isNotEmpty) {
+      var result1 = await DataBase.getField(collectionPath: favourateCollection, docName: allUserData!.uid, key: favouratesField);
+      List<int>? favourates = convertToList(result1);
+      if (favourates != null) {
         for (ProductModel prod in products) {
           if (favourates.contains(prod.id)) {
             prod.favourate = true;
+          }
+        }
+      }
+
+      var result2 = await DataBase.getField(collectionPath: cartCollection, docName: allUserData!.uid, key: cartField);
+      Map<String, int>? itemsInCart = convertToMap(result2);
+      if (itemsInCart != null) {
+        for (ProductModel product in products) {
+          if (itemsInCart.containsKey(id.toString())) {
+            product.itemsInCart = itemsInCart[id.toString()]!;
           }
         }
       }

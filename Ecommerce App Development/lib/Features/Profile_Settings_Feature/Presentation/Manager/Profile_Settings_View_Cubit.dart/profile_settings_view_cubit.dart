@@ -63,6 +63,7 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
       await prefs.setString(passwordPrefKey, "");
       await DataBase.deleteDoc(collectionPath: usersCollection, docName: allUserData!.uid);
       await DataBase.deleteDoc(collectionPath: favourateCollection, docName: allUserData!.uid);
+      await DataBase.deleteDoc(collectionPath: cartCollection, docName: allUserData!.uid);
       await FirebaseAuth.instance.currentUser!.delete();
       allUserData = null;
       emit(ProfileSettingsViewExitFromAccount());

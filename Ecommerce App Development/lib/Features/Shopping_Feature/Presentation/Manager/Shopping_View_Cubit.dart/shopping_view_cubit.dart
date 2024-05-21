@@ -1,11 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
-import 'package:e_commerce_app_development/Core/Utils/FirebaseFirestoreServices.dart';
-import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_Map.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo.dart';
-import 'package:e_commerce_app_development/constants.dart';
-import 'package:e_commerce_app_development/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,87 +11,113 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
   ShoppingViewCubit(this.repo) : super(ShoppingViewInitial());
 
   final ShoppingRepo repo;
+  late List<ProductModel> allProducts;
   late List<ProductModel> avaliableProducts;
   late List<ProductModel> specificBrandProducts;
   late List<String> allBrands;
   String selectedBrand = "All";
 
-  Future<List<ProductModel>> getAvaliableProducts() async {
-    List<ProductModel> products = [];
-    emit(ShoppingViewAvaliableLoading());
-    var res = await repo.getAvaliableProducts();
-    res.fold(
-      (l) {
-        return emit(ShoppingViewAvaliableFailed(errMessage: l.errMessage));
-      },
-      (r) {
-        products = r;
-      },
-    );
-    if (products.isEmpty) {
-      emit(ShoppingViewAvaliableNoDataFound());
-    } else {
-      emit(ShoppingViewAvaliableSuccessed());
+  Future<List<ProductModel>> getAllProducts() async {
+    List<ProductModel> result = [];
+    try {
+      emit(ShoppingViewLoading());
+      var res = await repo.getAllProducts();
+      res.fold(
+        (l) {
+          return emit(ShoppingViewFailed(errMessage: l.errMessage));
+        },
+        (r) {
+          result = r;
+        },
+      );
+
+      emit(ShoppingViewSuccessed());
+      allProducts = result;
+    } catch (e) {
+      emit(ShoppingViewFailed(errMessage: AuthFailure(e).errMessage));
     }
-    avaliableProducts = products;
-    return products;
+    return result;
   }
 
-  Future<List<String>> getBrands() async {
-    List<String> brands = [];
-    emit(ShoppingViewBrandsLoading());
-    var res = await repo.getBrands();
-    res.fold(
-      (l) {
-        return emit(ShoppingViewBrandsFailed(errMessage: l.errMessage));
-      },
-      (r) {
-        brands = r;
-      },
-    );
-    if (brands.isEmpty) {
-      emit(ShoppingViewBrandsNoDataFound());
-    } else {
-      emit(ShoppingViewBrandsSuccessed());
+  List<ProductModel> getAvaliableProducts(List<ProductModel> allProds) {
+    List<ProductModel> result = [];
+    try {
+      emit(ShoppingViewLoading());
+      var res = repo.getAvaliableProducts(allProds);
+      res.fold(
+        (l) {
+          return emit(ShoppingViewFailed(errMessage: l.errMessage));
+        },
+        (r) {
+          result = r;
+        },
+      );
+
+      emit(ShoppingViewSuccessed());
+      avaliableProducts = result;
+    } catch (e) {
+      emit(ShoppingViewFailed(errMessage: AuthFailure(e).errMessage));
     }
-    allBrands = brands;
+    return result;
+  }
+
+  List<String> getBrands(List<ProductModel> allProds) {
+    List<String> brands = [];
+    try {
+      emit(ShoppingViewLoading());
+      var res = repo.getBrands(allProds);
+      res.fold(
+        (l) {
+          return emit(ShoppingViewFailed(errMessage: l.errMessage));
+        },
+        (r) {
+          brands = r;
+        },
+      );
+
+      emit(ShoppingViewSuccessed());
+      allBrands = brands;
+    } catch (e) {
+      emit(ShoppingViewFailed(errMessage: AuthFailure(e).errMessage));
+    }
     return brands;
   }
 
-  Future<List<ProductModel>> getSpecificBrandProducts(String brand) async {
-    List<ProductModel> products = [];
-    Either<Failure, List<ProductModel>> res;
-    emit(ShoppingViewSpecificLoading());
-
+  List<ProductModel> getSpecificBrandProducts(List<ProductModel> allProds, String brand) {
     if (brand == "All") {
-      res = await repo.getAllProducts();
-    } else {
-      res = await repo.getSpecificBrandProducts(brand);
+      specificBrandProducts = allProds;
+      emit(ShoppingViewSuccessed());
+      return allProds;
     }
 
-    res.fold(
-      (l) {
-        return emit(ShoppingViewSpecificFailed(errMessage: l.errMessage));
-      },
-      (r) {
-        products = r;
-      },
-    );
+    List<ProductModel> products = [];
+    try {
+      Either<Failure, List<ProductModel>> res;
+      emit(ShoppingViewLoading());
 
-    if (products.isEmpty) {
-      emit(ShoppingViewSpecificNoDataFound());
-    } else {
-      emit(ShoppingViewSpecificSuccessed());
+      res = repo.getSpecificBrandProducts(allProds, brand);
+
+      res.fold(
+        (l) {
+          return emit(ShoppingViewFailed(errMessage: l.errMessage));
+        },
+        (r) {
+          products = r;
+        },
+      );
+
+      emit(ShoppingViewSuccessed());
+      specificBrandProducts = products;
+    } catch (e) {
+      emit(ShoppingViewFailed(errMessage: AuthFailure(e).errMessage));
     }
-
-    specificBrandProducts = products;
     return products;
   }
 
   Future<ProductModel?> getProduct(int id) async {
     ProductModel? product;
     try {
-      emit(ShoppingViewProductGettedLoading());
+      emit(ShoppingViewLoading());
       var res = await repo.getAllProducts();
       res.fold((l) {
         throw l;
@@ -103,23 +125,14 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
         for (ProductModel prod in r) {
           if (prod.id == id) {
             product = prod;
+            emit(ShoppingViewSuccessed());
+            break;
           }
         }
       });
-
-      var result = await DataBase.getField(collectionPath: cartCollection, docName: allUserData!.uid, key: cartField);
-      Map<String, int> itemsInCart = convertToMap(result)!;
-      if (itemsInCart.isNotEmpty) {
-        if (itemsInCart.containsKey(id.toString())) {
-          product!.itemsInCart = itemsInCart[id.toString()]!;
-        }
-      }
-
-      emit(ShoppingViewProductGettedSuccessed());
-      return product;
     } catch (e) {
-      emit(ShoppingViewProductGettedFailed(errMessage: AuthFailure(e).errMessage));
+      emit(ShoppingViewFailed(errMessage: AuthFailure(e).errMessage));
     }
-    return null;
+    return product;
   }
 }

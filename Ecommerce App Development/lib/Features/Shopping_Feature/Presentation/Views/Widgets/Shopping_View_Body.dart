@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Core/Utils/Functions/SnackBar.dart';
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Shopping_View_Cubit.dart/shopping_view_cubit.dart';
@@ -24,10 +25,12 @@ class _ShoppingViewBodyState extends State<ShoppingViewBody> {
   late List<ProductModel> products;
   late List<String> brands;
   late List<ProductModel> specificBrandProducts;
+  late List<ProductModel> allProducts;
   bool isLoading = false;
 
   @override
   void initState() {
+    allProducts = BlocProvider.of<ShoppingViewCubit>(context).allProducts;
     products = BlocProvider.of<ShoppingViewCubit>(context).avaliableProducts;
     brands = BlocProvider.of<ShoppingViewCubit>(context).allBrands;
     specificBrandProducts = BlocProvider.of<ShoppingViewCubit>(context).specificBrandProducts;
@@ -39,11 +42,13 @@ class _ShoppingViewBodyState extends State<ShoppingViewBody> {
   Widget build(BuildContext context) {
     return BlocConsumer<ShoppingViewCubit, ShoppingViewState>(
       listener: (context, state) {
-        if (state is ShoppingViewSpecificLoading || state is ShoppingViewProductGettedLoading) {
+        if (state is ShoppingViewLoading) {
           isLoading = true;
-        } else {
-          isLoading = false;
+          return;
+        } else if (state is ShoppingViewFailed) {
+          showSnackBar(context, state.errMessage);
         }
+        isLoading = false;
       },
       builder: (context, state) {
         return ModalProgressHUD(
@@ -78,8 +83,8 @@ class _ShoppingViewBodyState extends State<ShoppingViewBody> {
                   const TitleRow(text: 'Brands'),
                   BrandsBar(
                     brands: brands,
-                    onItemSelected: (brandSelected) async {
-                      specificBrandProducts = await BlocProvider.of<ShoppingViewCubit>(context).getSpecificBrandProducts(brandSelected);
+                    onItemSelected: (brandSelected) {
+                      specificBrandProducts = BlocProvider.of<ShoppingViewCubit>(context).getSpecificBrandProducts(allProducts, brandSelected);
                     },
                   ),
                   SpecifiedBrandProducts(specificBrandProducts: specificBrandProducts),

@@ -2,6 +2,7 @@
 
 import 'package:e_commerce_app_development/Core/Utils/App_Router.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Lottie_Image.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Shopping_View_Cubit.dart/shopping_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Splash_Feature/Presentation/Manager/cubit/splash_view_cubit.dart';
 import 'package:e_commerce_app_development/constants.dart';
@@ -35,9 +36,10 @@ class _SplashViewBodyState extends State<SplashViewBody> {
       });
       return;
     }
-    await BlocProvider.of<ShoppingViewCubit>(context).getAvaliableProducts();
-    await BlocProvider.of<ShoppingViewCubit>(context).getBrands();
-    await BlocProvider.of<ShoppingViewCubit>(context).getSpecificBrandProducts("All");
+    List<ProductModel> products = await BlocProvider.of<ShoppingViewCubit>(context).getAllProducts();
+    BlocProvider.of<ShoppingViewCubit>(context).getAvaliableProducts(products);
+    BlocProvider.of<ShoppingViewCubit>(context).getBrands(products);
+    BlocProvider.of<ShoppingViewCubit>(context).getSpecificBrandProducts(products, "All");
     await Future.delayed(const Duration(seconds: 1), () {
       Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.navigationBarPath));
     });
