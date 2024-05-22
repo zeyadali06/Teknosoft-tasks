@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Core/Utils/Functions/Loading_Indicator.dart';
 import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Manager/Product_Details_Cubit/product_details_cubit.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,7 @@ class _FavourateIconButtonState extends State<FavourateIconButton> {
           } else {
             icon = isNotPressedIcon;
           }
-          await BlocProvider.of<ProductDetailsCubit>(context).changeFavourateStatus(widget.product, fav);
+          await waitUntilFinished(context, () async => await BlocProvider.of<ProductDetailsCubit>(context).changeFavourateStatus(widget.product, fav));
           setState(() {});
         },
         padding: EdgeInsets.zero,

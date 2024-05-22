@@ -1,12 +1,13 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Shopping_View_Cubit.dart/shopping_view_cubit.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Loading_Indicator.dart';
 import 'package:e_commerce_app_development/Core/Common_Widgets/Product_Image.dart';
 import 'package:e_commerce_app_development/Core/Utils/App_Router.dart';
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
-import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
-import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Shopping_View_Cubit.dart/shopping_view_cubit.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 
 class ShoppingViewProductItem extends StatelessWidget {
   const ShoppingViewProductItem({super.key, required this.product});
@@ -17,9 +18,12 @@ class ShoppingViewProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        ProductModel? prod = await BlocProvider.of<ShoppingViewCubit>(context).getProduct(product.id);
+        ProductModel? prod;
+        await waitUntilFinished(context, () async {
+          prod = await BlocProvider.of<ShoppingViewCubit>(context).getProduct(product.id);
+        });
         if (prod != null) {
-          Navigator.of(context).push(AppRouter.goTo(context, AppRouter.productDetailsViewPath(prod)));
+          Navigator.of(context).push(AppRouter.goTo(context, AppRouter.productDetailsViewPath(prod!)));
         }
       },
       child: SizedBox(

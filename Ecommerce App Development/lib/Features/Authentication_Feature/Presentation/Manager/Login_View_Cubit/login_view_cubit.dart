@@ -3,6 +3,7 @@ import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/LoginDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/UserDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo.dart';
+import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo_Implement.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -20,14 +21,18 @@ class LoginViewCubit extends Cubit<LoginViewState> {
       emit(LoginViewLoading());
       Either<AuthFailure, AuthCompletedSuccessfully> res = await authRepo.login(loginData);
       res.fold((failure) {
-        emit(LoginViewFailed(failure.errMessage));
+        throw failure;
       }, (r) {
-        emit(LoginViewSuccessed(r.userData));
+        AuthRepoImplementation.allUserData = r.userData;
       });
+      await setPrefs(true, AuthRepoImplementation.allUserData!.email, loginData.password);
+      emit(LoginViewSuccessed(AuthRepoImplementation.allUserData!));
     } catch (e) {
-      try {
+      if (e is AuthFailure) {
+        emit(LoginViewFailed(e.errMessage));
+      } else {
         emit(LoginViewFailed(AuthFailure(e).errMessage));
-      } catch (_) {}
+      }
     }
   }
 
@@ -41,10 +46,6 @@ class LoginViewCubit extends Cubit<LoginViewState> {
       if (password != null) {
         await prefs.setString(passwordPrefKey, password);
       }
-    } catch (e) {
-      try {
-        emit(LoginViewFailed(AuthFailure(e).errMessage));
-      } catch (_) {}
-    }
+    } catch (_) {}
   }
 }

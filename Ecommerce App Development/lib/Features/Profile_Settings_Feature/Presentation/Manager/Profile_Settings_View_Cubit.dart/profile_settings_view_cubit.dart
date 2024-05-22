@@ -31,9 +31,7 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
       await FirebaseAuth.instance.currentUser!.updatePassword(password);
       emit(ProfileSettingsViewPasswordChanged());
     } catch (exc) {
-      try {
-        emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
-      } catch (_) {}
+      emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
     }
   }
 
