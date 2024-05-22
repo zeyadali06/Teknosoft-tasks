@@ -16,6 +16,7 @@ import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Login_View.dart';
 import 'package:e_commerce_app_development/Features/Favourate_Feature/Presentation/Views/Favourate_View.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Shopping_View.dart';
+import 'package:e_commerce_app_development/Features/Search_Feature/Presentation/Views/Search_View.dart';
 import 'package:e_commerce_app_development/Features/Splash_Feature/Presentation/Views/Splash_View.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Views/Cart_View.dart';
@@ -63,6 +64,7 @@ abstract class AppRouter {
   );
 
   static const Widget cartViewPath = CartView();
+  static const Widget searchViewPath = SearchView();
   static const Widget navigationBarPath = CustomNavigationBar();
   static const Widget shoppingViewPath = ShoppingView();
   static const Widget favourateViewPath = FavourateView();

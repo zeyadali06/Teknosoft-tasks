@@ -7,6 +7,7 @@ class ProductModel {
   final List<dynamic> images;
   bool favourate = false;
   int itemsInCart = 0;
+  String lowerTitle = "";
 
   ProductModel({
     required this.rating,

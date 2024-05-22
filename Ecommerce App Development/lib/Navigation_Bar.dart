@@ -3,6 +3,7 @@
 import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Manager/Cart_View_Cubit/cart_view_cubit.dart';
 import 'package:e_commerce_app_development/Core/Utils/App_Router.dart';
 import 'package:e_commerce_app_development/Features/Favourate_Feature/Presentation/Manager/Favourate_View_Cubit/favourate_view_cubit.dart';
+import 'package:e_commerce_app_development/Features/Search_Feature/Presentation/Manager/Search_View_Cubit.dart/search_view_cubit.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,10 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
       BlocProvider(
         create: (context) => CartViewCubit(AppRouter.shoppingRepo)..getItemsInCart(),
         child: AppRouter.cartViewPath,
+      ),
+      BlocProvider(
+        create: (context) => SearchViewCubit(AppRouter.shoppingRepo)..getAllPoducts(),
+        child: AppRouter.searchViewPath,
       ),
       BlocProvider(
         create: (context) => FavourateViewCubit(AppRouter.shoppingRepo)..getFavouratProduct(),
@@ -76,11 +81,15 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
             label: 'Cart',
           ),
           BottomNavigationBarItem(
-            icon: _buildIcon(Icons.favorite_border_outlined, selectedIndex == 2),
+            icon: _buildIcon(Icons.search, selectedIndex == 2),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: _buildIcon(Icons.favorite_border_outlined, selectedIndex == 3),
             label: 'Favorites',
           ),
           BottomNavigationBarItem(
-            icon: _buildIcon(Icons.person_outlined, selectedIndex == 3),
+            icon: _buildIcon(Icons.person_outlined, selectedIndex == 4),
             label: 'Profile',
           ),
         ],

@@ -52,7 +52,7 @@ class ShoppingViewProductItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(product.category, style: Styles.grey12w500, maxLines: 1, overflow: TextOverflow.ellipsis),
-                      PricePart(product: product, firstPriceSize: 16, secondPriceSize: 12),
+                      PricePart(product: product, firstPriceSize: 14, secondPriceSize: 12),
                     ],
                   ),
                 ),
