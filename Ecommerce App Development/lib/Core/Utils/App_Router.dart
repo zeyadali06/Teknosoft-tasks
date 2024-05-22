@@ -21,48 +21,39 @@ import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentatio
 import 'package:e_commerce_app_development/Features/Splash_Feature/Presentation/Manager/cubit/splash_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Splash_Feature/Presentation/Views/Splash_View.dart';
 import 'package:e_commerce_app_development/Navigation_Bar.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 
 abstract class AppRouter {
-  static Widget navigationBarPath = const CustomNavigationBar();
+  static final AuthRepoImplementation authRepo = AuthRepoImplementation();
+  static final ShoppingRepoImplement shoppingRepo = ShoppingRepoImplement();
 
-  static Widget splashViewPath = BlocProvider(
+  static final Widget splashViewPath = BlocProvider(
     create: (context) => SplashViewCubit(),
     child: const SplashView(),
   );
 
-  static Widget loginViewPath = BlocProvider(
-    create: (context) => LoginViewCubit(AuthRepoImplementation()),
+  static final Widget loginViewPath = BlocProvider(
+    create: (context) => LoginViewCubit(authRepo),
     child: const LoginView(),
   );
 
-  static Widget signUpViewPath = BlocProvider(
-    create: (context) => SignUpViewCubit(AuthRepoImplementation()),
+  static final Widget signUpViewPath = BlocProvider(
+    create: (context) => SignUpViewCubit(authRepo),
     child: const SignUpView(),
   );
 
-  static const Widget shoppingViewPath = ShoppingView();
-
   static const Widget cartViewPath = CartView();
 
-  static const Widget favourateViewPath = FavourateView();
-
-  static Function(ProductModel product) productDetailsViewPath = (product) => BlocProvider(
+  static final Function(ProductModel product) productDetailsViewPath = (product) => BlocProvider(
         create: (context) => ProductDetailsCubit(),
         child: ProductDetailsView(product: product),
       );
 
-  static Widget profileSettingsViewPath = const ProfileSettingsView();
-
-  static Widget changePhoneViewPath = const ChangePhoneView();
-
-  static Widget changePasswordViewPath = const ChangePasswordView();
-
-  static Widget fromMaterial = MultiBlocProvider(
+  static final Widget fromMaterial = MultiBlocProvider(
     providers: [
       BlocProvider(
-        create: (context) => ShoppingViewCubit(ShoppingRepoImplement()),
+        create: (context) => ShoppingViewCubit(shoppingRepo),
       ),
       BlocProvider(
         create: (context) => ProfileSettingsViewCubit(),
@@ -76,6 +67,13 @@ abstract class AppRouter {
       home: AppRouter.splashViewPath,
     ),
   );
+
+  static const Widget navigationBarPath = CustomNavigationBar();
+  static const Widget shoppingViewPath = ShoppingView();
+  static const Widget favourateViewPath = FavourateView();
+  static const Widget profileSettingsViewPath = ProfileSettingsView();
+  static const Widget changePhoneViewPath = ChangePhoneView();
+  static const Widget changePasswordViewPath = ChangePasswordView();
 
   static MaterialPageRoute goTo(BuildContext context, Widget toView) {
     return MaterialPageRoute(builder: (context) {

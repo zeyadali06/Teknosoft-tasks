@@ -30,10 +30,10 @@ class _ShoppingViewBodyState extends State<ShoppingViewBody> {
 
   @override
   void initState() {
-    allProducts = BlocProvider.of<ShoppingViewCubit>(context).allProducts;
-    products = BlocProvider.of<ShoppingViewCubit>(context).avaliableProducts;
-    brands = BlocProvider.of<ShoppingViewCubit>(context).allBrands;
-    specificBrandProducts = BlocProvider.of<ShoppingViewCubit>(context).specificBrandProducts;
+    allProducts = BlocProvider.of<ShoppingViewCubit>(context).repo.allProducts;
+    products = BlocProvider.of<ShoppingViewCubit>(context).repo.avaliableProducts;
+    brands = BlocProvider.of<ShoppingViewCubit>(context).repo.allBrands;
+    specificBrandProducts = BlocProvider.of<ShoppingViewCubit>(context).repo.specificBrandProducts;
 
     super.initState();
   }

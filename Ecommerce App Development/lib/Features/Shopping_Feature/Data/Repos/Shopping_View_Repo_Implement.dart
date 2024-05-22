@@ -13,6 +13,11 @@ import 'package:e_commerce_app_development/constants.dart';
 import 'package:e_commerce_app_development/main.dart';
 
 class ShoppingRepoImplement implements ShoppingRepo {
+  late List<ProductModel> allProducts;
+  late List<ProductModel> avaliableProducts;
+  late List<ProductModel> specificBrandProducts;
+  late List<String> allBrands;
+
   @override
   Either<Failure, List<ProductModel>> getAvaliableProducts(List<ProductModel> allProducts) {
     try {
@@ -24,6 +29,7 @@ class ShoppingRepoImplement implements ShoppingRepo {
         }
       }
 
+      avaliableProducts = res;
       return right(res);
     } catch (e) {
       if (e is AuthFailure) {
@@ -45,6 +51,7 @@ class ShoppingRepoImplement implements ShoppingRepo {
         }
       }
 
+      specificBrandProducts = res;
       return right(res);
     } catch (e) {
       if (e is AuthFailure) {
@@ -67,6 +74,7 @@ class ShoppingRepoImplement implements ShoppingRepo {
         }
       }
 
+      allBrands = brands;
       return right(brands);
     } catch (e) {
       if (e is AuthFailure) {
@@ -110,6 +118,7 @@ class ShoppingRepoImplement implements ShoppingRepo {
         }
       }
 
+      allProducts = products;
       return right(products);
     } catch (e) {
       return left(AuthFailure(e));
