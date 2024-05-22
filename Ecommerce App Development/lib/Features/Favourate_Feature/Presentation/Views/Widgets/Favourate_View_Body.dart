@@ -1,5 +1,11 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Features/Favourate_Feature/Presentation/Manager/Favourate_View_Cubit/favourate_view_cubit.dart';
+import 'package:e_commerce_app_development/Features/Favourate_Feature/Presentation/Views/Widgets/Favourate_View_product_Item.dart';
+import 'package:e_commerce_app_development/Core/Common_Widgets/No_Thing_Found.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/SnackBar.dart';
+import 'package:e_commerce_app_development/constants.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
 class FavourateViewBody extends StatelessWidget {
@@ -7,6 +13,44 @@ class FavourateViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return BlocBuilder<FavourateViewCubit, FavourateViewState>(
+      builder: (context, state) {
+        if (state is FavourateViewLoading) {
+          return const Center(child: CircularProgressIndicator(color: kPrimaryColor));
+        } else if (state is FavourateViewEmpty) {
+          return const NoThingFound(text: 'No favouraties added');
+        } else if (state is FavourateViewFailed) {
+          showSnackBar(context, "Error, try again later");
+          return const Column();
+        } else {
+          return Column(
+            children: [
+              SafeArea(
+                child: Column(
+                  children: [
+                    Divider(color: Colors.grey.withOpacity(.2), height: 1),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height - 225 - kBottomNavigationBarHeight - 100,
+                      child: ListView.separated(
+                        itemCount: BlocProvider.of<FavourateViewCubit>(context).favourateProdcts.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: kPadding, vertical: 15),
+                            child: FavourateViewProductItem(product: BlocProvider.of<FavourateViewCubit>(context).favourateProdcts[index]),
+                          );
+                        },
+                        separatorBuilder: (BuildContext contextm, int index) {
+                          return Divider(color: Colors.grey.withOpacity(.2), height: 1);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          );
+        }
+      },
+    );
   }
 }

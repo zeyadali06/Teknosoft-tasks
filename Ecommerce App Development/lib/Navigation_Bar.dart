@@ -2,6 +2,7 @@
 
 import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Manager/Cart_View_Cubit/cart_view_cubit.dart';
 import 'package:e_commerce_app_development/Core/Utils/App_Router.dart';
+import 'package:e_commerce_app_development/Features/Favourate_Feature/Presentation/Manager/Favourate_View_Cubit/favourate_view_cubit.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,10 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         create: (context) => CartViewCubit(AppRouter.shoppingRepo)..getItemsInCart(),
         child: AppRouter.cartViewPath,
       ),
-      AppRouter.favourateViewPath,
+      BlocProvider(
+        create: (context) => FavourateViewCubit(AppRouter.shoppingRepo)..getFavouratProduct(),
+        child: AppRouter.favourateViewPath,
+      ),
       AppRouter.profileSettingsViewPath,
     ];
   }
