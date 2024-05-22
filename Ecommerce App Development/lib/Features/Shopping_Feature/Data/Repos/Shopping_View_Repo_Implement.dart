@@ -1,16 +1,13 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Capitalize_String.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_Favouraties.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_Cart.dart';
+import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
-import 'package:e_commerce_app_development/Core/Utils/FirebaseFirestoreServices.dart';
-import 'package:e_commerce_app_development/Core/Utils/Functions/Capitalize_String.dart';
-import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_List.dart';
-import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_Map.dart';
-import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo_Implement.dart';
-import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
-import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo.dart';
-import 'package:e_commerce_app_development/constants.dart';
 
 class ShoppingRepoImplement implements ShoppingRepo {
   late List<ProductModel> allProducts;
@@ -98,8 +95,7 @@ class ShoppingRepoImplement implements ShoppingRepo {
         products.add(product);
       }
 
-      var result1 = await DataBase.getField(collectionPath: favourateCollection, docName: AuthRepoImplementation.allUserData!.uid, key: favouratesField);
-      List<int>? favourates = convertToList(result1);
+      List<int>? favourates = await getFavouraties();
       if (favourates != null) {
         for (ProductModel prod in products) {
           if (favourates.contains(prod.id)) {
@@ -108,8 +104,7 @@ class ShoppingRepoImplement implements ShoppingRepo {
         }
       }
 
-      var result2 = await DataBase.getField(collectionPath: cartCollection, docName: AuthRepoImplementation.allUserData!.uid, key: cartField);
-      Map<String, int>? itemsInCart = convertToMap(result2);
+      Map<String, int>? itemsInCart = await getCartItems();
       if (itemsInCart != null) {
         for (ProductModel product in products) {
           if (itemsInCart.containsKey(id.toString())) {
