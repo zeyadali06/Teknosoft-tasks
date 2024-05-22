@@ -20,7 +20,7 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
       var res = await repo.getAllProducts();
       res.fold(
         (l) {
-          return emit(ShoppingViewFailed(errMessage: l.errMessage));
+          return emit(ShoppingViewFailed(l.errMessage));
         },
         (r) {
           result = r;
@@ -30,7 +30,7 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
       emit(ShoppingViewSuccessed());
       repo.allProducts = result;
     } catch (e) {
-      emit(ShoppingViewFailed(errMessage: AuthFailure(e).errMessage));
+      emit(ShoppingViewFailed(AuthFailure(e).errMessage));
     }
     return result;
   }
@@ -42,7 +42,7 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
       var res = repo.getAvaliableProducts(allProds);
       res.fold(
         (l) {
-          return emit(ShoppingViewFailed(errMessage: l.errMessage));
+          return emit(ShoppingViewFailed(l.errMessage));
         },
         (r) {
           result = r;
@@ -52,7 +52,7 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
       emit(ShoppingViewSuccessed());
       repo.avaliableProducts = result;
     } catch (e) {
-      emit(ShoppingViewFailed(errMessage: AuthFailure(e).errMessage));
+      emit(ShoppingViewFailed(AuthFailure(e).errMessage));
     }
     return result;
   }
@@ -64,7 +64,7 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
       var res = repo.getBrands(allProds);
       res.fold(
         (l) {
-          return emit(ShoppingViewFailed(errMessage: l.errMessage));
+          return emit(ShoppingViewFailed(l.errMessage));
         },
         (r) {
           brands = r;
@@ -74,7 +74,7 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
       emit(ShoppingViewSuccessed());
       repo.allBrands = brands;
     } catch (e) {
-      emit(ShoppingViewFailed(errMessage: AuthFailure(e).errMessage));
+      emit(ShoppingViewFailed(AuthFailure(e).errMessage));
     }
     return brands;
   }
@@ -95,7 +95,7 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
 
       res.fold(
         (l) {
-          return emit(ShoppingViewFailed(errMessage: l.errMessage));
+          return emit(ShoppingViewFailed(l.errMessage));
         },
         (r) {
           products = r;
@@ -105,7 +105,7 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
       emit(ShoppingViewSuccessed());
       repo.specificBrandProducts = products;
     } catch (e) {
-      emit(ShoppingViewFailed(errMessage: AuthFailure(e).errMessage));
+      emit(ShoppingViewFailed(AuthFailure(e).errMessage));
     }
     return products;
   }
@@ -121,13 +121,13 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
         for (ProductModel prod in r) {
           if (prod.id == id) {
             product = prod;
-            emit(ShoppingViewSuccessed());
             break;
           }
         }
       });
+      emit(ShoppingViewSuccessed());
     } catch (e) {
-      emit(ShoppingViewFailed(errMessage: AuthFailure(e).errMessage));
+      emit(ShoppingViewFailed(AuthFailure(e).errMessage));
     }
     return product;
   }

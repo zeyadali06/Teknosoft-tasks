@@ -107,8 +107,8 @@ class ShoppingRepoImplement implements ShoppingRepo {
       Map<String, int>? itemsInCart = await getCartItems();
       if (itemsInCart != null) {
         for (ProductModel product in products) {
-          if (itemsInCart.containsKey(id.toString())) {
-            product.itemsInCart = itemsInCart[id.toString()]!;
+          if (itemsInCart.containsKey(product.id.toString())) {
+            product.itemsInCart = itemsInCart[product.id.toString()]!;
           }
         }
       }

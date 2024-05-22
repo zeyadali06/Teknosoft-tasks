@@ -88,7 +88,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                                     Text(widget.product.category, style: Styles.grey12w500, maxLines: 1, overflow: TextOverflow.ellipsis),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 5),
-                                      child: PricePart(widget: widget),
+                                      child: PricePart(product: widget.product),
                                     ),
                                   ],
                                 ),

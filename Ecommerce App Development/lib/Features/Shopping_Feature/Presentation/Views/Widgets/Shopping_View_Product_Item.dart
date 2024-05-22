@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Views/Widgets/Price_Part.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Shopping_View_Cubit.dart/shopping_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Loading_Indicator.dart';
@@ -51,7 +52,7 @@ class ShoppingViewProductItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(product.category, style: Styles.grey12w500, maxLines: 1, overflow: TextOverflow.ellipsis),
-                      Text("\$${product.price.toStringAsFixed(2)}", style: Styles.black14w500),
+                      PricePart(product: product, firstPriceSize: 16, secondPriceSize: 12),
                     ],
                   ),
                 ),

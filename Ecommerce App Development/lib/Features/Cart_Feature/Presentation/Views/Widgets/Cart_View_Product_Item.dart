@@ -2,14 +2,17 @@
 
 import 'package:e_commerce_app_development/Core/Common_Widgets/Product_Image.dart';
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
-import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
+import 'package:e_commerce_app_development/Features/Cart_Feature/Data/Models/Cart_Item_Model.dart';
+import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Manager/Cart_View_Cubit/cart_view_cubit.dart';
+import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Views/Widgets/Price_Part.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartViewProductItem extends StatelessWidget {
-  const CartViewProductItem({super.key, required this.product});
+  const CartViewProductItem({super.key, required this.item});
 
-  final ProductModel product;
+  final CartItem item;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class CartViewProductItem extends StatelessWidget {
             child: AspectRatio(
               aspectRatio: 1 / 1,
               child: ProductImage(
-                url: product.thumbnail,
+                url: item.product.thumbnail,
                 boxFit: BoxFit.fill,
               ),
             ),
@@ -40,15 +43,23 @@ class CartViewProductItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(product.title, style: Styles.black14w500, maxLines: 1, overflow: TextOverflow.ellipsis),
-                Text(product.category, style: Styles.grey12w500, maxLines: 1, overflow: TextOverflow.ellipsis),
+                Text(item.product.title, style: Styles.black14w500, maxLines: 1, overflow: TextOverflow.ellipsis),
+                Text(item.product.category, style: Styles.grey12w500, maxLines: 1, overflow: TextOverflow.ellipsis),
                 const SizedBox(height: 10),
-                Text("\$${product.price.toStringAsFixed(2)}", style: Styles.black14w500.copyWith(fontSize: 16)),
+                Row(
+                  children: [
+                    PricePart(product: item.product, firstPriceSize: 12, secondPriceSize: 10, asRow: false),
+                    const SizedBox(width: 20),
+                    Text("${item.numberOfItems.toString()} pieces", style: Styles.black18w500),
+                  ],
+                ),
               ],
             ),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () async {
+              await BlocProvider.of<CartViewCubit>(context).deleteFromCart(item.product);
+            },
             child: Text('Remove from\n cart', style: Styles.black14w500.copyWith(color: Colors.red), textAlign: TextAlign.center),
           )
         ],

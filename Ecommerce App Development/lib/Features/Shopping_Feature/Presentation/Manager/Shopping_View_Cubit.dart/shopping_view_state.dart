@@ -12,5 +12,5 @@ final class ShoppingViewSuccessed extends ShoppingViewState {}
 final class ShoppingViewFailed extends ShoppingViewState {
   final String errMessage;
 
-  ShoppingViewFailed({required this.errMessage});
+  ShoppingViewFailed(this.errMessage);
 }

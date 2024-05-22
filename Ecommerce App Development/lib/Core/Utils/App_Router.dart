@@ -5,7 +5,7 @@ import 'package:e_commerce_app_development/Features/Authentication_Feature/Prese
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Manager/SignUp_View_Cubit/sign_up_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Login_View.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/SignUp_View.dart';
-import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Manager/Cart_View_Cubit.dart/cart_view_cubit.dart';
+import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Manager/Cart_View_Cubit/cart_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Views/Cart_View.dart';
 import 'package:e_commerce_app_development/Features/Favourate_Feature/Presentation/Views/Favourate_View.dart';
 import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Manager/Product_Details_Cubit/product_details_cubit.dart';
@@ -43,11 +43,6 @@ abstract class AppRouter {
     child: const SignUpView(),
   );
 
-  static final Widget cartViewPath = BlocProvider(
-    create: (context) => CartViewCubit(shoppingRepo),
-    child: const CartView(),
-  );
-
   static final Function(ProductModel product) productDetailsViewPath = (product) => BlocProvider(
         create: (context) => ProductDetailsCubit(),
         child: ProductDetailsView(product: product),
@@ -61,6 +56,9 @@ abstract class AppRouter {
       BlocProvider(
         create: (context) => ProfileSettingsViewCubit(),
       ),
+      BlocProvider(
+        create: (context) => CartViewCubit(shoppingRepo),
+      ),
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -68,6 +66,7 @@ abstract class AppRouter {
     ),
   );
 
+  static const Widget cartViewPath = CartView();
   static const Widget navigationBarPath = CustomNavigationBar();
   static const Widget shoppingViewPath = ShoppingView();
   static const Widget favourateViewPath = FavourateView();
