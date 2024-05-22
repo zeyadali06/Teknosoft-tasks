@@ -7,6 +7,7 @@ import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/UserDataModel.dart';
 
 abstract class AuthRepo {
+  static UserData? allUserData;
   Future<Either<AuthFailure, AuthCompletedSuccessfully>> login(LoginData loginData);
   Future<Either<AuthFailure, AuthCompletedSuccessfully>> signUp(SignUpData userdata);
 }

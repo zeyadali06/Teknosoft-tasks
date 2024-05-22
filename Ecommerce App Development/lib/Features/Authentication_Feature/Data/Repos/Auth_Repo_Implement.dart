@@ -13,6 +13,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepoImplementation implements AuthRepo {
+  static UserData? allUserData;
+
   @override
   Future<Either<AuthFailure, AuthCompletedSuccessfully>> login(LoginData loginData) async {
     try {
@@ -32,8 +34,8 @@ class AuthRepoImplementation implements AuthRepo {
       }
       Map<String, dynamic>? data = await AccountData.getUserDataFromFirestore(uid!);
       UserCredential user = await SignIn.signIn(email!, loginData.password!);
-      UserData userData = UserData(email: email, username: data!['username'], phone: data['phone'], uid: user.user!.uid);
-      return right(AuthCompletedSuccessfully(userData));
+      allUserData = UserData(email: email, username: data!['username'], phone: data['phone'], uid: user.user!.uid);
+      return right(AuthCompletedSuccessfully(allUserData!));
     } catch (e) {
       return left(AuthFailure(e));
     }
@@ -47,16 +49,16 @@ class AuthRepoImplementation implements AuthRepo {
       }
 
       UserCredential user = await Register.register(registerData.toMap()..remove('password'), registerData.password);
-      UserData userData = UserData(email: registerData.email, username: registerData.username, phone: registerData.phone, uid: user.user!.uid);
+      allUserData = UserData(email: registerData.email, username: registerData.username, phone: registerData.phone, uid: user.user!.uid);
 
-      await DataBase.setField(collectionPath: favourateCollection, docName: userData.uid, data: {favouratesField: []});
+      await DataBase.setField(collectionPath: favourateCollection, docName: allUserData!.uid, data: {favouratesField: []});
 
-      await DataBase.setField(collectionPath: cartCollection, docName: userData.uid, data: {cartField: {}});
+      await DataBase.setField(collectionPath: cartCollection, docName: allUserData!.uid, data: {cartField: {}});
 
       SharedPreferences pref = await SharedPreferences.getInstance();
       await pref.setBool(loginStatusPrefKey, false);
 
-      return right(AuthCompletedSuccessfully(userData));
+      return right(AuthCompletedSuccessfully(allUserData!));
     } catch (e) {
       return left(AuthFailure(e));
     }

@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
-import 'package:e_commerce_app_development/main.dart';
+import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo_Implement.dart';
 import 'package:flutter/material.dart';
 
 class ProfileImage extends StatelessWidget {
@@ -38,9 +38,9 @@ class ProfileImage extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 15),
-        Text(allUserData!.username, style: Styles.black18w500),
+        Text(AuthRepoImplementation.allUserData!.username, style: Styles.black18w500),
         const SizedBox(height: 6),
-        Text(allUserData!.email, style: Styles.black18w500),
+        Text(AuthRepoImplementation.allUserData!.email, style: Styles.black18w500),
       ],
     );
   }

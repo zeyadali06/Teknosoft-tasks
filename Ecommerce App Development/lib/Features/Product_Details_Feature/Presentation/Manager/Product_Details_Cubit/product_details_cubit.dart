@@ -2,11 +2,11 @@ import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
 import 'package:e_commerce_app_development/Core/Utils/FirebaseFirestoreServices.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_List.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_Map.dart';
+import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo_Implement.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/constants.dart';
-import 'package:e_commerce_app_development/main.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 
 part 'product_details_state.dart';
 
@@ -16,7 +16,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   Future<void> changeFavourateStatus(ProductModel product, bool status) async {
     try {
       emit(ProductDetailsLoading());
-      var res = await DataBase.getField(collectionPath: favourateCollection, docName: allUserData!.uid, key: favouratesField);
+      var res = await DataBase.getField(collectionPath: favourateCollection, docName: AuthRepoImplementation.allUserData!.uid, key: favouratesField);
 
       List<int> favourates = convertToList(res)!;
       if (status) {
@@ -24,7 +24,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       } else {
         favourates.remove(product.id);
       }
-      await DataBase.updateField(collectionPath: favourateCollection, docName: allUserData!.uid, data: {favouratesField: favourates});
+      await DataBase.updateField(collectionPath: favourateCollection, docName: AuthRepoImplementation.allUserData!.uid, data: {favouratesField: favourates});
 
       emit(ProductDetailsFavourateSuccessed());
     } catch (e) {
@@ -42,7 +42,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         return;
       }
 
-      var res = await DataBase.getField(collectionPath: cartCollection, docName: allUserData!.uid, key: cartField);
+      var res = await DataBase.getField(collectionPath: cartCollection, docName: AuthRepoImplementation.allUserData!.uid, key: cartField);
       Map<String, int>? data = convertToMap(res);
       if (data != null) {
         if (data.containsKey(product.id.toString())) {
@@ -54,7 +54,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         }
       }
 
-      await DataBase.updateField(collectionPath: cartCollection, docName: allUserData!.uid, data: {cartField: data});
+      await DataBase.updateField(collectionPath: cartCollection, docName: AuthRepoImplementation.allUserData!.uid, data: {cartField: data});
 
       emit(ProductDetailsCartSuccessed());
     } catch (e) {

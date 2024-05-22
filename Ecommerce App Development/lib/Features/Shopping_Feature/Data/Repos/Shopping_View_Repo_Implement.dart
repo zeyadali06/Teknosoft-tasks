@@ -7,10 +7,10 @@ import 'package:e_commerce_app_development/Core/Utils/FirebaseFirestoreServices.
 import 'package:e_commerce_app_development/Core/Utils/Functions/Capitalize_String.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_List.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_Map.dart';
+import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo_Implement.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo.dart';
 import 'package:e_commerce_app_development/constants.dart';
-import 'package:e_commerce_app_development/main.dart';
 
 class ShoppingRepoImplement implements ShoppingRepo {
   late List<ProductModel> allProducts;
@@ -98,7 +98,7 @@ class ShoppingRepoImplement implements ShoppingRepo {
         products.add(product);
       }
 
-      var result1 = await DataBase.getField(collectionPath: favourateCollection, docName: allUserData!.uid, key: favouratesField);
+      var result1 = await DataBase.getField(collectionPath: favourateCollection, docName: AuthRepoImplementation.allUserData!.uid, key: favouratesField);
       List<int>? favourates = convertToList(result1);
       if (favourates != null) {
         for (ProductModel prod in products) {
@@ -108,7 +108,7 @@ class ShoppingRepoImplement implements ShoppingRepo {
         }
       }
 
-      var result2 = await DataBase.getField(collectionPath: cartCollection, docName: allUserData!.uid, key: cartField);
+      var result2 = await DataBase.getField(collectionPath: cartCollection, docName: AuthRepoImplementation.allUserData!.uid, key: cartField);
       Map<String, int>? itemsInCart = convertToMap(result2);
       if (itemsInCart != null) {
         for (ProductModel product in products) {
