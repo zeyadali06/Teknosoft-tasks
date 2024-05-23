@@ -2,7 +2,6 @@
 
 import 'package:e_commerce_app_development/Core/Common_Widgets/Custom_Button.dart';
 import 'package:e_commerce_app_development/Core/Common_Widgets/No_Thing_Found.dart';
-import 'package:e_commerce_app_development/Core/Utils/Functions/SnackBar.dart';
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
 import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Manager/Cart_View_Cubit/cart_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Views/Widgets/Cart_View_Product_Item.dart';
@@ -22,8 +21,7 @@ class CartViewBody extends StatelessWidget {
         } else if (state is CartViewEmpty) {
           return const NoThingFound(text: 'Cart is empty');
         } else if (state is CartViewFailed) {
-          showSnackBar(context, "Error, try again later");
-          return const Column();
+          return NoThingFound(text: state.errMessage);
         } else {
           return Column(
             children: [

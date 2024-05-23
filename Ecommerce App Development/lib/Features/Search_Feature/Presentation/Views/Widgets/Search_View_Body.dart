@@ -3,7 +3,6 @@
 import 'package:e_commerce_app_development/Features/Search_Feature/Presentation/Manager/Search_View_Cubit.dart/search_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Shopping_View_Product_Item.dart';
 import 'package:e_commerce_app_development/Core/Common_Widgets/No_Thing_Found.dart';
-import 'package:e_commerce_app_development/Core/Utils/Functions/SnackBar.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +17,7 @@ class SearchViewBody extends StatelessWidget {
         if (state is SearchViewLoading) {
           return const Center(child: CircularProgressIndicator(color: kPrimaryColor));
         } else if (state is SearchViewFailed) {
-          showSnackBar(context, "Error, try again later");
-          return const Column();
+          return NoThingFound(text: state.errMessage);
         } else {
           return SafeArea(
             child: Column(

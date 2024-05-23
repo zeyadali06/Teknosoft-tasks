@@ -3,7 +3,6 @@
 import 'package:e_commerce_app_development/Features/Favourate_Feature/Presentation/Manager/Favourate_View_Cubit/favourate_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Favourate_Feature/Presentation/Views/Widgets/Favourate_View_product_Item.dart';
 import 'package:e_commerce_app_development/Core/Common_Widgets/No_Thing_Found.dart';
-import 'package:e_commerce_app_development/Core/Utils/Functions/SnackBar.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +19,7 @@ class FavourateViewBody extends StatelessWidget {
         } else if (state is FavourateViewEmpty) {
           return const NoThingFound(text: 'No favouraties added');
         } else if (state is FavourateViewFailed) {
-          showSnackBar(context, "Error, try again later");
-          return const Column();
+          return NoThingFound(text: state.errMessage);
         } else {
           return SafeArea(
             child: Expanded(
