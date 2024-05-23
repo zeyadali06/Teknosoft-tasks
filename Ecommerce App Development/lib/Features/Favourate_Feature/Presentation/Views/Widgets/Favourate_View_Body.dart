@@ -23,31 +23,21 @@ class FavourateViewBody extends StatelessWidget {
           showSnackBar(context, "Error, try again later");
           return const Column();
         } else {
-          return Column(
-            children: [
-              SafeArea(
-                child: Column(
-                  children: [
-                    Divider(color: Colors.grey.withOpacity(.2), height: 1),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height - 225 - kBottomNavigationBarHeight - 100,
-                      child: ListView.separated(
-                        itemCount: BlocProvider.of<FavourateViewCubit>(context).favourateProdcts.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: kPadding, vertical: 15),
-                            child: FavourateViewProductItem(product: BlocProvider.of<FavourateViewCubit>(context).favourateProdcts[index]),
-                          );
-                        },
-                        separatorBuilder: (BuildContext contextm, int index) {
-                          return Divider(color: Colors.grey.withOpacity(.2), height: 1);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+          return SafeArea(
+            child: Expanded(
+              child: ListView.separated(
+                itemCount: BlocProvider.of<FavourateViewCubit>(context).favourateProdcts.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: kPadding, vertical: 15),
+                    child: FavourateViewProductItem(product: BlocProvider.of<FavourateViewCubit>(context).favourateProdcts[index]),
+                  );
+                },
+                separatorBuilder: (BuildContext contextm, int index) {
+                  return Divider(color: Colors.grey.withOpacity(.2), height: 1);
+                },
+              ),
+            ),
           );
         }
       },
