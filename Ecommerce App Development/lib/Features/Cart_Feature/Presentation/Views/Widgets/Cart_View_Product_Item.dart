@@ -7,6 +7,8 @@ import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Ma
 import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Views/Widgets/Price_Part.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartViewProductItem extends StatelessWidget {
@@ -38,28 +40,32 @@ class CartViewProductItem extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          SizedBox(
-            width: MediaQuery.of(context).size.width - (kPadding * 2) - 75 - 10 - 110,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(item.product.title, style: Styles.black14w500, maxLines: 1, overflow: TextOverflow.ellipsis),
-                Text(item.product.category, style: Styles.grey12w500, maxLines: 1, overflow: TextOverflow.ellipsis),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    PricePart(product: item.product, firstPriceSize: 12, secondPriceSize: 10, asRow: false),
-                    const SizedBox(width: 20),
-                    Text("${item.numberOfItems.toString()} pieces", style: Styles.black18w500),
-                  ],
-                ),
-              ],
+          Expanded(
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width - (kPadding * 2) - 75 - 10 - 110,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(item.product.title, style: Styles.black14w500, maxLines: 1, overflow: TextOverflow.ellipsis),
+                  Text(item.product.category, style: Styles.grey12w500, maxLines: 1, overflow: TextOverflow.ellipsis),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      PricePart(product: item.product, firstPriceSize: 12, secondPriceSize: 10, asRow: false),
+                      const SizedBox(width: 20),
+                      Text(item.numberOfItems.toString(), style: Styles.black18w500),
+                      const Text(" pieces", style: Styles.black14w500),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           TextButton(
             onPressed: () async {
               await BlocProvider.of<CartViewCubit>(context).deleteFromCart(item.product);
             },
+            style: const ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.zero)),
             child: Text('Remove from\n cart', style: Styles.black14w500.copyWith(color: Colors.red), textAlign: TextAlign.center),
           )
         ],
