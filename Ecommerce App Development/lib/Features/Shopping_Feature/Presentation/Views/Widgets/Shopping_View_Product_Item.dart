@@ -43,8 +43,8 @@ class ShoppingViewProductItem extends StatelessWidget {
                 child: ProductImage(url: product.thumbnail),
               ),
             ),
-            const SizedBox(height: 10),
-            Text(product.title, style: Styles.black14w500, maxLines: 2, overflow: TextOverflow.ellipsis),
+            const SizedBox(height: 5),
+            Text(product.title, style: Styles.black14w500.copyWith(fontSize: 13), maxLines: 2, overflow: TextOverflow.ellipsis),
             Row(
               children: [
                 Expanded(
@@ -52,7 +52,7 @@ class ShoppingViewProductItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(product.category, style: Styles.grey12w500, maxLines: 1, overflow: TextOverflow.ellipsis),
-                      PricePart(product: product, firstPriceSize: 14, secondPriceSize: 12),
+                      PricePart(product: product, firstPriceSize: 13, secondPriceSize: 11),
                     ],
                   ),
                 ),
