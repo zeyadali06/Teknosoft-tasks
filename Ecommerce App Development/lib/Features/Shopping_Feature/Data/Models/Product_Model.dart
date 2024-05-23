@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 
 class ProductModel {
-  dynamic rating;
-  int id, price, stock, discountPercentage;
+  int id, stock;
+  double discountPercentage, price, rating;
   final String title, description, brand, category, thumbnail;
   final List<dynamic> images;
   bool favourate = false;
@@ -25,15 +25,15 @@ class ProductModel {
   });
 
   ProductModel.fromJson(Map<String, dynamic> json)
-      : id = json["id"],
-        price = json["price"],
-        discountPercentage = (json["discountPercentage"] ?? 0.0).toInt(),
-        rating = json["rating"],
-        stock = json["stock"],
-        title = json["title"],
-        description = json["description"],
-        brand = json["brand"],
-        category = json["category"],
+      : id = int.parse(json["id"].toString().trim()),
+        price = double.parse(json["price"].toString().trim()),
+        discountPercentage = double.parse((json["discountPercentage"] ?? 0.0).toString().trim()),
+        rating = double.parse(json["rating"].toString().trim()),
+        stock = int.parse(json["stock"].toString().trim()),
+        title = json["title"] ?? "Others",
+        description = json["description"] ?? "",
+        brand = json["brand"] ?? "Others",
+        category = json["category"] ?? "Others",
         thumbnail = json["thumbnail"],
         images = json["images"];
 
