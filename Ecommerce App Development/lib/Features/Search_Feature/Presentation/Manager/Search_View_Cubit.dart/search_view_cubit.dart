@@ -44,6 +44,7 @@ class SearchViewCubit extends Cubit<SearchViewState> {
     try {
       if (searchFor == "" || searchFor.isEmpty) {
         filteredProducts = products;
+        emit(SearchViewSuccessed());
         return filteredProducts;
       }
 
