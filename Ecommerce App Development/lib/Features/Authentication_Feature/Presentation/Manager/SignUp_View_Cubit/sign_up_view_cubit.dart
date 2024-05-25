@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Check_Network.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/RegisterDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,11 @@ class SignUpViewCubit extends Cubit<SignUpViewState> {
   Future<void> register(SignUpData signUpData) async {
     try {
       emit(SignUpViewLoading());
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(SignUpViewFailed("No Internet Connection"));
+        return;
+      }
       Either<AuthFailure, AuthCompletedSuccessfully> res = await authRepo.signUp(signUpData);
       res.fold((failure) {
         emit(SignUpViewFailed(failure.errMessage));
@@ -23,7 +29,12 @@ class SignUpViewCubit extends Cubit<SignUpViewState> {
       });
     } catch (e) {
       try {
-        emit(SignUpViewFailed(AuthFailure(e).errMessage));
+        bool connStat = await checkConn();
+        if (!connStat) {
+          emit(SignUpViewFailed("No Internet Connection"));
+        } else {
+          emit(SignUpViewFailed(AuthFailure(e).errMessage));
+        }
       } catch (_) {}
     }
   }

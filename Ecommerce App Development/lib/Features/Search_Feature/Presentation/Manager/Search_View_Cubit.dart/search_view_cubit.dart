@@ -1,4 +1,5 @@
 import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Check_Network.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo_Implement.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +18,11 @@ class SearchViewCubit extends Cubit<SearchViewState> {
     List<ProductModel> finalRes = [];
     try {
       emit(SearchViewLoading());
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(SearchViewFailed("No Internet Connection"));
+        return [];
+      }
       var res = await repo.getAllProducts();
 
       res.fold((l) {
@@ -33,7 +39,12 @@ class SearchViewCubit extends Cubit<SearchViewState> {
       emit(SearchViewSuccessed());
     } catch (e) {
       try {
-        emit(SearchViewFailed(AuthFailure(e).errMessage));
+        bool connStat = await checkConn();
+        if (!connStat) {
+          emit(SearchViewFailed("No Internet Connection"));
+        } else {
+          emit(SearchViewFailed(AuthFailure(e).errMessage));
+        }
       } catch (_) {}
     }
     return finalRes;

@@ -1,5 +1,6 @@
 import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
 import 'package:e_commerce_app_development/Core/Utils/FirebaseFirestoreServices.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Check_Network.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo_Implement.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,12 +16,22 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
   Future<void> changePhone(String phone) async {
     try {
       emit(ProfileSettingsViewLoading());
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(ProfileSettingsViewFailed("No Internet Connection"));
+        return;
+      }
       AuthRepoImplementation.allUserData!.phone = phone;
       await DataBase.updateField(collectionPath: usersCollection, docName: AuthRepoImplementation.allUserData!.uid, data: AuthRepoImplementation.allUserData!.toMap());
       emit(ProfileSettingsViewPhoneChanged());
     } catch (exc) {
       try {
-        emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+        bool connStat = await checkConn();
+        if (!connStat) {
+          emit(ProfileSettingsViewFailed("No Internet Connection"));
+        } else {
+          emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+        }
       } catch (_) {}
     }
   }
@@ -28,16 +39,31 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
   Future<void> changePassword(String password) async {
     try {
       emit(ProfileSettingsViewLoading());
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(ProfileSettingsViewFailed("No Internet Connection"));
+        return;
+      }
       await FirebaseAuth.instance.currentUser!.updatePassword(password);
       emit(ProfileSettingsViewPasswordChanged());
     } catch (exc) {
-      emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(ProfileSettingsViewFailed("No Internet Connection"));
+      } else {
+        emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+      }
     }
   }
 
   Future<void> logout() async {
     try {
       emit(ProfileSettingsViewLoading());
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(ProfileSettingsViewFailed("No Internet Connection"));
+        return;
+      }
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool(loginStatusPrefKey, false);
       await prefs.setString(emailPrefKey, "");
@@ -47,7 +73,12 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
       emit(ProfileSettingsViewExitFromAccount());
     } catch (exc) {
       try {
-        emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+        bool connStat = await checkConn();
+        if (!connStat) {
+          emit(ProfileSettingsViewFailed("No Internet Connection"));
+        } else {
+          emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+        }
       } catch (_) {}
     }
   }
@@ -55,6 +86,11 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
   Future<void> deleteAccount() async {
     try {
       emit(ProfileSettingsViewLoading());
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(ProfileSettingsViewFailed("No Internet Connection"));
+        return;
+      }
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool(loginStatusPrefKey, false);
       await prefs.setString(emailPrefKey, "");
@@ -67,7 +103,12 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
       emit(ProfileSettingsViewExitFromAccount());
     } catch (exc) {
       try {
-        emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+        bool connStat = await checkConn();
+        if (!connStat) {
+          emit(ProfileSettingsViewFailed("No Internet Connection"));
+        } else {
+          emit(ProfileSettingsViewFailed(AuthFailure(exc).errMessage));
+        }
       } catch (_) {}
     }
   }

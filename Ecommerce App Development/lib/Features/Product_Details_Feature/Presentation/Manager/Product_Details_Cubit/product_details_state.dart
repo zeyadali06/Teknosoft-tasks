@@ -16,5 +16,5 @@ final class ProductDetailsCartNOItemsEqualZero extends ProductDetailsState {}
 final class ProductDetailsFailed extends ProductDetailsState {
   final String errMessage;
 
-  ProductDetailsFailed({required this.errMessage});
+  ProductDetailsFailed(this.errMessage);
 }

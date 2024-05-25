@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Check_Network.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo_Implement.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,11 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
     List<ProductModel> result = [];
     try {
       emit(ShoppingViewLoading());
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(ShoppingViewFailed("No Internet Connection"));
+        return [];
+      }
       var res = await repo.getAllProducts();
       res.fold(
         (l) {
@@ -30,7 +36,12 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
       emit(ShoppingViewSuccessed());
       repo.allProducts = result;
     } catch (e) {
-      emit(ShoppingViewFailed(AuthFailure(e).errMessage));
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(ShoppingViewFailed("No Internet Connection"));
+      } else {
+        emit(ShoppingViewFailed(AuthFailure(e).errMessage));
+      }
     }
     return result;
   }
@@ -114,6 +125,11 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
     ProductModel? product;
     try {
       emit(ShoppingViewLoading());
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(ShoppingViewFailed("No Internet Connection"));
+        return null;
+      }
       var res = await repo.getAllProducts();
       res.fold((l) {
         throw l;
@@ -127,7 +143,12 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
       });
       emit(ShoppingViewSuccessed());
     } catch (e) {
-      emit(ShoppingViewFailed(AuthFailure(e).errMessage));
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(ShoppingViewFailed("No Internet Connection"));
+      } else {
+        emit(ShoppingViewFailed(AuthFailure(e).errMessage));
+      }
     }
     return product;
   }

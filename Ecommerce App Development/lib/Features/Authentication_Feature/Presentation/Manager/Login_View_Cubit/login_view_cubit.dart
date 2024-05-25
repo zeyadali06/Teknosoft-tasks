@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Check_Network.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/LoginDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/UserDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo.dart';
@@ -19,6 +20,11 @@ class LoginViewCubit extends Cubit<LoginViewState> {
   Future<void> login(LoginData loginData) async {
     try {
       emit(LoginViewLoading());
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(LoginViewFailed("No Internet Connection"));
+        return;
+      }
       Either<AuthFailure, AuthCompletedSuccessfully> res = await authRepo.login(loginData);
       res.fold((failure) {
         throw failure;
@@ -28,7 +34,10 @@ class LoginViewCubit extends Cubit<LoginViewState> {
       await setPrefs(true, AuthRepoImplementation.allUserData!.email, loginData.password);
       emit(LoginViewSuccessed(AuthRepoImplementation.allUserData!));
     } catch (e) {
-      if (e is AuthFailure) {
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(LoginViewFailed("No Internet Connection"));
+      } else if (e is AuthFailure) {
         emit(LoginViewFailed(e.errMessage));
       } else {
         emit(LoginViewFailed(AuthFailure(e).errMessage));

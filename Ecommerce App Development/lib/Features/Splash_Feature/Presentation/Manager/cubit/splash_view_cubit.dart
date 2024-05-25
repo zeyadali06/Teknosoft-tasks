@@ -1,3 +1,4 @@
+import 'package:e_commerce_app_development/Core/Utils/Functions/Check_Network.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/UserDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo_Implement.dart';
 import 'package:e_commerce_app_development/Core/Utils/AuthServices.dart';
@@ -13,6 +14,11 @@ class SplashViewCubit extends Cubit<SplashViewState> {
 
   Future<bool> checkLoginStatus() async {
     try {
+      bool connStat = await checkConn();
+      if (!connStat) {
+        return false;
+      }
+
       SharedPreferences prefs = await SharedPreferences.getInstance();
       if (prefs.getBool(loginStatusPrefKey) == true) {
         if (prefs.getString(emailPrefKey) != "") {
@@ -22,7 +28,12 @@ class SplashViewCubit extends Cubit<SplashViewState> {
           return true;
         }
       }
-    } catch (_) {}
+    } catch (_) {
+      bool connStat = await checkConn();
+      if (!connStat) {
+        return false;
+      }
+    }
     return false;
   }
 }

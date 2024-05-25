@@ -1,5 +1,6 @@
 import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
 import 'package:e_commerce_app_development/Core/Utils/FirebaseFirestoreServices.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Check_Network.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_Cart.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo_Implement.dart';
 import 'package:e_commerce_app_development/Features/Cart_Feature/Data/Models/Cart_Item_Model.dart';
@@ -30,6 +31,13 @@ class CartViewCubit extends Cubit<CartViewState> {
     List<CartItem> finalRes = [];
     try {
       emit(CartViewLoading());
+
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(CartViewFailed("No Internet Connection"));
+        return [];
+      }
+
       Map<String, int>? items = await getCartItems();
       var res = await repo.getAllProducts();
 
@@ -63,7 +71,12 @@ class CartViewCubit extends Cubit<CartViewState> {
       }
     } catch (e) {
       try {
-        emit(CartViewFailed(AuthFailure(e).errMessage));
+        bool connStat = await checkConn();
+        if (!connStat) {
+          emit(CartViewFailed("No Internet Connection"));
+        } else {
+          emit(CartViewFailed(AuthFailure(e).errMessage));
+        }
       } catch (_) {}
     }
     return finalRes;
@@ -72,6 +85,13 @@ class CartViewCubit extends Cubit<CartViewState> {
   Future<void> deleteFromCart(ProductModel product) async {
     try {
       emit(CartViewLoading());
+
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(CartViewFailed("No Internet Connection"));
+        return;
+      }
+
       await removeItemFromCart(product.id);
 
       for (int i = 0; i < cartItems.length; i++) {
@@ -98,7 +118,12 @@ class CartViewCubit extends Cubit<CartViewState> {
       }
     } catch (e) {
       try {
-        emit(CartViewFailed(AuthFailure(e).errMessage));
+        bool connStat = await checkConn();
+        if (!connStat) {
+          emit(CartViewFailed("No Internet Connection"));
+        } else {
+          emit(CartViewFailed(AuthFailure(e).errMessage));
+        }
       } catch (_) {}
     }
   }
@@ -106,6 +131,11 @@ class CartViewCubit extends Cubit<CartViewState> {
   Future<void> checkOut() async {
     try {
       emit(CartViewLoading());
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(CartViewFailed("No Internet Connection"));
+        return;
+      }
       await DataBase.setField(collectionPath: cartCollection, docName: AuthRepoImplementation.allUserData!.uid, data: {cartField: {}});
       cartItems.clear();
       subtotalPrice = 0;
@@ -115,7 +145,12 @@ class CartViewCubit extends Cubit<CartViewState> {
       emit(CartViewEmpty());
     } catch (e) {
       try {
-        emit(CartViewFailed(AuthFailure(e).errMessage));
+        bool connStat = await checkConn();
+        if (!connStat) {
+          emit(CartViewFailed("No Internet Connection"));
+        } else {
+          emit(CartViewFailed(AuthFailure(e).errMessage));
+        }
       } catch (_) {}
     }
   }

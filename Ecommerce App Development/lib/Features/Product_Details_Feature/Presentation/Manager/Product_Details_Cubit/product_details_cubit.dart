@@ -1,3 +1,4 @@
+import 'package:e_commerce_app_development/Core/Utils/Functions/Check_Network.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_Favouraties.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_Cart.dart';
@@ -13,11 +14,21 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   Future<void> changeFavourateStatus(ProductModel product, bool status) async {
     try {
       emit(ProductDetailsLoading());
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(ProductDetailsFailed("No Internet Connection"));
+        return;
+      }
       await editFavouraties(product.id, status);
       emit(ProductDetailsFavourateSuccessed());
     } catch (e) {
       try {
-        emit(ProductDetailsFailed(errMessage: AuthFailure(e).errMessage));
+        bool connStat = await checkConn();
+        if (!connStat) {
+          emit(ProductDetailsFailed("No Internet Connection"));
+        } else {
+          emit(ProductDetailsFailed(AuthFailure(e).errMessage));
+        }
       } catch (_) {}
     }
   }
@@ -25,6 +36,12 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   Future<void> addToCart(ProductModel product, int numberOfItems) async {
     try {
       emit(ProductDetailsLoading());
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(ProductDetailsFailed("No Internet Connection"));
+        return;
+      }
+      
       if (numberOfItems == 0) {
         emit(ProductDetailsCartNOItemsEqualZero());
         return;
@@ -33,7 +50,12 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       emit(ProductDetailsCartSuccessed());
     } catch (e) {
       try {
-        emit(ProductDetailsFailed(errMessage: AuthFailure(e).errMessage));
+        bool connStat = await checkConn();
+        if (!connStat) {
+          emit(ProductDetailsFailed("No Internet Connection"));
+        } else {
+          emit(ProductDetailsFailed(AuthFailure(e).errMessage));
+        }
       } catch (_) {}
     }
   }

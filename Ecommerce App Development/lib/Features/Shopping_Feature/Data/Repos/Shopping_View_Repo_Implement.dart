@@ -10,10 +10,10 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
 class ShoppingRepoImplement implements ShoppingRepo {
-  late List<ProductModel> allProducts;
-  late List<ProductModel> avaliableProducts;
-  late List<ProductModel> specificBrandProducts;
-  late List<String> allBrands;
+  List<ProductModel> allProducts = [];
+  List<ProductModel> avaliableProducts = [];
+  List<ProductModel> specificBrandProducts = [];
+  List<String> allBrands = [];
 
   @override
   Either<Failure, List<ProductModel>> getAvaliableProducts(List<ProductModel> allProducts) {

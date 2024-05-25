@@ -1,3 +1,4 @@
+import 'package:e_commerce_app_development/Core/Utils/Functions/Check_Network.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo_Implement.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_Favouraties.dart';
@@ -17,6 +18,13 @@ class FavourateViewCubit extends Cubit<FavourateViewState> {
     List<ProductModel> finalRes = [];
     try {
       emit(FavourateViewLoading());
+
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(FavourateViewFailed("No Internet Connection"));
+        return [];
+      }
+
       List<int>? fav = await getFavouraties();
       var res = await repo.getAllProducts();
 
@@ -43,7 +51,12 @@ class FavourateViewCubit extends Cubit<FavourateViewState> {
       }
     } catch (e) {
       try {
-        emit(FavourateViewFailed(AuthFailure(e).errMessage));
+        bool connStat = await checkConn();
+        if (!connStat) {
+          emit(FavourateViewFailed("No Internet Connection"));
+        } else {
+          emit(FavourateViewFailed(AuthFailure(e).errMessage));
+        }
       } catch (_) {}
     }
     return finalRes;
@@ -52,13 +65,23 @@ class FavourateViewCubit extends Cubit<FavourateViewState> {
   Future<void> changeFavourateStatus(ProductModel product, bool status) async {
     try {
       emit(FavourateViewLoading());
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(FavourateViewFailed("No Internet Connection"));
+        return;
+      }
       await editFavouraties(product.id, status);
       product.favourate = !product.favourate;
 
       emit(FavourateViewSuccessed());
     } catch (e) {
       try {
-        emit(FavourateViewFailed(AuthFailure(e).errMessage));
+        bool connStat = await checkConn();
+        if (!connStat) {
+          emit(FavourateViewFailed("No Internet Connection"));
+        } else {
+          emit(FavourateViewFailed(AuthFailure(e).errMessage));
+        }
       } catch (_) {}
     }
   }
