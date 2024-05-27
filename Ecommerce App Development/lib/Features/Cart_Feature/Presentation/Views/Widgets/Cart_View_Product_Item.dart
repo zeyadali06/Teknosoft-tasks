@@ -7,8 +7,6 @@ import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Ma
 import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Views/Widgets/Price_Part.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CartViewProductItem extends StatelessWidget {

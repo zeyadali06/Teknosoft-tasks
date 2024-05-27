@@ -46,7 +46,10 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const LottieImage("assets/images/LottieShoesBlackLine.json"),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height / 3,
+                      child: const LottieImage("assets/images/BagAnimation.json", seconds: 7),
+                    ),
 
                     // Login Text
                     const Text('Login', style: Styles.black21w500),

@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Core/Utils/App_Router.dart';
+import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Custom_Password_Text_Form_Field.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Custom_Text_Form_Field.dart';
 import 'package:e_commerce_app_development/constants.dart';
@@ -41,6 +43,22 @@ class LoginTextFieldsPart extends StatelessWidget {
                 // Password TextField
                 CustomObsecureTextFormField(
                   controller: passwordController,
+                ),
+
+                // Forget Password Button Text
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(AppRouter.goTo(context, AppRouter.forgetPasswordViewPath));
+                        },
+                        child: Text('Forget Passsword!', style: Styles.black14w500.copyWith(color: Colors.red)),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

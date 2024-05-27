@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
 
 import 'package:e_commerce_app_development/Core/Utils/App_Router.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Lottie_Image.dart';
@@ -60,7 +60,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
         child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            LottieImage("assets/images/LottieShoesRed.json", reverse: false),
+            LottieImage("assets/images/TrollyAnimation.json", reverse: false),
             SizedBox(height: 20),
             CircularProgressIndicator(color: kPrimaryColor),
           ],

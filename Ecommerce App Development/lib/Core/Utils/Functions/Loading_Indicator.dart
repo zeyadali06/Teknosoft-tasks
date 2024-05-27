@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
 
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter/material.dart';
