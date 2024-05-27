@@ -47,7 +47,7 @@ class LoginTextFieldsPart extends StatelessWidget {
 
                 // Forget Password Button Text
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
