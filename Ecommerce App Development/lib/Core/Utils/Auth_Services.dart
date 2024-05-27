@@ -85,6 +85,10 @@ class AccountData {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 
+  static Future<void> updatePassword(String newPassword) async {
+    await FirebaseAuth.instance.currentUser?.updatePassword(newPassword);
+  }
+
   // Get All User Data From Firestore
   static Future<Map<String, dynamic>?> getUserDataFromFirestore(String uid) async {
     // return user data without password

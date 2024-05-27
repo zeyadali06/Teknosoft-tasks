@@ -1,5 +1,6 @@
 import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
-import 'package:e_commerce_app_development/Core/Utils/FirebaseFirestoreServices.dart';
+import 'package:e_commerce_app_development/Core/Utils/Auth_Services.dart';
+import 'package:e_commerce_app_development/Core/Utils/Firebase_Firestore_Services.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Check_Network.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo_Implement.dart';
 import 'package:e_commerce_app_development/constants.dart';
@@ -44,7 +45,7 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
         emit(ProfileSettingsViewFailed("No Internet Connection"));
         return;
       }
-      await FirebaseAuth.instance.currentUser!.updatePassword(password);
+      await AccountData.updatePassword(password);
       emit(ProfileSettingsViewPasswordChanged());
     } catch (exc) {
       bool connStat = await checkConn();

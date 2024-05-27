@@ -1,4 +1,4 @@
-import 'package:e_commerce_app_development/Core/Utils/FormatterComponents/UpperCaseTextFormatter.dart';
+import 'package:e_commerce_app_development/Core/Utils/Formatter_Components/UpperCaseTextFormatter.dart';
 import 'package:flutter/services.dart';
 
 abstract class Formatters {

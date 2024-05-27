@@ -2,7 +2,7 @@
 
 import 'dart:async';
 
-import 'package:e_commerce_app_development/Core/Utils/FirebaseFirestoreServices.dart';
+import 'package:e_commerce_app_development/Core/Utils/Firebase_Firestore_Services.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo_Implement.dart';
 import 'package:e_commerce_app_development/constants.dart';
 

@@ -2,8 +2,8 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
-import 'package:e_commerce_app_development/Core/Utils/AuthServices.dart';
-import 'package:e_commerce_app_development/Core/Utils/FirebaseFirestoreServices.dart';
+import 'package:e_commerce_app_development/Core/Utils/Auth_Services.dart';
+import 'package:e_commerce_app_development/Core/Utils/Firebase_Firestore_Services.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/LoginDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/RegisterDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/UserDataModel.dart';
