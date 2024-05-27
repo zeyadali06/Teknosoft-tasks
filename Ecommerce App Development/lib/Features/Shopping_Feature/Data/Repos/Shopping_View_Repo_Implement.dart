@@ -12,8 +12,8 @@ import 'package:dio/dio.dart';
 class ShoppingRepoImplement implements ShoppingRepo {
   List<ProductModel> allProducts = [];
   List<ProductModel> avaliableProducts = [];
-  List<ProductModel> specificBrandProducts = [];
-  List<String> allBrands = [];
+  List<ProductModel> specificCategoryProducts = [];
+  List<String> allCategories = [];
 
   @override
   Either<Failure, List<ProductModel>> getAvaliableProducts(List<ProductModel> allProducts) {
@@ -38,17 +38,17 @@ class ShoppingRepoImplement implements ShoppingRepo {
   }
 
   @override
-  Either<Failure, List<ProductModel>> getSpecificBrandProducts(List<ProductModel> allProducts, String brand) {
+  Either<Failure, List<ProductModel>> getSpecificCategoryProducts(List<ProductModel> allProducts, String category) {
     try {
       List<ProductModel> res = [];
 
       for (ProductModel prod in allProducts) {
-        if (prod.brand == brand) {
+        if (prod.category.toLowerCase().trim() == category.toLowerCase().trim()) {
           res.add(prod);
         }
       }
 
-      specificBrandProducts = res;
+      specificCategoryProducts = res;
       return right(res);
     } catch (e) {
       if (e is AuthFailure) {
@@ -60,19 +60,19 @@ class ShoppingRepoImplement implements ShoppingRepo {
   }
 
   @override
-  Either<Failure, List<String>> getBrands(List<ProductModel> allProducts) {
+  Either<Failure, List<String>> getCategories(List<ProductModel> allProducts) {
     try {
-      List<String> brands = [];
+      List<String> categories = [];
 
-      brands.add("All");
+      categories.add("All");
       for (ProductModel prod in allProducts) {
-        if (!brands.contains(capitalizeEachWord(prod.brand.trim()))) {
-          brands.add(capitalizeEachWord(prod.brand.trim()));
+        if (!categories.contains(capitalizeEachWord(prod.category.trim()))) {
+          categories.add(capitalizeEachWord(prod.category.trim()));
         }
       }
 
-      allBrands = brands;
-      return right(brands);
+      allCategories = categories;
+      return right(categories);
     } catch (e) {
       if (e is AuthFailure) {
         return left(e);

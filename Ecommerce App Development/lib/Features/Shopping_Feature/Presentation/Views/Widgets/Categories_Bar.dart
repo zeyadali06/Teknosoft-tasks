@@ -5,17 +5,17 @@ import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BrandsBar extends StatefulWidget {
-  const BrandsBar({super.key, required this.brands, required this.onItemSelected});
+class CategoriesBar extends StatefulWidget {
+  const CategoriesBar({super.key, required this.categories, required this.onItemSelected});
 
-  final List<String> brands;
-  final void Function(String brandSelected) onItemSelected;
+  final List<String> categories;
+  final void Function(String categorySelected) onItemSelected;
 
   @override
-  State<BrandsBar> createState() => _BrandsBarState();
+  State<CategoriesBar> createState() => _CategoriesBarState();
 }
 
-class _BrandsBarState extends State<BrandsBar> {
+class _CategoriesBarState extends State<CategoriesBar> {
   @override
   Widget build(BuildContext context) {
     Color buttonColor = Colors.grey.withOpacity(.3);
@@ -29,21 +29,21 @@ class _BrandsBarState extends State<BrandsBar> {
         height: 35,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: widget.brands.length,
+          itemCount: widget.categories.length,
           itemBuilder: (BuildContext context, int index) {
-            String brand = widget.brands[index];
-            bool isSelected = brand == BlocProvider.of<ShoppingViewCubit>(context).selectedBrand;
+            String category = widget.categories[index];
+            bool isSelected = category == BlocProvider.of<ShoppingViewCubit>(context).selectedCategory;
             return Padding(
               padding: EdgeInsets.only(
                 left: (index == 0) ? kPadding : kPadding / 2,
-                right: (index == widget.brands.length - 1) ? kPadding : 0,
+                right: (index == widget.categories.length - 1) ? kPadding : 0,
               ),
               child: MaterialButton(
                 onPressed: () {
                   setState(() {
-                    BlocProvider.of<ShoppingViewCubit>(context).selectedBrand = brand;
+                    BlocProvider.of<ShoppingViewCubit>(context).selectedCategory = category;
                   });
-                  widget.onItemSelected(brand);
+                  widget.onItemSelected(category);
                 },
                 elevation: 0,
                 color: isSelected ? selectedButtonColor : buttonColor,
@@ -55,7 +55,7 @@ class _BrandsBarState extends State<BrandsBar> {
                   ),
                 ),
                 child: Text(
-                  brand,
+                  category,
                   style: TextStyle(
                     color: isSelected ? selectedTextColor : textColor,
                   ),

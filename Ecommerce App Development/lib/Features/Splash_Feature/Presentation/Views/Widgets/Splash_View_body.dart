@@ -38,8 +38,8 @@ class _SplashViewBodyState extends State<SplashViewBody> {
     }
     List<ProductModel> products = await BlocProvider.of<ShoppingViewCubit>(context).getAllProducts();
     BlocProvider.of<ShoppingViewCubit>(context).getAvaliableProducts(products);
-    BlocProvider.of<ShoppingViewCubit>(context).getBrands(products);
-    BlocProvider.of<ShoppingViewCubit>(context).getSpecificBrandProducts(products, "All");
+    BlocProvider.of<ShoppingViewCubit>(context).getCategories(products);
+    BlocProvider.of<ShoppingViewCubit>(context).getSpecificCategoryProducts(products, "All");
     await Future.delayed(const Duration(seconds: 1), () {
       Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.navigationBarPath));
     });

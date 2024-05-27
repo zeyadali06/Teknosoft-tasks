@@ -2,10 +2,10 @@
 
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Shopping_View_Cubit.dart/shopping_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Shopping_View_Product_Item.dart';
-import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Specified_Brand_Products.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Specified_Category_Products.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Shopping_View_Image.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Section_Title.dart';
-import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Brands_Bar.dart';
+import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Categories_Bar.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/SnackBar.dart';
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
@@ -22,16 +22,16 @@ class ShoppingViewBody extends StatefulWidget {
 
 class _ShoppingViewBodyState extends State<ShoppingViewBody> {
   late List<ProductModel> products;
-  late List<String> brands;
-  late List<ProductModel> specificBrandProducts;
+  late List<String> categories;
+  late List<ProductModel> specificCategoryProducts;
   late List<ProductModel> allProducts;
 
   @override
   void initState() {
     allProducts = BlocProvider.of<ShoppingViewCubit>(context).repo.allProducts;
     products = BlocProvider.of<ShoppingViewCubit>(context).repo.avaliableProducts;
-    brands = BlocProvider.of<ShoppingViewCubit>(context).repo.allBrands;
-    specificBrandProducts = BlocProvider.of<ShoppingViewCubit>(context).repo.specificBrandProducts;
+    categories = BlocProvider.of<ShoppingViewCubit>(context).repo.allCategories;
+    specificCategoryProducts = BlocProvider.of<ShoppingViewCubit>(context).repo.specificCategoryProducts;
 
     super.initState();
   }
@@ -72,14 +72,14 @@ class _ShoppingViewBodyState extends State<ShoppingViewBody> {
                   ),
                 ),
                 const SizedBox(height: 15),
-                const TitleRow(text: 'Brands'),
-                BrandsBar(
-                  brands: brands,
-                  onItemSelected: (brandSelected) async {
-                    specificBrandProducts = BlocProvider.of<ShoppingViewCubit>(context).getSpecificBrandProducts(allProducts, brandSelected);
+                const TitleRow(text: 'Categories'),
+                CategoriesBar(
+                  categories: categories,
+                  onItemSelected: (categorySelected) async {
+                    specificCategoryProducts = BlocProvider.of<ShoppingViewCubit>(context).getSpecificCategoryProducts(allProducts, categorySelected);
                   },
                 ),
-                SpecifiedBrandProducts(specificBrandProducts: specificBrandProducts),
+                SpecifiedCategoryProducts(specificCategoryProducts: specificCategoryProducts),
               ],
             ),
           ),

@@ -3,6 +3,7 @@ import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Check_Network.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo_Implement.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,7 +13,7 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
   ShoppingViewCubit(this.repo) : super(ShoppingViewInitial());
 
   final ShoppingRepoImplement repo;
-  String selectedBrand = "All";
+  String selectedCategory = "All";
 
   Future<List<ProductModel>> getAllProducts() async {
     List<ProductModel> result = [];
@@ -68,31 +69,31 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
     return result;
   }
 
-  List<String> getBrands(List<ProductModel> allProds) {
-    List<String> brands = [];
+  List<String> getCategories(List<ProductModel> allProds) {
+    List<String> categories = [];
     try {
       emit(ShoppingViewLoading());
-      var res = repo.getBrands(allProds);
+      var res = repo.getCategories(allProds);
       res.fold(
         (l) {
           return emit(ShoppingViewFailed(l.errMessage));
         },
         (r) {
-          brands = r;
+          categories = r;
         },
       );
 
       emit(ShoppingViewSuccessed());
-      repo.allBrands = brands;
+      repo.allCategories = categories;
     } catch (e) {
       emit(ShoppingViewFailed(AuthFailure(e).errMessage));
     }
-    return brands;
+    return categories;
   }
 
-  List<ProductModel> getSpecificBrandProducts(List<ProductModel> allProds, String brand) {
-    if (brand == "All") {
-      repo.specificBrandProducts = allProds;
+  List<ProductModel> getSpecificCategoryProducts(List<ProductModel> allProds, String category) {
+    if (category == "All") {
+      repo.specificCategoryProducts = allProds;
       emit(ShoppingViewSuccessed());
       return allProds;
     }
@@ -102,7 +103,7 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
       Either<Failure, List<ProductModel>> res;
       emit(ShoppingViewLoading());
 
-      res = repo.getSpecificBrandProducts(allProds, brand);
+      res = repo.getSpecificCategoryProducts(allProds, category);
 
       res.fold(
         (l) {
@@ -114,7 +115,7 @@ class ShoppingViewCubit extends Cubit<ShoppingViewState> {
       );
 
       emit(ShoppingViewSuccessed());
-      repo.specificBrandProducts = products;
+      repo.specificCategoryProducts = products;
     } catch (e) {
       emit(ShoppingViewFailed(AuthFailure(e).errMessage));
     }

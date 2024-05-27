@@ -6,14 +6,14 @@ import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentatio
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter/material.dart';
 
-class SpecifiedBrandProducts extends StatelessWidget {
-  const SpecifiedBrandProducts({super.key, required this.specificBrandProducts});
+class SpecifiedCategoryProducts extends StatelessWidget {
+  const SpecifiedCategoryProducts({super.key, required this.specificCategoryProducts});
 
-  final List<ProductModel> specificBrandProducts;
+  final List<ProductModel> specificCategoryProducts;
 
   @override
   Widget build(BuildContext context) {
-    return specificBrandProducts.isEmpty
+    return specificCategoryProducts.isEmpty
         ? const NoThingFound()
         : Padding(
             padding: const EdgeInsets.only(right: kPadding),
@@ -23,12 +23,12 @@ class SpecifiedBrandProducts extends StatelessWidget {
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
-              itemCount: specificBrandProducts.length,
+              itemCount: specificCategoryProducts.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.only(left: kPadding),
                   child: ShoppingViewProductItem(
-                    product: specificBrandProducts[index],
+                    product: specificCategoryProducts[index],
                   ),
                 );
               },
