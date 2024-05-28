@@ -1,10 +1,10 @@
 // ignore_for_file: file_names
 
-import 'package:dartz/dartz.dart';
-import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
+import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/SignUpDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/LoginDataModel.dart';
-import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/RegisterDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/UserDataModel.dart';
+import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
+import 'package:dartz/dartz.dart';
 
 abstract class AuthRepo {
   static UserData? allUserData;

@@ -1,10 +1,10 @@
 // ignore_for_file: file_names
 
-import 'package:e_commerce_app_development/Core/Utils/Functions/Loading_Indicator.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Manager/SignUp_View_Cubit/sign_up_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/SignUp_Text_Fields_Part.dart';
-import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/RegisterDataModel.dart';
+import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/SignUpDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Lottie_Image.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Loading_Indicator.dart';
 import 'package:e_commerce_app_development/Core/Common_Widgets/Custom_Button.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/SnackBar.dart';
 import 'package:e_commerce_app_development/Core/Utils/App_Router.dart';
