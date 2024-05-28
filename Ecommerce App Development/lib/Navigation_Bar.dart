@@ -34,7 +34,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
         child: AppRouter.searchViewPath,
       ),
       BlocProvider(
-        create: (context) => FavourateViewCubit(AppRouter.shoppingRepo)..getFavouratProduct(),
+        create: (context) => FavourateViewCubit(AppRouter.shoppingRepo)..getFavouratProducts(),
         child: AppRouter.favourateViewPath,
       ),
       AppRouter.profileSettingsViewPath,

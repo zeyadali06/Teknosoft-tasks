@@ -14,7 +14,7 @@ class FavourateViewCubit extends Cubit<FavourateViewState> {
   late List<ProductModel> favourateProdcts;
   ShoppingRepoImplement repo;
 
-  Future<List<ProductModel>> getFavouratProduct() async {
+  Future<List<ProductModel>> getFavouratProducts() async {
     List<ProductModel> finalRes = [];
     try {
       emit(FavourateViewLoading());
@@ -26,9 +26,13 @@ class FavourateViewCubit extends Cubit<FavourateViewState> {
       }
 
       List<int>? fav = await getFavouraties();
-      var res = await repo.getAllProducts();
 
-      fav ??= [];
+      if (fav == null || fav.isEmpty) {
+        emit(FavourateViewEmpty());
+        return [];
+      }
+
+      var res = await repo.getAllProducts();
 
       res.fold(
         (l) {
@@ -36,7 +40,7 @@ class FavourateViewCubit extends Cubit<FavourateViewState> {
         },
         (r) {
           for (ProductModel prod in r) {
-            if (fav!.contains(prod.id)) {
+            if (fav.contains(prod.id)) {
               finalRes.add(prod);
             }
           }

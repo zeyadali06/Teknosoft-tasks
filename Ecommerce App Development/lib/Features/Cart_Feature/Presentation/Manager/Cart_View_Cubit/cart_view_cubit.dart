@@ -39,15 +39,19 @@ class CartViewCubit extends Cubit<CartViewState> {
       }
 
       Map<String, int>? items = await getCartItems();
-      var res = await repo.getAllProducts();
 
-      items ??= {};
+      if (items == null || items.isEmpty) {
+        emit(CartViewEmpty());
+        return [];
+      }
+
+      var res = await repo.getAllProducts();
 
       res.fold((l) {
         throw l;
       }, (r) {
         for (ProductModel prod in r) {
-          if (items!.containsKey(prod.id.toString())) {
+          if (items.containsKey(prod.id.toString())) {
             CartItem item = CartItem(id: prod.id, product: prod, numberOfItems: items[prod.id.toString()]!);
             finalRes.add(item);
             subtotalPrice += (item.product.price * item.numberOfItems);
