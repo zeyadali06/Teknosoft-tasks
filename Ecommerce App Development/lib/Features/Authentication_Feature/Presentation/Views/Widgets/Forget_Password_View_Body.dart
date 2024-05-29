@@ -21,6 +21,7 @@ class ForgetPasswordViewBody extends StatefulWidget {
 
 class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
   TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   GlobalKey<FormState> keyForm = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
@@ -46,13 +47,21 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
               // Find Your Account Text
               const Text('Find Your Account', style: Styles.black21w500),
 
-              // Email TextField
               Padding(
                 padding: const EdgeInsets.all(kPadding),
                 child: Form(
                   key: keyForm,
                   autovalidateMode: autovalidateMode,
-                  child: CustomTextFormField(hintText: "Email", label: "Email", controller: emailController),
+                  child: Column(
+                    children: [
+                      // Email TextField
+                      CustomTextFormField(hintText: "Email", label: "Email", controller: emailController),
+                      const SizedBox(height: 20),
+
+                      // Phone TextField
+                      CustomTextFormField(hintText: "Phone", label: "Phone", controller: phoneController),
+                    ],
+                  ),
                 ),
               ),
 
@@ -72,7 +81,7 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
 
   void onPressed() async {
     if (keyForm.currentState!.validate()) {
-      await waitUntilFinished(context, () async => await BlocProvider.of<ForgetPasswordViewCubit>(context).updatePassword(emailController.text));
+      await waitUntilFinished(context, () async => await BlocProvider.of<ForgetPasswordViewCubit>(context).updatePassword(emailController.text, phoneController.text));
     } else {
       autovalidateMode = AutovalidateMode.always;
       setState(() {});

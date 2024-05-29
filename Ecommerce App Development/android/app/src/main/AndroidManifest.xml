@@ -1,4 +1,5 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="comm.example.e_commerce_app_development">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:label="e_commerce_app_development"
