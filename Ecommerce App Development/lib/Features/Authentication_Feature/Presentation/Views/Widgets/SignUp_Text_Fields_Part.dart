@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Core/Common_Widgets/Custom_Phone_Text_Form_Field.dart';
 import 'package:e_commerce_app_development/Core/Utils/formatters.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Custom_Password_Text_Form_Field.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Custom_Text_Form_Field.dart';
@@ -54,12 +55,7 @@ class SignUpTextFieldsPart extends StatelessWidget {
             const SizedBox(height: 10),
 
             // phone field
-            CustomTextFormField(
-              controller: phoneController,
-              hintText: 'Phone',
-              label: 'Phone',
-              inputFormatters: [Formatters.preventSpaces, Formatters.numbersOnly],
-            ),
+            CustomPhoneTextField(controller: phoneController),
             const SizedBox(height: 10),
 
             // passowrd field

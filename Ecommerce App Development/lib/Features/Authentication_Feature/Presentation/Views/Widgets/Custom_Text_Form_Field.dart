@@ -8,10 +8,11 @@ class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
     super.key,
     required this.hintText,
+    required this.label,
     this.controller,
     this.onSaved,
     this.inputFormatters,
-    required this.label,
+    this.onChanged,
   });
 
   final String hintText;
@@ -19,6 +20,7 @@ class CustomTextFormField extends StatefulWidget {
   final TextEditingController? controller;
   final List<TextInputFormatter>? inputFormatters;
   final void Function(String?)? onSaved;
+  final void Function(String?)? onChanged;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -52,6 +54,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         },
         onTapOutside: (event) => FocusManager.instance.primaryFocus?.unfocus(),
         onSaved: widget.onSaved,
+        onChanged: widget.onChanged,
         cursorOpacityAnimates: true,
         controller: widget.controller,
         cursorColor: color,

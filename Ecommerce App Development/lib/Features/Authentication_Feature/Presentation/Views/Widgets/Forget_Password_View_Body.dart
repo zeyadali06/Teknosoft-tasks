@@ -1,6 +1,7 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
 
 import 'package:e_commerce_app_development/Core/Common_Widgets/Custom_Button.dart';
+import 'package:e_commerce_app_development/Core/Common_Widgets/Custom_Phone_Text_Form_Field.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Loading_Indicator.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/SnackBar.dart';
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
@@ -9,7 +10,6 @@ import 'package:e_commerce_app_development/Features/Authentication_Feature/Prese
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Lottie_Image.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ForgetPasswordViewBody extends StatefulWidget {
@@ -20,16 +20,17 @@ class ForgetPasswordViewBody extends StatefulWidget {
 }
 
 class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
-  GlobalKey<FormState> keyForm = GlobalKey();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController codeController = TextEditingController();
+  final GlobalKey<FormState> keyForm = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ForgetPasswordViewCubit, ForgetPasswordViewState>(
       listener: (context, state) {
-        if (state is ForgetPasswordViewSuccessed) {
+        if (state is ForgetPasswordViewEmailSent) {
           showSnackBar(context, "Email Sended Successfully");
           Navigator.of(context).pop();
         } else if (state is ForgetPasswordViewFailed) {
@@ -59,7 +60,7 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
                       const SizedBox(height: 20),
 
                       // Phone TextField
-                      CustomTextFormField(hintText: "Phone", label: "Phone", controller: phoneController),
+                      CustomPhoneTextField(controller: phoneController),
                     ],
                   ),
                 ),
@@ -81,10 +82,55 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
 
   void onPressed() async {
     if (keyForm.currentState!.validate()) {
-      await waitUntilFinished(context, () async => await BlocProvider.of<ForgetPasswordViewCubit>(context).updatePassword(emailController.text, phoneController.text));
+      bool codeSent = false;
+      await waitUntilFinished(context, () async {
+        codeSent = await BlocProvider.of<ForgetPasswordViewCubit>(context).sendCodeToPhone(emailController.text, phoneController.text);
+      });
+
+      if (codeSent) {
+        showCodeInputDialog(context);
+      }
+
+      if (codeController.text.isNotEmpty && codeController.text == BlocProvider.of<ForgetPasswordViewCubit>(context).verificationId) {
+        await waitUntilFinished(context, () async => await BlocProvider.of<ForgetPasswordViewCubit>(context).updatePassword(emailController.text, phoneController.text));
+      }
     } else {
       autovalidateMode = AutovalidateMode.always;
       setState(() {});
     }
+  }
+
+  void showCodeInputDialog(BuildContext context) {
+    codeController.text = "";
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return PopScope(
+          canPop: false,
+          child: AlertDialog(
+            title: const Text('Enter Code'),
+            content: TextField(
+              controller: codeController,
+              decoration: const InputDecoration(hintText: "Enter the code sent to your phone"),
+            ),
+            actions: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK', style: Styles.black14w500),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  codeController.text = "";
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Cancel', style: Styles.black14w500),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
