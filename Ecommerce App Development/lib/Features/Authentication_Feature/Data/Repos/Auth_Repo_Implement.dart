@@ -1,16 +1,16 @@
 // ignore_for_file: file_names
 
-import 'package:dartz/dartz.dart';
-import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
-import 'package:e_commerce_app_development/Core/Utils/Auth_Services.dart';
-import 'package:e_commerce_app_development/Core/Utils/Firebase_Firestore_Services.dart';
-import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/LoginDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/SignUpDataModel.dart';
+import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/LoginDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/UserDataModel.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo.dart';
+import 'package:e_commerce_app_development/Core/Utils/Firebase_Firestore_Services.dart';
+import 'package:e_commerce_app_development/Core/Utils/Auth_Services.dart';
+import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dartz/dartz.dart';
 
 class AuthRepoImplementation implements AuthRepo {
   static UserData? allUserData;
@@ -34,7 +34,7 @@ class AuthRepoImplementation implements AuthRepo {
       }
       Map<String, dynamic>? data = await AccountData.getUserDataFromFirestore(uid!);
       UserCredential user = await SignIn.signIn(email!, loginData.password!);
-      allUserData = UserData(email: email, username: data!['username'], phone: data['phone'], uid: user.user!.uid);
+      allUserData = UserData(email: email, username: data!['username'], phone: data['phone'], uid: user.user!.uid, profileURL: data['profileURL']);
       return right(AuthCompletedSuccessfully(allUserData!));
     } catch (e) {
       return left(AuthFailure(e));
@@ -48,8 +48,12 @@ class AuthRepoImplementation implements AuthRepo {
         return left(AuthFailure(FirebaseAuthException(code: "username-already-in-use")));
       }
 
-      UserCredential user = await Register.register(registerData.toMap()..remove('password'), registerData.password);
-      allUserData = UserData(email: registerData.email, username: registerData.username, phone: registerData.phone, uid: user.user!.uid);
+      Map<String, dynamic> data = registerData.toMap();
+      data.remove('password');
+      data['profileURL'] = defaultProfileImageURL;
+
+      UserCredential user = await Register.register(data, registerData.password);
+      allUserData = UserData(email: registerData.email, username: registerData.username, phone: registerData.phone, uid: user.user!.uid, profileURL: defaultProfileImageURL);
 
       await DataBase.setField(collectionPath: favourateCollection, docName: allUserData!.uid, data: {favouratesField: []});
 

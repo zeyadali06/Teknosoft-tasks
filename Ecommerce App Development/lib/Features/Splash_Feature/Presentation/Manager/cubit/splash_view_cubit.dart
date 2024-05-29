@@ -24,7 +24,7 @@ class SplashViewCubit extends Cubit<SplashViewState> {
         if (prefs.getString(emailPrefKey) != "") {
           String? uid = await AccountData.getUIDFromFirestoreUsingEmail(prefs.getString(emailPrefKey)!);
           Map<String, dynamic>? data = await AccountData.getUserDataFromFirestore(uid!);
-          AuthRepoImplementation.allUserData = UserData(email: data!['email'], phone: data['phone'], uid: data['uid'], username: data['username']);
+          AuthRepoImplementation.allUserData = UserData(email: data!['email'], phone: data['phone'], uid: data['uid'], username: data['username'], profileURL: data['profileURL']);
           return true;
         }
       }

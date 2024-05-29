@@ -65,10 +65,7 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
         emit(ProfileSettingsViewFailed("No Internet Connection"));
         return;
       }
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool(loginStatusPrefKey, false);
-      await prefs.setString(emailPrefKey, "");
-      await prefs.setString(passwordPrefKey, "");
+      await resetPrefs();
       await FirebaseAuth.instance.signOut();
       AuthRepoImplementation.allUserData = null;
       emit(ProfileSettingsViewExitFromAccount());
@@ -92,13 +89,8 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
         emit(ProfileSettingsViewFailed("No Internet Connection"));
         return;
       }
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setBool(loginStatusPrefKey, false);
-      await prefs.setString(emailPrefKey, "");
-      await prefs.setString(passwordPrefKey, "");
-      await DataBase.deleteDoc(collectionPath: usersCollection, docName: AuthRepoImplementation.allUserData!.uid);
-      await DataBase.deleteDoc(collectionPath: favourateCollection, docName: AuthRepoImplementation.allUserData!.uid);
-      await DataBase.deleteDoc(collectionPath: cartCollection, docName: AuthRepoImplementation.allUserData!.uid);
+      await resetPrefs();
+      await resetFirebasefirestore();
       await FirebaseAuth.instance.currentUser!.delete();
       AuthRepoImplementation.allUserData = null;
       emit(ProfileSettingsViewExitFromAccount());
@@ -112,5 +104,18 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
         }
       } catch (_) {}
     }
+  }
+
+  Future<void> resetPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(loginStatusPrefKey, false);
+    await prefs.setString(emailPrefKey, "");
+    await prefs.setString(passwordPrefKey, "");
+  }
+
+  Future<void> resetFirebasefirestore() async {
+    await DataBase.deleteDoc(collectionPath: usersCollection, docName: AuthRepoImplementation.allUserData!.uid);
+    await DataBase.deleteDoc(collectionPath: favourateCollection, docName: AuthRepoImplementation.allUserData!.uid);
+    await DataBase.deleteDoc(collectionPath: cartCollection, docName: AuthRepoImplementation.allUserData!.uid);
   }
 }

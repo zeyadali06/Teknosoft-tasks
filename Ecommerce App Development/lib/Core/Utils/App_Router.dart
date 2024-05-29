@@ -1,15 +1,16 @@
 // ignore_for_file: file_names
 
-import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Manager/Forget_Password_View_Cubit/forget_password_view_cubit.dart';
-import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Forget_Password_View.dart';
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Manager/Profile_Settings_View_Cubit.dart/profile_settings_view_cubit.dart';
+import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Manager/Forget_Password_View_Cubit/forget_password_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Manager/Product_Details_Cubit/product_details_cubit.dart';
+import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Manager/Profile_Image_Cubit/profile_image_cubit.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Shopping_View_Cubit.dart/shopping_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Manager/SignUp_View_Cubit/sign_up_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Manager/Login_View_Cubit/login_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Views/Profile_Settings_View.dart';
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Views/Change_Password_View.dart';
 import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Views/Product_Details_View.dart';
+import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Forget_Password_View.dart';
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Views/Change_Phone_View.dart';
 import 'package:e_commerce_app_development/Features/Splash_Feature/Presentation/Manager/cubit/splash_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Repos/Shopping_View_Repo_Implement.dart';
@@ -63,6 +64,9 @@ abstract class AppRouter {
       BlocProvider(
         create: (context) => ProfileSettingsViewCubit(),
       ),
+      BlocProvider(
+        create: (context) => ProfileImageCubit(),
+      ),
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -72,12 +76,12 @@ abstract class AppRouter {
 
   static const Widget cartViewPath = CartView();
   static const Widget searchViewPath = SearchView();
-  static const Widget navigationBarPath = CustomNavigationBar();
   static const Widget shoppingViewPath = ShoppingView();
   static const Widget favourateViewPath = FavourateView();
-  static const Widget profileSettingsViewPath = ProfileSettingsView();
   static const Widget changePhoneViewPath = ChangePhoneView();
+  static const Widget navigationBarPath = CustomNavigationBar();
   static const Widget changePasswordViewPath = ChangePasswordView();
+  static const Widget profileSettingsViewPath = ProfileSettingsView();
 
   static MaterialPageRoute goTo(BuildContext context, Widget toView) {
     return MaterialPageRoute(builder: (context) {
