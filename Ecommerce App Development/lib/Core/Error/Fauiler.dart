@@ -38,6 +38,8 @@ class AuthFailure implements Failure {
         _message = 'Make this operation after recent login';
       } else if (e.code == 'invalid-verification-code') {
         _message = 'Code is incorrect';
+      } else if (e.code == 'too-many-requests') {
+        _message = 'Many attempts, try again later';
       } else {
         _message = 'Error try again later';
       }

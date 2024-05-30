@@ -175,11 +175,12 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
       await waitUntilFinished(context, () async {
         codeSent = await BlocProvider.of<ForgetPasswordViewCubit>(context).sendCodeToPhone(emailController.text, phoneController.text);
       });
+
       if (codeSent) {
+        showAlertMesssge(context, "", "Code sended successfully. You may be redirected to google page to make sure that you aren't a roboot.");
         sendCode = false;
         codeVerified = false;
         setState(() {});
-        showCodeInputDialog(context);
       }
     } else {
       autovalidateMode = AutovalidateMode.always;
@@ -219,7 +220,9 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 onPressed: () async {
                   Navigator.of(context).pop();
-                  codeVerified = await BlocProvider.of<ForgetPasswordViewCubit>(context).verifyCode(codeController.text);
+                  await waitUntilFinished(context, () async {
+                    codeVerified = await BlocProvider.of<ForgetPasswordViewCubit>(context).verifyCode(codeController.text);
+                  });
                 },
                 buttonText: 'OK',
               ),

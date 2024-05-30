@@ -63,8 +63,8 @@ class ForgetPasswordViewCubit extends Cubit<ForgetPasswordViewState> {
         smsCode: code,
       );
 
-      await FirebaseAuth.instance.signInWithCredential(credential);
-      await FirebaseAuth.instance.signOut();
+      UserCredential user = await FirebaseAuth.instance.signInWithCredential(credential);
+      await user.user!.delete();
 
       emit(ForgetPasswordViewCorrectCode());
       return true;
@@ -110,6 +110,7 @@ class ForgetPasswordViewCubit extends Cubit<ForgetPasswordViewState> {
         verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {},
         verificationFailed: (FirebaseAuthException authException) {
           codeSent = false;
+          emit(ForgetPasswordViewFailed(AuthFailure(authException).errMessage));
         },
         codeSent: (String vid, int? forceResendingToken) {
           verificationId = vid;
@@ -118,9 +119,7 @@ class ForgetPasswordViewCubit extends Cubit<ForgetPasswordViewState> {
           verificationId = vid;
         },
       );
-      if (!codeSent) {
-        emit(ForgetPasswordViewFailed("Error"));
-      } else {
+      if (codeSent) {
         attempts++;
       }
       return codeSent;
