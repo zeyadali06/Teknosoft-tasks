@@ -1,8 +1,7 @@
+import 'package:e_commerce_app_development/Core/Utils/Functions/Firebase_Storage_Services.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo_Implement.dart';
 import 'package:e_commerce_app_development/Core/Utils/Firebase_Firestore_Services.dart';
-import 'package:e_commerce_app_development/Core/Utils/Functions/Get_File_Path.dart';
 import 'package:e_commerce_app_development/constants.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,7 @@ class ProfileImageCubit extends Cubit<ProfileImageState> {
 
       if (imagePicked != null) {
         File file = File(imagePicked.path);
-        url = await storeInFirebaseStorage(file);
+        url = await Storage.storeInFirebaseStorage(file);
         AuthRepoImplementation.allUserData!.profileURL = url;
         await DataBase.updateField(collectionPath: usersCollection, docName: AuthRepoImplementation.allUserData!.uid, data: {'profileURL': url});
       }
@@ -40,7 +39,7 @@ class ProfileImageCubit extends Cubit<ProfileImageState> {
     try {
       emit(ProfileImageLoading());
 
-      await remFromFirebaseStorage(url);
+      await Storage.remFromFirebaseStorage(url);
       url = defaultProfileImageURL;
       AuthRepoImplementation.allUserData!.profileURL = defaultProfileImageURL;
       await DataBase.updateField(collectionPath: usersCollection, docName: AuthRepoImplementation.allUserData!.uid, data: {'profileURL': url});
@@ -50,17 +49,5 @@ class ProfileImageCubit extends Cubit<ProfileImageState> {
       emit(ProfileImageFinished());
     }
     return url;
-  }
-
-  Future<String> storeInFirebaseStorage(File file) async {
-    final Reference ref = FirebaseStorage.instance.ref(getFilePath(file));
-    await ref.putFile(file);
-    String url = await ref.getDownloadURL();
-    return url;
-  }
-
-  Future<void> remFromFirebaseStorage(String url) async {
-    await FirebaseStorage.instance.refFromURL(url).delete();
-    await DataBase.updateField(collectionPath: usersCollection, docName: AuthRepoImplementation.allUserData!.uid, data: {'profileURL': defaultProfileImageURL});
   }
 }

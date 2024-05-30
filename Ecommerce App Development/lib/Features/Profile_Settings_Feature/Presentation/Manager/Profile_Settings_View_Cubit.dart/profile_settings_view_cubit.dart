@@ -2,6 +2,7 @@ import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
 import 'package:e_commerce_app_development/Core/Utils/Auth_Services.dart';
 import 'package:e_commerce_app_development/Core/Utils/Firebase_Firestore_Services.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Check_Network.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/Firebase_Storage_Services.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo_Implement.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -92,6 +93,7 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
       await resetPrefs();
       await resetFirebasefirestore();
       await FirebaseAuth.instance.currentUser!.delete();
+      await Storage.remFromFirebaseStorage(AuthRepoImplementation.allUserData!.profileURL);
       AuthRepoImplementation.allUserData = null;
       emit(ProfileSettingsViewExitFromAccount());
     } catch (exc) {
