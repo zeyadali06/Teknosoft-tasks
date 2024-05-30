@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:e_commerce_app_development/Core/Utils/Functions/Check_Network.dart';
 import 'package:e_commerce_app_development/Core/Utils/Auth_Services.dart';
 import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
@@ -14,7 +12,7 @@ part 'forget_password_view_state.dart';
 class ForgetPasswordViewCubit extends Cubit<ForgetPasswordViewState> {
   ForgetPasswordViewCubit() : super(ForgetPasswordViewInitial());
 
-  String verificationId = "1234";
+  String verificationId = "";
   int attempts = 0;
 
   Future<void> updatePassword(String email, String phone) async {
@@ -109,20 +107,15 @@ class ForgetPasswordViewCubit extends Cubit<ForgetPasswordViewState> {
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: phone,
         timeout: const Duration(seconds: 60),
-        verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {
-          log('ok1');
-        },
+        verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {},
         verificationFailed: (FirebaseAuthException authException) {
           codeSent = false;
-          log(authException.message.toString());
         },
         codeSent: (String vid, int? forceResendingToken) {
           verificationId = vid;
-          log('ok3    $vid');
         },
         codeAutoRetrievalTimeout: (String vid) {
           verificationId = vid;
-          log('ok4     $vid');
         },
       );
       if (!codeSent) {

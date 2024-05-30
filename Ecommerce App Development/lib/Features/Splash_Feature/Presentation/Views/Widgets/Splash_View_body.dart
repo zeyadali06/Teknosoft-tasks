@@ -60,7 +60,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
         child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            LottieImage("assets/images/TrollyAnimation.json", reverse: false),
+            LottieImage("assets/images/TrollyAnimation.json", repeatWithReverse: false, repeatWithoutReverse: true),
             SizedBox(height: 20),
             CircularProgressIndicator(color: kPrimaryColor),
           ],
