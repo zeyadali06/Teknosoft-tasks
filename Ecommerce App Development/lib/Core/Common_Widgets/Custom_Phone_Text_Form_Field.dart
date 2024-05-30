@@ -46,7 +46,7 @@ class _CustomPhoneTextFieldState extends State<CustomPhoneTextField> {
                 value: value,
                 child: Row(
                   children: [
-                    Text("${value.code}  ${value.countryName} ${value.flag}"),
+                    Text("${value.code}  ${value.nickName} ${value.flag}"),
                   ],
                 ),
               );
