@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Features/Address_Feature/Presentation/Manager/Address_View_Cubit/address_view_cubit.dart';
+import 'package:e_commerce_app_development/Features/Address_Feature/Presentation/Views/Address_View.dart';
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Manager/Profile_Settings_View_Cubit.dart/profile_settings_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Manager/Forget_Password_View_Cubit/forget_password_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Manager/Product_Details_Cubit/product_details_cubit.dart';
@@ -65,6 +67,9 @@ abstract class AppRouter {
       BlocProvider(
         create: (context) => ForgetPasswordViewCubit(),
       ),
+      BlocProvider(
+        create: (context) => AddressViewCubit()..getAddresses(),
+      ),
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -74,6 +79,7 @@ abstract class AppRouter {
 
   static const Widget cartViewPath = CartView();
   static const Widget searchViewPath = SearchView();
+  static const Widget addressViewPath = AddressView();
   static const Widget shoppingViewPath = ShoppingView();
   static const Widget favourateViewPath = FavourateView();
   static const Widget changePhoneViewPath = ChangePhoneView();
