@@ -2,6 +2,7 @@ import 'package:e_commerce_app_development/Core/Error/Fauiler.dart';
 import 'package:e_commerce_app_development/Core/Utils/Firebase_Firestore_Services.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Check_Network.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Fetch_Cart.dart';
+import 'package:e_commerce_app_development/Core/Utils/Functions/From_Json_To_Map_Address.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Repos/Auth_Repo_Implement.dart';
 import 'package:e_commerce_app_development/Features/Cart_Feature/Data/Models/Cart_Item_Model.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
@@ -140,6 +141,12 @@ class CartViewCubit extends Cubit<CartViewState> {
         emit(CartViewFailed("No Internet Connection"));
         return;
       }
+      var data = await DataBase.getField(collectionPath: addressesCollection, docName: AuthRepoImplementation.allUserData!.uid, key: addressesField);
+      if (dynamicToAddress(data).isEmpty) {
+        emit(CartViewFailed("Add address first"));
+        return;
+      }
+
       await DataBase.setField(collectionPath: cartCollection, docName: AuthRepoImplementation.allUserData!.uid, data: {cartField: {}});
       cartItems.clear();
       subtotalPrice = 0;

@@ -56,8 +56,8 @@ class AuthRepoImplementation implements AuthRepo {
       allUserData = UserData(email: registerData.email, username: registerData.username, phone: registerData.phone, uid: user.user!.uid, profileURL: defaultProfileImageURL);
 
       await DataBase.setField(collectionPath: favourateCollection, docName: allUserData!.uid, data: {favouratesField: []});
-
       await DataBase.setField(collectionPath: cartCollection, docName: allUserData!.uid, data: {cartField: {}});
+      await DataBase.setField(collectionPath: addressesCollection, docName: allUserData!.uid, data: {addressesField: []});
 
       SharedPreferences pref = await SharedPreferences.getInstance();
       await pref.setBool(loginStatusPrefKey, false);

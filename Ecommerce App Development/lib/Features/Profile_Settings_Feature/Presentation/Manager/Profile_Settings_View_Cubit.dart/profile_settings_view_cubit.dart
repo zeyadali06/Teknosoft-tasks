@@ -119,5 +119,6 @@ class ProfileSettingsViewCubit extends Cubit<ProfileSettingsViewState> {
     await DataBase.deleteDoc(collectionPath: usersCollection, docName: AuthRepoImplementation.allUserData!.uid);
     await DataBase.deleteDoc(collectionPath: favourateCollection, docName: AuthRepoImplementation.allUserData!.uid);
     await DataBase.deleteDoc(collectionPath: cartCollection, docName: AuthRepoImplementation.allUserData!.uid);
+    await DataBase.deleteDoc(collectionPath: addressesCollection, docName: AuthRepoImplementation.allUserData!.uid);
   }
 }
