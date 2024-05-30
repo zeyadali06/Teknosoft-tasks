@@ -14,7 +14,8 @@ part 'forget_password_view_state.dart';
 class ForgetPasswordViewCubit extends Cubit<ForgetPasswordViewState> {
   ForgetPasswordViewCubit() : super(ForgetPasswordViewInitial());
 
-  String verificationId = "";
+  String verificationId = "1234";
+  int attempts = 0;
 
   Future<void> updatePassword(String email, String phone) async {
     try {
@@ -25,12 +26,6 @@ class ForgetPasswordViewCubit extends Cubit<ForgetPasswordViewState> {
         emit(ForgetPasswordViewFailed("No Internet Connection"));
         return;
       }
-
-      // var doc = await FirebaseFirestore.instance.collection(usersCollection).where("email", isEqualTo: email).where("phone", isEqualTo: phone).get();
-      // if (doc.docs.isEmpty) {
-      //   emit(ForgetPasswordViewFailed("Please, enter correct data"));
-      //   return;
-      // }
 
       await AccountData.resetPassword(email);
 
@@ -47,8 +42,55 @@ class ForgetPasswordViewCubit extends Cubit<ForgetPasswordViewState> {
     }
   }
 
+  Future<bool> verifyCode(String code) async {
+    try {
+      emit(ForgetPasswordViewLoading());
+
+      if (code.isEmpty && code.length == 6) {
+        emit(ForgetPasswordViewFailed("Incorrect Code"));
+        return false;
+      }
+      if (verificationId.isEmpty) {
+        emit(ForgetPasswordViewFailed("You should send code first"));
+        return false;
+      }
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(ForgetPasswordViewFailed("No Internet Connection"));
+        return false;
+      }
+
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationId,
+        smsCode: code,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      await FirebaseAuth.instance.signOut();
+
+      emit(ForgetPasswordViewCorrectCode());
+      return true;
+    } catch (e) {
+      bool connStat = await checkConn();
+      if (!connStat) {
+        emit(ForgetPasswordViewFailed("No Internet Connection"));
+      } else if (e is AuthFailure) {
+        emit(ForgetPasswordViewFailed(e.errMessage));
+      } else {
+        emit(ForgetPasswordViewFailed(AuthFailure(e).errMessage));
+      }
+    }
+
+    return false;
+  }
+
   Future<bool> sendCodeToPhone(String email, String phone) async {
     try {
+      if (attempts >= 3) {
+        emit(ForgetPasswordViewFailed("Many attempts, try again later"));
+        return false;
+      }
+
       emit(ForgetPasswordViewLoading());
 
       bool connStat = await checkConn();
@@ -63,31 +105,30 @@ class ForgetPasswordViewCubit extends Cubit<ForgetPasswordViewState> {
         return false;
       }
 
-      bool codeSent = false;
+      bool codeSent = true;
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: phone,
         timeout: const Duration(seconds: 60),
-        verificationCompleted: (PhoneAuthCredential phoneAuthCredential) async {
-          codeSent = true;
+        verificationCompleted: (PhoneAuthCredential phoneAuthCredential) {
           log('ok1');
         },
         verificationFailed: (FirebaseAuthException authException) {
           codeSent = false;
           log(authException.message.toString());
         },
-        codeSent: (String vid, int? forceResendingToken) async {
+        codeSent: (String vid, int? forceResendingToken) {
           verificationId = vid;
-          codeSent = true;
           log('ok3    $vid');
         },
         codeAutoRetrievalTimeout: (String vid) {
           verificationId = vid;
-          codeSent = true;
           log('ok4     $vid');
         },
       );
       if (!codeSent) {
         emit(ForgetPasswordViewFailed("Error"));
+      } else {
+        attempts++;
       }
       return codeSent;
     } catch (e) {

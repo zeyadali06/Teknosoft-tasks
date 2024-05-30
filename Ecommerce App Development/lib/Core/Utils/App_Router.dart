@@ -46,11 +46,6 @@ abstract class AppRouter {
     child: const SignUpView(),
   );
 
-  static final Widget forgetPasswordViewPath = BlocProvider(
-    create: (context) => ForgetPasswordViewCubit(),
-    child: const ForgetPasswordView(),
-  );
-
   static Function(ProductModel product) productDetailsViewPath = (product) => BlocProvider(
         create: (context) => ProductDetailsCubit(),
         child: ProductDetailsView(product: product),
@@ -67,6 +62,9 @@ abstract class AppRouter {
       BlocProvider(
         create: (context) => ProfileImageCubit(),
       ),
+      BlocProvider(
+        create: (context) => ForgetPasswordViewCubit(),
+      ),
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -81,6 +79,7 @@ abstract class AppRouter {
   static const Widget changePhoneViewPath = ChangePhoneView();
   static const Widget navigationBarPath = CustomNavigationBar();
   static const Widget changePasswordViewPath = ChangePasswordView();
+  static const Widget forgetPasswordViewPath = ForgetPasswordView();
   static const Widget profileSettingsViewPath = ProfileSettingsView();
 
   static MaterialPageRoute goTo(BuildContext context, Widget toView) {
