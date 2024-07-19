@@ -3,6 +3,7 @@
 import 'package:bmi_calculater_app/constants.dart';
 import 'package:bmi_calculater_app/cubits/cubit/bmi_cubit.dart';
 import 'package:bmi_calculater_app/my_flutter_app_icons.dart';
+import 'package:bmi_calculater_app/widgets/ResponsiveText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -25,27 +26,37 @@ class _GenderChoicesState extends State<GenderChoices> {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 2 / 1,
-      child: NavigationBar(
-        selectedIndex: index,
-        elevation: 0,
-        onDestinationSelected: (value) {
-          index = value;
-          BlocProvider.of<BmiCubit>(context).gender = index == 0 ? male : female;
-          setState(() {});
-        },
-        destinations: [
-          NavigationDestination(
-            icon: Padding(padding: const EdgeInsets.only(right: 7.5), child: whichChoosed(index, male)),
-            label: '',
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Expanded(
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: GestureDetector(
+              onTap: () {
+                index = 0;
+                BlocProvider.of<BmiCubit>(context).gender = index == 0 ? male : female;
+                setState(() {});
+              },
+              child: whichChoosed(index, male),
+            ),
           ),
-          NavigationDestination(
-            icon: Padding(padding: const EdgeInsets.only(left: 7.5), child: whichChoosed(index, female)),
-            label: '',
+        ),
+        const SizedBox(width: 15),
+        Expanded(
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: GestureDetector(
+              onTap: () {
+                index = 1;
+                BlocProvider.of<BmiCubit>(context).gender = index == 0 ? male : female;
+                setState(() {});
+              },
+              child: whichChoosed(index, female),
+            ),
           ),
-        ],
-      ),
+        )
+      ],
     );
   }
 
@@ -96,6 +107,7 @@ class ChoosedWidget extends StatelessWidget {
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
                   gender == male ? MyFlutterApp.male : MyFlutterApp.female,
@@ -103,7 +115,7 @@ class ChoosedWidget extends StatelessWidget {
                   color: kPrimaryColor,
                 ),
                 const SizedBox(height: 10),
-                Text(gender, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                Text(gender, style: TextStyle(fontSize: getResponsiveFontSize(context: context, fontSize: 16), fontWeight: FontWeight.bold)),
               ],
             ),
           ),
@@ -156,7 +168,7 @@ class UnChoosedWidget extends StatelessWidget {
               color: const Color(0xFF8b8b8b),
             ),
             const SizedBox(height: 10),
-            Text(gender, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            Text(gender, style: TextStyle(fontSize: getResponsiveFontSize(context: context, fontSize: 16), fontWeight: FontWeight.bold)),
           ],
         ),
       ),

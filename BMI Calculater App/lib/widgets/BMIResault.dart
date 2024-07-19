@@ -2,6 +2,7 @@
 
 import 'package:bmi_calculater_app/constants.dart';
 import 'package:bmi_calculater_app/cubits/cubit/bmi_cubit.dart';
+import 'package:bmi_calculater_app/widgets/ResponsiveText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +17,7 @@ class BMIResault extends StatelessWidget {
       width: double.infinity,
       child: Column(
         children: [
-          const Text('Your BMI is', style: TextStyle(fontWeight: FontWeight.w900, fontSize: 14)),
+          Text('Your BMI is', style: TextStyle(fontWeight: FontWeight.w900, fontSize: getResponsiveFontSize(context: context, fontSize: 14))),
           const SizedBox(height: 30),
           Container(
             padding: const EdgeInsets.only(top: 10, bottom: 15, left: 15, right: 15),
@@ -28,17 +29,17 @@ class BMIResault extends StatelessWidget {
               children: [
                 Text(
                   BlocProvider.of<BmiCubit>(context).bmi.toString(),
-                  style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 28, color: Colors.white),
+                  style: TextStyle(fontWeight: FontWeight.w900, fontSize: getResponsiveFontSize(context: context, fontSize: 28), color: Colors.white),
                 ),
-                const Text(
+                Text(
                   'kg/m2',
-                  style: TextStyle(color: Color(0xffdedcd9), fontWeight: FontWeight.w900),
+                  style: TextStyle(color: const Color(0xffdedcd9), fontWeight: FontWeight.w900, fontSize: getResponsiveFontSize(context: context, fontSize: 16)),
                 )
               ],
             ),
           ),
           const SizedBox(height: 20),
-          Text('(${BlocProvider.of<BmiCubit>(context).category})', style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 14)),
+          Text('(${BlocProvider.of<BmiCubit>(context).category})', style: TextStyle(fontWeight: FontWeight.w900, fontSize: getResponsiveFontSize(context: context, fontSize: 14))),
         ],
       ),
     );

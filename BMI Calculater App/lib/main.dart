@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
       create: (context) => BmiCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const HomePage(),
         theme: ThemeData(fontFamily: 'Raleway'),
+        home: const HomePage(),
       ),
     );
   }

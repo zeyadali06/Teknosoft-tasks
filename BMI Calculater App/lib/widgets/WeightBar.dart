@@ -1,6 +1,7 @@
 // ignore_for_file: file_names
 
 import 'package:bmi_calculater_app/cubits/cubit/bmi_cubit.dart';
+import 'package:bmi_calculater_app/widgets/ResponsiveText.dart';
 import 'package:bmi_calculater_app/widgets/Triangle.dart';
 import 'package:bmi_calculater_app/constants.dart';
 import 'package:flutter/material.dart';
@@ -15,36 +16,40 @@ class WeightBar extends StatefulWidget {
 }
 
 class _WeightBarState extends State<WeightBar> {
-  int value = 1;
+  int weight = 1;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
-      width: double.infinity,
       decoration: BoxDecoration(
         border: Border.fromBorderSide(BorderSide(color: Colors.grey.withOpacity(.3), width: 2)),
         borderRadius: BorderRadius.circular(kRadius),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Triangle(),
-          NumberPicker(
-            minValue: 1,
-            maxValue: 999,
-            value: value,
-            itemCount: 3,
-            axis: Axis.horizontal,
-            itemHeight: 30,
-            itemWidth: 40,
-            textStyle: const TextStyle(fontWeight: FontWeight.w900, color: Colors.grey, fontSize: 16),
-            selectedTextStyle: const TextStyle(color: Colors.black, fontWeight: FontWeight.w900, fontSize: 22),
-            onChanged: (index) {
-              value = index;
-              BlocProvider.of<BmiCubit>(context).weight = value;
-              setState(() {});
-            },
+          Expanded(
+            child: Column(
+              children: [
+                const Triangle(),
+                NumberPicker(
+                  minValue: 1,
+                  maxValue: 999,
+                  value: weight,
+                  itemHeight: MediaQuery.sizeOf(context).width * .12,
+                  itemWidth: ((MediaQuery.sizeOf(context).width - 15 - kPadding * 2) / 2) / 3,
+                  itemCount: 3,
+                  axis: Axis.horizontal,
+                  textStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.w900, fontSize: getResponsiveFontSize(context: context, fontSize: 16)),
+                  selectedTextStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w900, fontSize: getResponsiveFontSize(context: context, fontSize: 22)),
+                  onChanged: (index) {
+                    weight = index;
+                    BlocProvider.of<BmiCubit>(context).weight = weight;
+                    setState(() {});
+                  },
+                ),
+              ],
+            ),
           ),
         ],
       ),

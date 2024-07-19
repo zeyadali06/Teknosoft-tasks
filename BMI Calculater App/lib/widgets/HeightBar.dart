@@ -2,6 +2,7 @@
 
 import 'package:bmi_calculater_app/constants.dart';
 import 'package:bmi_calculater_app/cubits/cubit/bmi_cubit.dart';
+import 'package:bmi_calculater_app/widgets/ResponsiveText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -41,16 +42,16 @@ class _HeightBarState extends State<HeightBar> {
             minValue: 1,
             maxValue: 999,
             itemCount: 7,
-            itemWidth: 43.5,
+            itemWidth: (MediaQuery.sizeOf(context).width - 80) / 7,
+            itemHeight: MediaQuery.sizeOf(context).width * .12,
             value: _currentValue,
             axis: Axis.horizontal,
-            selectedTextStyle: const TextStyle(fontWeight: FontWeight.w900, fontSize: 22),
-            textStyle: const TextStyle(fontWeight: FontWeight.w900, color: Colors.grey, fontSize: 12),
+            textStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.w900, fontSize: getResponsiveFontSize(context: context, fontSize: 12)),
+            selectedTextStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w900, fontSize: getResponsiveFontSize(context: context, fontSize: 22)),
             onChanged: (index) {
               BlocProvider.of<BmiCubit>(context).height = index;
-              setState(() {
-                _currentValue = index;
-              });
+              _currentValue = index;
+              setState(() {});
             },
           ),
           const Center(
