@@ -23,6 +23,7 @@ class RowOfTaskLevel extends StatelessWidget {
         },
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
+        hoverColor: Colors.transparent,
         padding: const EdgeInsets.all(0),
         child: Row(
           children: [

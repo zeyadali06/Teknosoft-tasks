@@ -25,21 +25,23 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     BlocProvider.of<HomeViewCubit>(context).getNumOfEachTask();
     return BlocBuilder<HomeViewCubit, HomeViewState>(
       builder: (context, state) {
-        return SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: GradientColor(
-            child: Builder(
-              builder: (context) {
-                if (state is HomeViewFailed) {
-                  showSnakeBar(context, state.errMessage);
-                  return const Column();
-                } else {
-                  return SafeArea(
+        return GradientColor(
+          child: Builder(
+            builder: (context) {
+              if (state is HomeViewFailed) {
+                showSnakeBar(context, state.errMessage);
+                return const Center(child: Text("Error loading tasks"));
+              } else {
+                return SafeArea(
+                  child: SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.all(kPadding),
                       child: Column(
                         children: [
-                          TopBar(task: BlocProvider.of<HomeViewCubit>(context).finishedTasks, onPop: refresh),
+                          TopBar(
+                            task: BlocProvider.of<HomeViewCubit>(context).finishedTasks,
+                            onPop: refresh,
+                          ),
                           const SizedBox(height: 10),
                           Divider(color: Colors.grey.withOpacity(.15)),
                           const SizedBox(height: 10),
@@ -49,10 +51,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                         ],
                       ),
                     ),
-                  );
-                }
-              },
-            ),
+                  ),
+                );
+              }
+            },
           ),
         );
       },
