@@ -41,3 +41,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/Ecommerce App Development/linux/flutter/generated_plugin_registrant.cc
+/Ecommerce App Development/linux/flutter/generated_plugin_registrant.h
+/Ecommerce App Development/linux/flutter/generated_plugins.cmake
+/Ecommerce App Development/macos/Flutter/GeneratedPluginRegistrant.swift
+/Ecommerce App Development/windows/flutter/generated_plugin_registrant.cc
+/Ecommerce App Development/windows/flutter/generated_plugin_registrant.h
+/Ecommerce App Development/windows/flutter/generated_plugins.cmake

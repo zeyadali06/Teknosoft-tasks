@@ -41,3 +41,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/To-Do List App/linux/flutter/generated_plugin_registrant.cc
+/To-Do List App/linux/flutter/generated_plugin_registrant.h
+/To-Do List App/linux/flutter/generated_plugins.cmake
+/To-Do List App/macos/Flutter/GeneratedPluginRegistrant.swift
+/To-Do List App/windows/flutter/generated_plugin_registrant.cc
+/To-Do List App/windows/flutter/generated_plugin_registrant.h
+/To-Do List App/windows/flutter/generated_plugins.cmake
