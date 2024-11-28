@@ -63,7 +63,7 @@ class CartViewProductItem extends StatelessWidget {
             onPressed: () async {
               await BlocProvider.of<CartViewCubit>(context).deleteFromCart(item.product);
             },
-            style: const ButtonStyle(padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+            style: const ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsets.zero)),
             child: Text('Remove from\n cart', style: Styles.black14w500.copyWith(color: Colors.red), textAlign: TextAlign.center),
           )
         ],

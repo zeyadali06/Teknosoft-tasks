@@ -52,8 +52,8 @@ class _FavourateIconButtonState extends State<FavourateIconButton> {
         },
         padding: EdgeInsets.zero,
         style: ButtonStyle(
-          overlayColor: MaterialStatePropertyAll(Colors.grey.withOpacity(.5)),
-          backgroundColor: MaterialStatePropertyAll(Colors.grey.withOpacity(.1)),
+          overlayColor: WidgetStatePropertyAll(Colors.grey.withOpacity(.5)),
+          backgroundColor: WidgetStatePropertyAll(Colors.grey.withOpacity(.1)),
         ),
         color: const Color(0xfff6f6f7),
         iconSize: 20,

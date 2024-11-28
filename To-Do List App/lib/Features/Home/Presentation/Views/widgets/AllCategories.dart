@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
@@ -24,27 +22,27 @@ class _AllCategoriesState extends State<AllCategories> {
     categories = [
       CategoryModel(
         imagePath: 'assets/images/Screenshot 2024-04-25 002248.png',
-        category: Category.Personal,
+        category: Category.personal,
         tasks: BlocProvider.of<HomeViewCubit>(context).personalTasks,
-        colorGradient: Category.Personal.gradient,
+        colorGradient: Category.personal.gradient,
       ),
       CategoryModel(
         imagePath: 'assets/images/Screenshot 2024-04-25 011727.png',
-        category: Category.Learning,
+        category: Category.learning,
         tasks: BlocProvider.of<HomeViewCubit>(context).learningTasks,
-        colorGradient: Category.Learning.gradient,
+        colorGradient: Category.learning.gradient,
       ),
       CategoryModel(
         imagePath: 'assets/images/Screenshot 2024-04-25 011814.png',
-        category: Category.Work,
+        category: Category.work,
         tasks: BlocProvider.of<HomeViewCubit>(context).workTasks,
-        colorGradient: Category.Work.gradient,
+        colorGradient: Category.work.gradient,
       ),
       CategoryModel(
         imagePath: 'assets/images/Screenshot 2024-04-25 012510.png',
-        category: Category.Shopping,
+        category: Category.shopping,
         tasks: BlocProvider.of<HomeViewCubit>(context).shoppingTasks,
-        colorGradient: Category.Shopping.gradient,
+        colorGradient: Category.shopping.gradient,
       ),
     ];
     super.initState();

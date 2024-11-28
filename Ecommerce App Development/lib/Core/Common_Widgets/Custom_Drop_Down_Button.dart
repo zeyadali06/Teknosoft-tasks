@@ -26,9 +26,9 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
           value: value,
           label: value,
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.white),
-            textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 18)),
-            side: MaterialStateProperty.all(const BorderSide(width: .25)),
+            backgroundColor: WidgetStateProperty.all(Colors.white),
+            textStyle: WidgetStateProperty.all(const TextStyle(fontSize: 18)),
+            side: WidgetStateProperty.all(const BorderSide(width: .25)),
           ),
         );
       }).toList(),

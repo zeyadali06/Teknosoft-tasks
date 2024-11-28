@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Core/Common/LinearGrdientColor.dart';
@@ -64,7 +62,9 @@ class _UpcomingTasksViewBodyState extends State<UpcomingTasksViewBody> {
                               onDismissed: (direction) async {
                                 DateTime datetime = DateTime.parse(tasks[index].from.toString());
                                 await tasks[index].delete();
-                                tasks = BlocProvider.of<UpcomingTasksCubit>(context).getTasks(datetime);
+                                if (context.mounted) {
+                                  tasks = BlocProvider.of<UpcomingTasksCubit>(context).getTasks(datetime);
+                                }
                               },
                             );
                           },

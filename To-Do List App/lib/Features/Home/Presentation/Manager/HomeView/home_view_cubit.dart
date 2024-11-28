@@ -32,16 +32,16 @@ class HomeViewCubit extends Cubit<HomeViewState> {
 
       List<TaskModel> tasks = getData();
       for (TaskModel task in tasks) {
-        if (task.category == Category.Personal.name) {
+        if (task.category == Category.personal.name) {
           personalTasks++;
         }
-        if (task.category == Category.Learning.name) {
+        if (task.category == Category.learning.name) {
           learningTasks++;
         }
-        if (task.category == Category.Work.name) {
+        if (task.category == Category.work.name) {
           workTasks++;
         }
-        if (task.category == Category.Shopping.name) {
+        if (task.category == Category.shopping.name) {
           shoppingTasks++;
         }
         if (isSameDay(DateTime.now(), task.from)) {

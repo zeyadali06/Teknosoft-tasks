@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously, file_names
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Core/Common/SnackBar.dart';
@@ -41,7 +39,9 @@ class _CreateTaskEnterDateAndTimeFieldState extends State<CreateTaskEnterDateAnd
           onPressed: () async {
             DateTime? date = await enterDateAndTime(from);
             if (date != null) {
-              BlocProvider.of<AddTaskCubit>(context).from = from = date;
+              if (context.mounted) {
+                BlocProvider.of<AddTaskCubit>(context).from = from = date;
+              }
               showFromDateTime = true;
               setState(() {});
             }
@@ -62,7 +62,9 @@ class _CreateTaskEnterDateAndTimeFieldState extends State<CreateTaskEnterDateAnd
           onPressed: () async {
             DateTime? date = await enterDateAndTime(to);
             if (date != null) {
-              BlocProvider.of<AddTaskCubit>(context).to = to = date;
+              if (context.mounted) {
+                BlocProvider.of<AddTaskCubit>(context).to = to = date;
+              }
               showToDateTime = true;
               setState(() {});
             }
@@ -90,25 +92,34 @@ class _CreateTaskEnterDateAndTimeFieldState extends State<CreateTaskEnterDateAnd
       },
     );
 
-    TimeOfDay? time = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.fromDateTime(initialdatetime),
-      builder: (BuildContext context, Widget? child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-          child: child!,
-        );
-      },
-    );
+    TimeOfDay? time;
+    if (mounted) {
+      time = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.fromDateTime(initialdatetime),
+        builder: (BuildContext context, Widget? child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child!,
+          );
+        },
+      );
+    }
 
     if (date == null && time == null) {
-      showSnakeBar(context, "Enter date and time");
+      if (mounted) {
+        showSnakeBar(context, "Enter date and time");
+      }
       return null;
     } else if (date == null) {
-      showSnakeBar(context, "Enter date");
+      if (mounted) {
+        showSnakeBar(context, "Enter date");
+      }
       return null;
     } else if (time == null) {
-      showSnakeBar(context, "Enter time");
+      if (mounted) {
+        showSnakeBar(context, "Enter time");
+      }
       return null;
     }
 

@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
@@ -37,7 +35,7 @@ class _CustomCalendarState extends State<CustomCalendar> {
       headerStyle: HeaderStyle(
         headerPadding: const EdgeInsets.only(left: kPadding, bottom: 10),
         rightChevronIcon: TextButton(
-          style: ButtonStyle(padding: MaterialStateProperty.all(EdgeInsets.zero)),
+          style: ButtonStyle(padding: WidgetStateProperty.all(EdgeInsets.zero)),
           onPressed: () {
             _focusedDay = DateTime.now();
             widget.onDaySelected.call(DateTime.now());

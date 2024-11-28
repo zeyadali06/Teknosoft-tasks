@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, constant_identifier_names
-
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -66,10 +64,10 @@ class TaskModel extends HiveObject {
 }
 
 enum Category {
-  Personal(gradient: [Color(0xff7d9bdf), Color(0xff5070c5)]),
-  Learning(gradient: [Color(0xffbc7096), Color(0xff7474c4)]),
-  Work(gradient: [Color(0xff669bab), Color(0xff6182ca)]),
-  Shopping(gradient: [Color(0xffff9187), Color(0xffe36163)]);
+  personal(gradient: [Color(0xff7d9bdf), Color(0xff5070c5)]),
+  learning(gradient: [Color(0xffbc7096), Color(0xff7474c4)]),
+  work(gradient: [Color(0xff669bab), Color(0xff6182ca)]),
+  shopping(gradient: [Color(0xffff9187), Color(0xffe36163)]);
 
   const Category({required this.gradient});
 
@@ -84,17 +82,17 @@ enum Category {
     return null;
   }
 
-  static Category get firstItem => Personal;
+  static Category get firstItem => personal;
 
-  static List<Category> get all => [Personal, Learning, Work, Shopping];
+  static List<Category> get all => [personal, learning, work, shopping];
 
-  static List<String> get allToString => [Personal.name, Learning.name, Work.name, Shopping.name];
+  static List<String> get allToString => [personal.name, learning.name, work.name, shopping.name];
 }
 
 enum Priority {
-  High,
-  Medium,
-  Low;
+  high,
+  medium,
+  low;
 
   static Priority? find(String priority) {
     for (Priority element in Priority.values) {
@@ -105,9 +103,9 @@ enum Priority {
     return null;
   }
 
-  static Priority get firstItem => High;
+  static Priority get firstItem => high;
 
-  static List<Priority> get all => [High, Medium, Low];
+  static List<Priority> get all => [high, medium, low];
 
-  static List<String> get allToString => [High.name, Medium.name, Low.name];
+  static List<String> get allToString => [high.name, medium.name, low.name];
 }

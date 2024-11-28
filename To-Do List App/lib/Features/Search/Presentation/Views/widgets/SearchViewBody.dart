@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, must_be_immutable, use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Core/Common/CustomTaskContainer.dart';
@@ -99,6 +97,8 @@ class _SearchViewBodyState extends State<SearchViewBody> {
 
   Future<void> onDismissed(DismissDirection direction, int index) async {
     await res[index].delete();
-    BlocProvider.of<SearchViewCubit>(context).getRelatedTasks(searchText, pri);
+    if (mounted) {
+      BlocProvider.of<SearchViewCubit>(context).getRelatedTasks(searchText, pri);
+    }
   }
 }

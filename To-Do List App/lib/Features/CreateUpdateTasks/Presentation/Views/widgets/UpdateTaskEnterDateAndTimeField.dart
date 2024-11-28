@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously, file_names
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
@@ -33,15 +31,27 @@ class _UpdateTaskEnterDateAndTimeFieldState extends State<UpdateTaskEnterDateAnd
             await enterDateAndTime(BlocProvider.of<UpdateTaskCubit>(context).task.from);
             if (date != null && time != null) {
               DateTime newDate = DateTime(date!.year, date!.month, date!.day, time!.hour, time!.minute);
-              BlocProvider.of<UpdateTaskCubit>(context).task.from = newDate;
+              if (context.mounted) {
+                BlocProvider.of<UpdateTaskCubit>(context).task.from = newDate;
+              }
             } else if (date == null && time != null) {
-              DateTime oldDate = BlocProvider.of<UpdateTaskCubit>(context).task.from;
+              late DateTime oldDate;
+              if (context.mounted) {
+                oldDate = BlocProvider.of<UpdateTaskCubit>(context).task.from;
+              }
               DateTime newDate = DateTime(oldDate.year, oldDate.month, oldDate.day, time!.hour, time!.minute);
-              BlocProvider.of<UpdateTaskCubit>(context).task.from = newDate;
+              if (context.mounted) {
+                BlocProvider.of<UpdateTaskCubit>(context).task.from = newDate;
+              }
             } else if (date != null && time == null) {
-              DateTime oldDate = BlocProvider.of<UpdateTaskCubit>(context).task.from;
+              late DateTime oldDate;
+              if (context.mounted) {
+                oldDate = BlocProvider.of<UpdateTaskCubit>(context).task.from;
+              }
               DateTime newDate = DateTime(date!.year, date!.month, date!.day, oldDate.hour, oldDate.minute);
-              BlocProvider.of<UpdateTaskCubit>(context).task.from = newDate;
+              if (context.mounted) {
+                BlocProvider.of<UpdateTaskCubit>(context).task.from = newDate;
+              }
             }
             setState(() {});
           },
@@ -62,15 +72,27 @@ class _UpdateTaskEnterDateAndTimeFieldState extends State<UpdateTaskEnterDateAnd
             await enterDateAndTime(BlocProvider.of<UpdateTaskCubit>(context).task.to);
             if (date != null && time != null) {
               DateTime newDate = DateTime(date!.year, date!.month, date!.day, time!.hour, time!.minute);
-              BlocProvider.of<UpdateTaskCubit>(context).task.to = newDate;
+              if (context.mounted) {
+                BlocProvider.of<UpdateTaskCubit>(context).task.to = newDate;
+              }
             } else if (date == null && time != null) {
-              DateTime oldDate = BlocProvider.of<UpdateTaskCubit>(context).task.to;
+              late DateTime oldDate;
+              if (context.mounted) {
+                oldDate = BlocProvider.of<UpdateTaskCubit>(context).task.to;
+              }
               DateTime newDate = DateTime(oldDate.year, oldDate.month, oldDate.day, time!.hour, time!.minute);
-              BlocProvider.of<UpdateTaskCubit>(context).task.to = newDate;
+              if (context.mounted) {
+                BlocProvider.of<UpdateTaskCubit>(context).task.to = newDate;
+              }
             } else if (date != null && time == null) {
-              DateTime oldDate = BlocProvider.of<UpdateTaskCubit>(context).task.to;
+              late DateTime oldDate;
+              if (context.mounted) {
+                oldDate = BlocProvider.of<UpdateTaskCubit>(context).task.to;
+              }
               DateTime newDate = DateTime(date!.year, date!.month, date!.day, oldDate.hour, oldDate.minute);
-              BlocProvider.of<UpdateTaskCubit>(context).task.to = newDate;
+              if (context.mounted) {
+                BlocProvider.of<UpdateTaskCubit>(context).task.to = newDate;
+              }
             }
             setState(() {});
           },
@@ -97,15 +119,17 @@ class _UpdateTaskEnterDateAndTimeFieldState extends State<UpdateTaskEnterDateAnd
       },
     );
 
-    time = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.fromDateTime(initialdatetime),
-      builder: (BuildContext context, Widget? child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-          child: child!,
-        );
-      },
-    );
+    if (mounted) {
+      time = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.fromDateTime(initialdatetime),
+        builder: (BuildContext context, Widget? child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child!,
+          );
+        },
+      );
+    }
   }
 }
