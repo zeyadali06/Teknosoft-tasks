@@ -42,9 +42,6 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 BMI.png
-/BMI Calculater App/linux/flutter/generated_plugin_registrant.cc
-/BMI Calculater App/linux/flutter/generated_plugin_registrant.h
-/BMI Calculater App/linux/flutter/generated_plugins.cmake
 /BMI Calculater App/macos/Flutter/GeneratedPluginRegistrant.swift
 /BMI Calculater App/windows/flutter/generated_plugin_registrant.cc
 /BMI Calculater App/windows/flutter/generated_plugin_registrant.h
