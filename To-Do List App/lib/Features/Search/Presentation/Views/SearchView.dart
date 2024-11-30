@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_list_app/Core/Common/FloatingButton.dart';
+import 'package:todo_list_app/Core/CommonWidgets/FloatingButton.dart';
 import 'package:todo_list_app/Features/Search/Presentation/Manager/SearchViewCubit/search_view_cubit.dart';
 import 'package:todo_list_app/Features/Search/Presentation/Views/widgets/SearchViewBody.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/CustomAppBar.dart';

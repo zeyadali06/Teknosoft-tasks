@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list_app/Core/Common/HourMinuteFormate.dart';
-import 'package:todo_list_app/Core/Common/ImportantStar.dart';
+import 'package:todo_list_app/Core/CommonWidgets/HourMinuteFormate.dart';
+import 'package:todo_list_app/Core/CommonWidgets/ImportantStar.dart';
 import 'package:todo_list_app/Core/Utils/AppRouter.dart';
 import 'package:todo_list_app/Core/Utils/HiveServices.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/CategoryEnum.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/Features/ViewTasks/Presentation/Views/widgets/CustomCheckBox.dart';
 import 'package:todo_list_app/constants.dart';
 
 class CustomTaskContainer extends StatefulWidget {
-  const CustomTaskContainer({super.key, required this.task, this.onDismissed, this.onPop});
+  const CustomTaskContainer({super.key, required this.task, this.onDismissed, this.onPop, required this.hiveServices});
 
+  final HiveServices hiveServices;
   final TaskModel task;
   final Future<void> Function(DismissDirection direction)? onDismissed;
   final void Function()? onPop;
@@ -49,6 +51,7 @@ class _CustomTaskContainerState extends State<CustomTaskContainer> {
             onDismissed: widget.onDismissed,
             child: CardContent(
               task: widget.task,
+              hiveServices: widget.hiveServices,
               customCheckBoxOnPressed: () {
                 setState(() {});
               },
@@ -64,11 +67,12 @@ class _CustomTaskContainerState extends State<CustomTaskContainer> {
 }
 
 class CardContent extends StatelessWidget {
-  const CardContent({super.key, required this.task, required this.customCheckBoxOnPressed, required this.importantStarOnPressed});
+  const CardContent({super.key, required this.task, required this.customCheckBoxOnPressed, required this.importantStarOnPressed, required this.hiveServices});
 
   final TaskModel task;
   final void Function() customCheckBoxOnPressed;
   final void Function() importantStarOnPressed;
+  final HiveServices hiveServices;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +93,7 @@ class CardContent extends StatelessWidget {
             } else {
               task.finishDate = null;
             }
-            await editData(task);
+            await hiveServices.editData(task);
             customCheckBoxOnPressed.call();
           },
         ),
@@ -97,7 +101,7 @@ class CardContent extends StatelessWidget {
           isChecked: task.important,
           onPressed: () async {
             task.important = !task.important;
-            await editData(task);
+            await hiveServices.editData(task);
             importantStarOnPressed.call();
           },
         ),

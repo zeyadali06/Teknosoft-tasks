@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Core/Utils/AppRouter.dart';
+import 'package:todo_list_app/Features/Home/Data/Models/HomeComponentsModel.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Manager/HomeView/home_view_cubit.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/widgets/RowOfTaskLevel.dart';
 import 'package:todo_list_app/constants.dart';
@@ -12,6 +13,7 @@ class TaskLevelContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HomeComponentsModel model = BlocProvider.of<HomeViewCubit>(context).homeComponentsModel;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(kRaduis),
@@ -22,7 +24,7 @@ class TaskLevelContainer extends StatelessWidget {
         child: Column(
           children: [
             RowOfTaskLevel(
-              myDayTasks: BlocProvider.of<HomeViewCubit>(context).myDayTasks,
+              myDayTasks: model.myDayTasks,
               text: 'My Day',
               imagePath: 'assets/images/Screenshot 2024-04-24 224102.png',
               screenPath: AppRoutes.kMyDayTasksPath,
@@ -30,7 +32,7 @@ class TaskLevelContainer extends StatelessWidget {
             ),
             Divider(color: Colors.blue.withOpacity(.15)),
             RowOfTaskLevel(
-              myDayTasks: BlocProvider.of<HomeViewCubit>(context).upcomingTasks,
+              myDayTasks: model.upcomingTasks,
               text: 'Upcoming',
               imagePath: 'assets/images/Screenshot 2024-04-24 231327.png',
               screenPath: AppRoutes.kUpcomingTasksPath,
@@ -38,7 +40,7 @@ class TaskLevelContainer extends StatelessWidget {
             ),
             Divider(color: Colors.blue.withOpacity(.15)),
             RowOfTaskLevel(
-              myDayTasks: BlocProvider.of<HomeViewCubit>(context).importantTasks,
+              myDayTasks: model.importantTasks,
               text: 'Important',
               imagePath: 'assets/images/Screenshot 2024-04-24 231442.png',
               screenPath: AppRoutes.kImportantTasksPath,

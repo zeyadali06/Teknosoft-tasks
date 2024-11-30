@@ -40,6 +40,7 @@ dependencies:
   table_calendar:
   lottie:
   hive_flutter:
+  get_it: ^8.0.2
 
 dev_dependencies:
   flutter_test:

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_list_app/Core/Utils/HiveServices.dart';
+import 'package:todo_list_app/Core/Failures/Result.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/CategoryEnum.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/PriorityEnum.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Domain/RepoInterface/TaskManagementRepo.dart';
 
 part 'create_task_state.dart';
 
 class AddTaskCubit extends Cubit<AddTaskState> {
-  AddTaskCubit() : super(AddTaskInitial());
+  AddTaskCubit(this.repo) : super(AddTaskInitial());
+
+  final TaskManagementRepo repo;
 
   late String title;
   late String description;
@@ -17,28 +22,10 @@ class AddTaskCubit extends Cubit<AddTaskState> {
   bool important = false;
 
   Future<void> addTask() async {
-    try {
-      if (from == null) {
-        emit(AddTaskFailed(errMessage: "Enter Start Date"));
-        return;
-      }
+    emit(AddTaskLoading());
 
-      if (to == null) {
-        emit(AddTaskFailed(errMessage: "Enter End Date"));
-        return;
-      }
-
-      if (from!.isAfter(to!)) {
-        emit(AddTaskFailed(errMessage: "End Date should be after Start Date"));
-        return;
-      }
-
-      if (from == to) {
-        emit(AddTaskFailed(errMessage: "Start Date shouldn't equal to End Date"));
-        return;
-      }
-
-      TaskModel task = TaskModel(
+    Result res = await repo.addTask(
+      TaskModel(
         category: category.name,
         priority: priority.name,
         title: title,
@@ -47,12 +34,13 @@ class AddTaskCubit extends Cubit<AddTaskState> {
         description: description,
         important: important,
         createdAt: DateTime.now(),
-      );
-      emit(AddTaskLoading());
-      await addData(task);
+      ),
+    );
+
+    if (res is ResultSuccess) {
       emit(AddTaskSuccessed());
-    } catch (_) {
-      emit(AddTaskFailed(errMessage: "Error, try again later!"));
+    } else if (res is ResultFailure) {
+      emit(AddTaskFailed(errMessage: res.failure.message));
     }
   }
 }

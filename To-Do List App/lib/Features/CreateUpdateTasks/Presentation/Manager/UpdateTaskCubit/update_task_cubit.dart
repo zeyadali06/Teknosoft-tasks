@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_list_app/Core/Failures/Result.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/CategoryEnum.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/PriorityEnum.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Domain/RepoInterface/TaskManagementRepo.dart';
 
 part 'update_task_state.dart';
 
 class UpdateTaskCubit extends Cubit<UpdateTaskState> {
-  UpdateTaskCubit() : super(UpdateTaskInitial());
+  UpdateTaskCubit(this.repo) : super(UpdateTaskInitial());
+
+  final TaskManagementRepo repo;
+
   late TaskModel task;
   DateTime? enteredDate;
   TimeOfDay? enteredTime;
@@ -13,24 +20,14 @@ class UpdateTaskCubit extends Cubit<UpdateTaskState> {
   Priority priority = Priority.firstItem;
 
   Future<void> saveTask() async {
-    try {
-      if (task.from.isAfter(task.to)) {
-        emit(UpdateTaskFailed(errMessage: "End Date should be after Start Date"));
-        return;
-      }
+    emit(UpdateTaskLoading());
 
-      if (task.from == task.to) {
-        emit(UpdateTaskFailed(errMessage: "Start Date shouldn't equal to End Date"));
-        return;
-      }
+    Result res = await repo.updateTask(task, category, priority);
 
-      emit(UpdateTaskLoading());
-      task.category = category.name;
-      task.priority = priority.name;
-      await task.save();
+    if (res is ResultSuccess) {
       emit(UpdateTaskSuccessed());
-    } catch (_) {
-      emit(UpdateTaskFailed(errMessage: "Error"));
+    } else if (res is ResultFailure) {
+      emit(UpdateTaskFailed(errMessage: res.failure.message));
     }
   }
 }

@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 part 'TaskModel.g.dart';
 
@@ -61,51 +60,4 @@ class TaskModel extends HiveObject {
       "createdAt": createdAt,
     };
   }
-}
-
-enum Category {
-  personal(gradient: [Color(0xff7d9bdf), Color(0xff5070c5)]),
-  learning(gradient: [Color(0xffbc7096), Color(0xff7474c4)]),
-  work(gradient: [Color(0xff669bab), Color(0xff6182ca)]),
-  shopping(gradient: [Color(0xffff9187), Color(0xffe36163)]);
-
-  const Category({required this.gradient});
-
-  final List<Color> gradient;
-
-  static Category? find(String category) {
-    for (Category element in Category.values) {
-      if (element.name == category) {
-        return element;
-      }
-    }
-    return null;
-  }
-
-  static Category get firstItem => personal;
-
-  static List<Category> get all => [personal, learning, work, shopping];
-
-  static List<String> get allToString => [personal.name, learning.name, work.name, shopping.name];
-}
-
-enum Priority {
-  high,
-  medium,
-  low;
-
-  static Priority? find(String priority) {
-    for (Priority element in Priority.values) {
-      if (element.name == priority) {
-        return element;
-      }
-    }
-    return null;
-  }
-
-  static Priority get firstItem => high;
-
-  static List<Priority> get all => [high, medium, low];
-
-  static List<String> get allToString => [high.name, medium.name, low.name];
 }

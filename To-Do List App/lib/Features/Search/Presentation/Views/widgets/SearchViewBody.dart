@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_list_app/Core/Common/CustomTaskContainer.dart';
-import 'package:todo_list_app/Core/Common/LinearGrdientColor.dart';
-import 'package:todo_list_app/Core/Common/NoThingToShow.dart';
+import 'package:todo_list_app/Core/CommonWidgets/CustomTaskContainer.dart';
+import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
+import 'package:todo_list_app/Core/CommonWidgets/NoThingToShow.dart';
+import 'package:todo_list_app/Core/Utils/DI.dart';
 import 'package:todo_list_app/Core/Utils/HiveServices.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/PriorityEnum.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/Features/Search/Presentation/Manager/SearchViewCubit/search_view_cubit.dart';
 import 'package:todo_list_app/Features/Search/Presentation/Views/widgets/PriorityLevels.dart';
@@ -67,6 +69,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                       return CustomTaskContainer(
                         onPop: () => BlocProvider.of<SearchViewCubit>(context).getRelatedTasks(searchText, pri),
                         task: res[index],
+                        hiveServices: getit<HiveServices>(),
                         onDismissed: (direction) => onDismissed(direction, index),
                       );
                     },
@@ -75,11 +78,12 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                   return ListView.builder(
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.all(kPadding),
-                    itemCount: getData().length,
+                    itemCount: getit<HiveServices>().getData().length,
                     itemBuilder: (BuildContext context, int index) {
                       return CustomTaskContainer(
                         onPop: () => BlocProvider.of<SearchViewCubit>(context).getRelatedTasks(searchText, pri),
-                        task: getData()[index],
+                        task: getit<HiveServices>().getData()[index],
+                        hiveServices: getit<HiveServices>(),
                         onDismissed: (direction) => onDismissed(direction, index),
                       );
                     },

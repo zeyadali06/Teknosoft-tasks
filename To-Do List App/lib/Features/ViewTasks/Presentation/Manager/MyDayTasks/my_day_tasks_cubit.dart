@@ -1,40 +1,34 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:todo_list_app/Core/Utils/HiveServices.dart';
+import 'package:todo_list_app/Core/Failures/Result.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
+import 'package:todo_list_app/Features/ViewTasks/Domain/RepoInterface/FetchTasksRepo.dart';
+import 'package:todo_list_app/Features/ViewTasks/Domain/RepoInterface/MidNightRefreshRepo.dart';
 
 part 'my_day_tasks_state.dart';
 
 class MyDayTasksCubit extends Cubit<MyDayTasksState> {
-  MyDayTasksCubit() : super(MyDayTasksInitial());
+  MyDayTasksCubit(this.fetchTasksRepo, this.midHightRefresherRepo) : super(MyDayTasksInitial());
 
   List<TaskModel> tasks = [];
+  final FetchTasksRepo fetchTasksRepo;
+  final MidHightRefresherRepo midHightRefresherRepo;
 
   List<TaskModel> getMyDayTasks() {
-    try {
-      List<TaskModel> res = [];
+    Result res = fetchTasksRepo.fetchMyDayTasks();
 
-      for (TaskModel task in getData()) {
-        if (isSameDay(DateTime.now(), task.from)) {
-          res.add(task);
-        }
-      }
-      tasks = res;
+    if (res is ResultSuccess) {
+      tasks = res.data;
       emit(MyDayTasksSuccess());
-      return res;
-    } catch (_) {
-      emit(MyDayTasksFailed(errMessage: "Error, try again later!"));
-      return [];
+      return tasks;
+    } else if (res is ResultFailure) {
+      emit(MyDayTasksFailed(errMessage: res.failure.message));
     }
+
+    return [];
   }
 
   void startMidNightTimer() {
-    final DateTime now = DateTime.now();
-    final DateTime nextMidnight = DateTime(now.year, now.month, now.day + 1, 0, 0, 0);
-    final Duration duration = nextMidnight.difference(now);
-    Timer(duration, () => getMyDayTasks());
+    midHightRefresherRepo.refresh(() => getMyDayTasks());
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_list_app/Core/Common/LinearGrdientColor.dart';
-import 'package:todo_list_app/Core/Common/SnackBar.dart';
+import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
+import 'package:todo_list_app/Core/CommonWidgets/SnackBar.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Manager/HomeView/home_view_cubit.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/widgets/AllCategories.dart';
 import 'package:todo_list_app/Features/Home/Presentation/Views/widgets/TaskLevelContainer.dart';
@@ -37,7 +37,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       child: Column(
                         children: [
                           TopBar(
-                            task: BlocProvider.of<HomeViewCubit>(context).finishedTasks,
+                            task: BlocProvider.of<HomeViewCubit>(context).homeComponentsModel.finishedTasks,
                             onPop: refresh,
                           ),
                           const SizedBox(height: 10),

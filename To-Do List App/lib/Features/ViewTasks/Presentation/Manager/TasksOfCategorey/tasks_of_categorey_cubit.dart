@@ -1,43 +1,37 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:todo_list_app/Core/Utils/HiveServices.dart';
+import 'package:todo_list_app/Core/Failures/Result.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/CategoryEnum.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
+import 'package:todo_list_app/Features/ViewTasks/Domain/RepoInterface/FetchTasksRepo.dart';
+import 'package:todo_list_app/Features/ViewTasks/Domain/RepoInterface/MidNightRefreshRepo.dart';
 
 part 'tasks_of_categorey_state.dart';
 
 class TasksOfCategoreyCubit extends Cubit<TasksOfCategoreyState> {
-  TasksOfCategoreyCubit() : super(TasksOfCategoreyInitial());
+  TasksOfCategoreyCubit(this.fetchTasksRepo, this.midHightRefresherRepo) : super(TasksOfCategoreyInitial());
 
   DateTime whenRefreshDateTime = DateTime.now();
   late DateTime timerDateTime;
   late List<TaskModel> tasks;
+  final FetchTasksRepo fetchTasksRepo;
+  final MidHightRefresherRepo midHightRefresherRepo;
 
-  List<TaskModel> getTasks(DateTime datetime, Category cat) {
-    try {
-      List<TaskModel> allTasks = getData();
-      List<TaskModel> res = [];
+  List<TaskModel> getSpecificCategoryTasks(DateTime datetime, Category category) {
+    Result res = fetchTasksRepo.fetchSpecificCategoryTasks(datetime, category);
 
-      for (TaskModel task in allTasks) {
-        if (task.category == cat.name && isSameDay(datetime, task.from)) {
-          res.add(task);
-        }
-      }
-      tasks = res;
+    if (res is ResultSuccess) {
+      tasks = res.data;
       emit(TasksOfCategoreySuccessed());
       return tasks;
-    } catch (_) {
-      emit(TasksOfCategoreyFailed(errMessage: "Error, try again later!"));
+    } else if (res is ResultFailure) {
+      emit(TasksOfCategoreyFailed(errMessage: res.failure.message));
     }
+
     return [];
   }
 
   void startMidNightTimer(Category cat) {
-    final DateTime now = DateTime.now();
-    final DateTime nextMidnight = DateTime(now.year, now.month, now.day + 1, 0, 0, 0);
-    final Duration duration = nextMidnight.difference(now);
-    Timer(duration, () => getTasks(timerDateTime, cat));
+    midHightRefresherRepo.refresh(() => getSpecificCategoryTasks(timerDateTime, cat));
   }
 }

@@ -1,28 +1,32 @@
 import 'dart:async';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
 import 'package:todo_list_app/constants.dart';
 
-Future<void> addData(TaskModel task) async {
-  await Hive.box<TaskModel>(kBoxName).add(task);
-}
+class HiveServices {
+  const HiveServices();
 
-List<TaskModel> getData() {
-  return Hive.box<TaskModel>(kBoxName).values.toList();
-}
+  Future<void> addData(TaskModel task) async {
+    await Hive.box<TaskModel>(kBoxName).add(task);
+  }
 
-Future<void> deleteData(TaskModel task) async {
-  await task.delete();
-  await task.save();
-}
+  List<TaskModel> getData() {
+    return Hive.box<TaskModel>(kBoxName).values.toList();
+  }
 
-Future<void> editData(TaskModel task) async {
-  await task.save();
-}
+  Future<void> deleteData(TaskModel task) async {
+    await task.delete();
+    await task.save();
+  }
 
-Future<void> deleteAll() async {
-  for (TaskModel element in getData()) {
-    await element.delete();
-    await element.save();
+  Future<void> editData(TaskModel task) async {
+    await task.save();
+  }
+
+  Future<void> deleteAll() async {
+    for (TaskModel element in getData()) {
+      await element.delete();
+      await element.save();
+    }
   }
 }

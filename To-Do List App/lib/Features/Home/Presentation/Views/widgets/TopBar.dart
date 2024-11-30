@@ -46,7 +46,7 @@ class TopBar extends StatelessWidget {
                   const CircularProgressIndicator(strokeWidth: 2.5, color: Color(0xffd1d5de), value: 1),
                   CircularProgressIndicator(
                     strokeWidth: 2.5,
-                    value: BlocProvider.of<HomeViewCubit>(context).circularIndicatorValue,
+                    value: BlocProvider.of<HomeViewCubit>(context).homeComponentsModel.circularIndicatorValue,
                     color: kPrimaryColor,
                   ),
                 ],

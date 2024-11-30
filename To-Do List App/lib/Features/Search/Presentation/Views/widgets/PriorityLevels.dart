@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list_app/Core/Utils/Styles.dart';
-import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
+import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/PriorityEnum.dart';
 import 'package:todo_list_app/constants.dart';
 
 class PriorityLevels extends StatelessWidget {

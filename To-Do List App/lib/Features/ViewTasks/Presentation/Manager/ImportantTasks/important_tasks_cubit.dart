@@ -1,43 +1,36 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:todo_list_app/Core/Utils/HiveServices.dart';
+import 'package:todo_list_app/Core/Failures/Result.dart';
 import 'package:todo_list_app/Features/CreateUpdateTasks/Data/Models/TaskModel.dart';
+import 'package:todo_list_app/Features/ViewTasks/Domain/RepoInterface/FetchTasksRepo.dart';
+import 'package:todo_list_app/Features/ViewTasks/Domain/RepoInterface/MidNightRefreshRepo.dart';
 
 part 'important_tasks_state.dart';
 
 class ImportantTasksCubit extends Cubit<ImportantTasksState> {
-  ImportantTasksCubit() : super(ImportantTasksInitial());
+  ImportantTasksCubit(this.fetchTasksRepo, this.midHightRefresherRepo) : super(ImportantTasksInitial());
 
   late DateTime timerDateTime;
   DateTime whenRefreshDateTime = DateTime.now();
   late List<TaskModel> tasks;
+  final FetchTasksRepo fetchTasksRepo;
+  final MidHightRefresherRepo midHightRefresherRepo;
 
-  List<TaskModel> getTasks(DateTime datetime) {
-    try {
-      List<TaskModel> allTasks = getData();
-      List<TaskModel> res = [];
+  List<TaskModel> getImportantTasks(DateTime datetime) {
+    Result res = fetchTasksRepo.fetchImportantTasks(datetime);
 
-      for (TaskModel task in allTasks) {
-        if (isSameDay(datetime, task.from) && task.important) {
-          res.add(task);
-        }
-      }
-      tasks = res;
+    if (res is ResultSuccess) {
+      tasks = res.data;
       emit(ImportantTasksSuccessed());
       return tasks;
-    } catch (e) {
-      emit(ImportantTasksFailed(errMessage: "Error, try again later!"));
+    } else if (res is ResultFailure) {
+      emit(ImportantTasksFailed(errMessage: res.failure.message));
     }
+
     return [];
   }
 
   void startMidNightTimer() {
-    final DateTime now = DateTime.now();
-    final DateTime nextMidnight = DateTime(now.year, now.month, now.day + 1, 0, 0, 0);
-    final Duration duration = nextMidnight.difference(now);
-    Timer(duration, () => getTasks(timerDateTime));
+    midHightRefresherRepo.refresh(() => getImportantTasks(timerDateTime));
   }
 }
