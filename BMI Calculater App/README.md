@@ -32,8 +32,8 @@ lib
 
 ## Screen Shots 📸
 
-| <img src="https://github.com/zeyadali06/TennisApp/blob/main/ScreenShots/Screenshot_1732997923.png" width="300"> | <img src="https://github.com/zeyadali06/TennisApp/blob/main/ScreenShots/Screenshot_1732997933.png" width="300"> |
-| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/BMI%20Calculater%20App/ScreenShots/Screenshot_1732997923.png" width="300"> | <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/BMI%20Calculater%20App/ScreenShots/Screenshot_1732997933.png" width="300"> |
+| -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 
 # [Video Link](https://www.linkedin.com/posts/zeyadali06_teknosoft-flutter-internship-activity-7188573456672706561-PzOk?utm_source=share&utm_medium=member_desktop)
 
