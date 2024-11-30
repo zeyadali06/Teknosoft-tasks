@@ -124,7 +124,7 @@ class CustomTaskContainerContent extends StatelessWidget {
         Text(task.title, style: Styles.blue18Bold),
         const SizedBox(height: 5),
         Text(
-          "${task.from.day}/${task.from.month}/${task.from.year}   ${hourMinuteFormate(task.from)}    -    ${task.to.day}/${task.to.month}/${task.to.year}   ${hourMinuteFormate(task.to)}   ",
+          "${task.from.day}/${task.from.month}/${task.from.year}   ${hourMinuteFormate(task.from)}\n${task.to.day}/${task.to.month}/${task.to.year}   ${hourMinuteFormate(task.to)}   ",
           style: Styles.grey12Bold,
         ),
         const SizedBox(height: 7),

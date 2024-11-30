@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Core/CommonWidgets/CustomTaskContainer.dart';
-import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
+import 'package:todo_list_app/Core/CommonWidgets/LinearGradientColor.dart';
 import 'package:todo_list_app/Core/CommonWidgets/NoThingToShow.dart';
 import 'package:todo_list_app/Core/Utils/DI.dart';
 import 'package:todo_list_app/Core/Utils/HiveServices.dart';

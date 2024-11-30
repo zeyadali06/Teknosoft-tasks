@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_list_app/Core/CommonWidgets/CustomTaskContainer.dart';
-import 'package:todo_list_app/Core/CommonWidgets/LinearGrdientColor.dart';
+import 'package:todo_list_app/Core/CommonWidgets/LinearGradientColor.dart';
 import 'package:todo_list_app/Core/CommonWidgets/NoThingToShow.dart';
 import 'package:todo_list_app/Core/CommonWidgets/SnackBar.dart';
 import 'package:todo_list_app/Core/Utils/DI.dart';
@@ -40,7 +40,7 @@ class _TodayProgressViewBodyState extends State<TodayProgressViewBody> {
               } else {
                 tasks = BlocProvider.of<TodayProgressCubit>(context).tasks;
                 if (tasks.isEmpty) {
-                  return const Expanded(child: Center(child: LottieImage()));
+                  return const Center(child: LottieImage());
                 } else {
                   return ListView.builder(
                     physics: const BouncingScrollPhysics(),
