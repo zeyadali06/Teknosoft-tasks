@@ -33,10 +33,10 @@ class _AddressViewState extends State<AddressView> {
                 return ListView(
                   children: [
                     const SizedBox(height: 20),
-                    const Text('Currently Used Address', style: Styles.black18w500, textAlign: TextAlign.center),
+                    Text('Currently Used Address', style: Styles.black18w500(context), textAlign: TextAlign.center),
                     AddressContainer(address: BlocProvider.of<AddressViewCubit>(context).allAddresses[0], isDefault: true),
                     if (BlocProvider.of<AddressViewCubit>(context).allAddresses.length > 1) const SizedBox(height: 20),
-                    if (BlocProvider.of<AddressViewCubit>(context).allAddresses.length > 1) const Text('Other Addresses', style: Styles.black18w500, textAlign: TextAlign.center),
+                    if (BlocProvider.of<AddressViewCubit>(context).allAddresses.length > 1) Text('Other Addresses', style: Styles.black18w500(context), textAlign: TextAlign.center),
                     if (BlocProvider.of<AddressViewCubit>(context).allAddresses.length > 1)
                       Expanded(
                         child: ListView.builder(
@@ -61,7 +61,7 @@ class _AddressViewState extends State<AddressView> {
         ),
       ),
       appBar: AppBar(
-        title: const Text("Your Addresses", style: Styles.black21w500),
+        title: Text("Your Addresses", style: Styles.black21w500(context)),
         centerTitle: true,
       ),
       body: const AddressViewBody(),

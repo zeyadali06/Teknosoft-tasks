@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 
+import 'package:e_commerce_app_development/Core/Utils/Functions/Get_Font_Size.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Manager/Forget_Password_View_Cubit/forget_password_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Custom_Text_Form_Field.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Lottie_Image.dart';
@@ -71,7 +72,7 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
                   const Spacer(flex: 3),
 
                   // Find Your Account Text
-                  const Text('Find Your Account', style: Styles.black21w500),
+                  Text('Find Your Account', style: Styles.black21w500(context)),
                   const Spacer(flex: 3),
 
                   Padding(
@@ -115,12 +116,12 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
                             if (!timeFinished)
                               Column(
                                 children: [
-                                  const Text("Resend Code", style: Styles.black18w500),
+                                  Text("Resend Code", style: Styles.black18w500(context)),
 
                                   // Timer
                                   TimerWidget(
                                     totalSeconds: totalSeconds,
-                                    fontSize: 18,
+                                    fontSize: getResponsiveFontSize(context: context, fontSize: 18),
                                     afterFinished: () {
                                       timeFinished = true;
                                       setState(() {});

@@ -16,4 +16,4 @@ const String addressesCollection = 'addressesCollection';
 const String addressesField = 'addresses';
 const String profileImagesFolderPath = 'profil_images';
 const String defaultProfileImageURL =
-    "https://firebasestorage.googleapis.com/v0/b/ecommerce-app-developmen-47370.appspot.com/o/DefaultProfileImage.png?alt=media&token=6a3b2885-e396-4af9-8817-6cb5753614b7";
+    "https://firebasestorage.googleapis.com/v0/b/ecommerce-app-developmen-47370.appspot.com/o/DefaultProfilePicture.jpg?alt=media&token=b74801d9-37f9-4ae4-9290-9c2611081e8e";

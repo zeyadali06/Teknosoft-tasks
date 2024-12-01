@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Core/Utils/Functions/Get_Font_Size.dart';
 import 'package:e_commerce_app_development/Features/Search_Feature/Presentation/Manager/Search_View_Cubit.dart/search_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Shopping_View_Product_Item.dart';
 import 'package:e_commerce_app_development/Core/Common_Widgets/No_Thing_Found.dart';
@@ -29,7 +30,7 @@ class SearchViewBody extends StatelessWidget {
                       BlocProvider.of<SearchViewCubit>(context).search(data);
                     },
                     onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
-                    style: const TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: getResponsiveFontSize(context: context, fontSize: 18)),
                     cursorColor: kPrimaryColor,
                     decoration: const InputDecoration(
                       prefixIcon: Icon(

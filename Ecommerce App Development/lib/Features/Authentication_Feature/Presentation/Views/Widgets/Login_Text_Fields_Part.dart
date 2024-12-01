@@ -55,7 +55,7 @@ class LoginTextFieldsPart extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).push(AppRouter.goTo(context, AppRouter.forgetPasswordViewPath));
                         },
-                        child: Text('Forget Passsword!', style: Styles.black14w500.copyWith(color: Colors.red)),
+                        child: Text('Forget Passsword!', style: Styles.black14w500(context).copyWith(color: Colors.red)),
                       ),
                     ],
                   ),

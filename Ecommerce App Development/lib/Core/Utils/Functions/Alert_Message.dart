@@ -12,7 +12,7 @@ Future<T?> showAlertMesssge<T>(BuildContext context, String title, String conten
         canPop: false,
         child: AlertDialog(
           title: Text(title),
-          content: Text(content, style: Styles.black18w500.copyWith(fontWeight: FontWeight.normal)),
+          content: Text(content, style: Styles.black18w500(context).copyWith(fontWeight: FontWeight.normal)),
           actions: <Widget>[
             CustomButton(
               width: 50,

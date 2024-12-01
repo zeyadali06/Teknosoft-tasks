@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Core/Utils/Functions/Get_Font_Size.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -27,13 +28,13 @@ class _CustomDropdownButtonState extends State<CustomDropdownButton> {
           label: value,
           style: ButtonStyle(
             backgroundColor: WidgetStateProperty.all(Colors.white),
-            textStyle: WidgetStateProperty.all(const TextStyle(fontSize: 18)),
+            textStyle: WidgetStateProperty.all(TextStyle(fontSize: getResponsiveFontSize(context: context, fontSize: 18))),
             side: WidgetStateProperty.all(const BorderSide(width: .25)),
           ),
         );
       }).toList(),
       width: MediaQuery.of(context).size.width - (kPadding * 2),
-      textStyle: const TextStyle(fontSize: 18),
+      textStyle: TextStyle(fontSize: getResponsiveFontSize(context: context, fontSize: 18)),
       onSelected: (value) {
         setState(() {
           widget.onSelected(value);

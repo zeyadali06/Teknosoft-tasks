@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Core/Utils/Functions/Get_Font_Size.dart';
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app_development/constants.dart';
 
@@ -58,6 +59,7 @@ class _CustomObsecureTextFormFieldState extends State<CustomObsecureTextFormFiel
         cursorOpacityAnimates: true,
         controller: widget.controller,
         cursorColor: color,
+        style: TextStyle(fontSize: getResponsiveFontSize(context: context, fontSize: 14)),
         decoration: InputDecoration(
           border: outlineInputBorder(2),
           enabledBorder: outlineInputBorder(1.5),
@@ -76,7 +78,9 @@ class _CustomObsecureTextFormFieldState extends State<CustomObsecureTextFormFiel
             icon: Icon(eyeIcon),
           ),
           hintText: 'Password',
-          labelStyle: TextStyle(color: color),
+          labelStyle: TextStyle(color: color, fontSize: getResponsiveFontSize(context: context, fontSize: 14)),
+          hintStyle: TextStyle(fontSize: getResponsiveFontSize(context: context, fontSize: 14)),
+          errorStyle: TextStyle(fontSize: getResponsiveFontSize(context: context, fontSize: 14)),
           label: const Text('Password'),
         ),
       ),

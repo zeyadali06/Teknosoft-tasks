@@ -78,14 +78,14 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.product.title, style: Styles.white24Bold.copyWith(color: Colors.black, fontWeight: FontWeight.w500), maxLines: 1, overflow: TextOverflow.ellipsis),
+                            Text(widget.product.title, style: Styles.white24Bold(context).copyWith(color: Colors.black, fontWeight: FontWeight.w500), maxLines: 1, overflow: TextOverflow.ellipsis),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(widget.product.category, style: Styles.grey12w500, maxLines: 1, overflow: TextOverflow.ellipsis),
+                                    Text(widget.product.category, style: Styles.grey12w500(context), maxLines: 1, overflow: TextOverflow.ellipsis),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(vertical: 5),
                                       child: PricePart(product: widget.product),
@@ -102,7 +102,7 @@ class _ProductDetailsViewBodyState extends State<ProductDetailsViewBody> {
                       if (widget.product.stock == 0)
                         Padding(
                           padding: const EdgeInsets.only(bottom: kPadding),
-                          child: Text('Out of stock', style: Styles.black18w500.copyWith(color: Colors.red)),
+                          child: Text('Out of stock', style: Styles.black18w500(context).copyWith(color: Colors.red)),
                         )
                       else
                         Padding(

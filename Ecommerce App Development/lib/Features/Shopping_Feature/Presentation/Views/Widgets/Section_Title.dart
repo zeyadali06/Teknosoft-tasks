@@ -16,7 +16,7 @@ class TitleRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(text, style: Styles.black21w500),
+          Text(text, style: Styles.black21w500(context)),
         ],
       ),
     );

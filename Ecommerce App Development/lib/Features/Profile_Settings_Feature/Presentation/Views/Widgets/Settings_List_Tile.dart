@@ -17,7 +17,7 @@ class SettingsListTile extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.of(context).push(AppRouter.goTo(context, toView)),
       child: ListTile(
-        title: Text(listTileText, style: Styles.black21w500),
+        title: Text(listTileText, style: Styles.black21w500(context)),
         leading: Icon(icon, color: kPrimaryColor),
         trailing: const Icon(Icons.arrow_forward_ios, color: Colors.black),
       ),

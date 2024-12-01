@@ -15,16 +15,16 @@ class PriceRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(text, style: Styles.grey12w500),
+        Text(text, style: Styles.grey12w500(context)),
         if (isPercentage)
           Text(
             "${price.toStringAsFixed(2)}%",
-            style: Styles.black14w500.copyWith(color: Colors.red),
+            style: Styles.black14w500(context).copyWith(color: Colors.red),
           )
         else
           Text(
             "\$${price.toStringAsFixed(2)}",
-            style: Styles.black14w500,
+            style: Styles.black14w500(context),
           ),
       ],
     );

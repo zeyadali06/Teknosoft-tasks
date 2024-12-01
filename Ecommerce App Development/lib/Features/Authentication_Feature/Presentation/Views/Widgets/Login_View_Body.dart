@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Core/Utils/Functions/Get_Font_Size.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Manager/Login_View_Cubit/login_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Login_Text_Fields_Part.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/LoginDataModel.dart';
@@ -52,7 +53,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     ),
 
                     // Login Text
-                    const Text('Login', style: Styles.black21w500),
+                    Text('Login', style: Styles.black21w500(context)),
 
                     // login text fields
                     LoginTextFieldsPart(
@@ -77,12 +78,15 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text("Don't have an account?"),
+                              Text("Don't have an account?", style: TextStyle(fontSize: getResponsiveFontSize(context: context, fontSize: 14))),
                               TextButton(
                                 onPressed: () {
                                   Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.signUpViewPath));
                                 },
-                                child: const Text('SignUp', style: TextStyle(fontWeight: FontWeight.bold, color: kPrimaryColor)),
+                                child: Text(
+                                  'SignUp',
+                                  style: TextStyle(fontWeight: FontWeight.bold, color: kPrimaryColor, fontSize: getResponsiveFontSize(context: context, fontSize: 14)),
+                                ),
                               ),
                             ],
                           ),

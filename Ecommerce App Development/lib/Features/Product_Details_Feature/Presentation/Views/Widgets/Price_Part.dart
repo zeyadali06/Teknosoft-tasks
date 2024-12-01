@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Core/Utils/Functions/Get_Font_Size.dart';
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class PricePart extends StatelessWidget {
           if (product.discountPercentage != 0)
             Text(
               "\$${(product.price * ((100 - product.discountPercentage) / 100)).toStringAsFixed(2)}",
-              style: Styles.black21w500.copyWith(fontSize: firstPriceSize),
+              style: Styles.black21w500(context).copyWith(fontSize: getResponsiveFontSize(context: context, fontSize: firstPriceSize)),
             )
           else
             Text(product.price.toStringAsFixed(2)),
@@ -29,9 +30,9 @@ class PricePart extends StatelessWidget {
           if (product.discountPercentage != 0)
             Text(
               "\$${product.price.toStringAsFixed(2)}",
-              style: Styles.black14w500.copyWith(
+              style: Styles.black14w500(context).copyWith(
                 color: Colors.red,
-                fontSize: secondPriceSize,
+                fontSize: getResponsiveFontSize(context: context, fontSize: secondPriceSize),
                 decoration: TextDecoration.lineThrough,
                 decorationColor: Colors.red,
                 decorationThickness: 2,
@@ -46,7 +47,7 @@ class PricePart extends StatelessWidget {
           if (product.discountPercentage != 0)
             Text(
               "\$${(product.price * ((100 - product.discountPercentage) / 100)).toStringAsFixed(2)}",
-              style: Styles.black21w500.copyWith(fontSize: firstPriceSize),
+              style: Styles.black21w500(context).copyWith(fontSize: getResponsiveFontSize(context: context, fontSize: firstPriceSize)),
             )
           else
             Text(product.price.toStringAsFixed(2)),
@@ -54,9 +55,9 @@ class PricePart extends StatelessWidget {
           if (product.discountPercentage != 0)
             Text(
               "\$${product.price.toStringAsFixed(2)}",
-              style: Styles.black14w500.copyWith(
+              style: Styles.black14w500(context).copyWith(
                 color: Colors.red,
-                fontSize: secondPriceSize,
+                fontSize: getResponsiveFontSize(context: context, fontSize: secondPriceSize),
                 decoration: TextDecoration.lineThrough,
                 decorationColor: Colors.red,
                 decorationThickness: 2,

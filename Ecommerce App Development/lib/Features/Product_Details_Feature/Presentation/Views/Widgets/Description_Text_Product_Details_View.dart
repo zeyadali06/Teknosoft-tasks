@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Core/Utils/Functions/Get_Font_Size.dart';
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
 import 'package:flutter/material.dart';
 
@@ -29,14 +30,14 @@ class _DescriptionTextState extends State<DescriptionText> {
         if (maxLinesForDesc == null)
           Text(
             widget.description,
-            style: Styles.grey12w500.copyWith(fontSize: 14),
+            style: Styles.grey12w500(context).copyWith(fontSize: getResponsiveFontSize(context: context, fontSize: 14)),
           )
         else
           Text(
             widget.description,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: Styles.grey12w500.copyWith(fontSize: 14),
+            style: Styles.grey12w500(context).copyWith(fontSize: getResponsiveFontSize(context: context, fontSize: 14)),
           ),
         if (maxLinesForDesc == null)
           const Column()
@@ -46,7 +47,7 @@ class _DescriptionTextState extends State<DescriptionText> {
               maxLinesForDesc = null;
               setState(() {});
             },
-            child: const Text("Read more...", style: Styles.black14w500),
+            child: Text("Read more...", style: Styles.black14w500(context)),
           ),
       ],
     );

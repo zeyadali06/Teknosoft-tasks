@@ -24,12 +24,12 @@ class AddressContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(address.country, style: Styles.black18w500),
-          Text(address.street, style: Styles.black18w500),
-          Text(address.buildNumber, style: Styles.black18w500),
-          Text(address.city, style: Styles.black18w500),
-          Text(address.phone, style: Styles.black18w500),
-          Text(address.district, style: Styles.black18w500),
+          Text(address.country, style: Styles.black18w500(context)),
+          Text(address.street, style: Styles.black18w500(context)),
+          Text(address.buildNumber, style: Styles.black18w500(context)),
+          Text(address.city, style: Styles.black18w500(context)),
+          Text(address.phone, style: Styles.black18w500(context)),
+          Text(address.district, style: Styles.black18w500(context)),
           const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,

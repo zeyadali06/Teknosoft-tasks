@@ -45,7 +45,7 @@ This folder contains all services and tools related to the application
 Core
 ├── CommonWidgets
 ├── Failures
-└── .Utils
+└── Utils
 ```
 
 ### Features

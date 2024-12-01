@@ -14,7 +14,7 @@ class ProductDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Details Products', style: Styles.black21w500),
+        title: Text('Details Products', style: Styles.black21w500(context)),
         centerTitle: true,
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xfff6f6f6),

@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Core/Utils/Functions/Get_Font_Size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:e_commerce_app_development/constants.dart';
@@ -59,13 +60,16 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         controller: widget.controller,
         cursorColor: color,
         inputFormatters: widget.inputFormatters,
+        style: TextStyle(fontSize: getResponsiveFontSize(context: context, fontSize: 14)),
         decoration: InputDecoration(
           border: outlineInputBorder(2),
           enabledBorder: outlineInputBorder(1.5),
           focusedBorder: outlineInputBorder(2),
           errorBorder: outlineInputBorder(2),
           hintText: widget.hintText,
-          labelStyle: TextStyle(color: color),
+          labelStyle: TextStyle(color: color, fontSize: getResponsiveFontSize(context: context, fontSize: 14)),
+          hintStyle: TextStyle(fontSize: getResponsiveFontSize(context: context, fontSize: 14)),
+          errorStyle: TextStyle(fontSize: getResponsiveFontSize(context: context, fontSize: 14)),
           label: Text(widget.label),
         ),
       ),

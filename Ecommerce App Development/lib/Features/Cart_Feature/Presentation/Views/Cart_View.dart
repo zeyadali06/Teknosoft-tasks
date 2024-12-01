@@ -11,7 +11,7 @@ class CartView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Cart', style: Styles.black21w500),
+        title: Text('My Cart', style: Styles.black21w500(context)),
         centerTitle: true,
       ),
       body: const CartViewBody(),

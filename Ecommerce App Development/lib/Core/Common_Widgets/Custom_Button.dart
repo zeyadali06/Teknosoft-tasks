@@ -30,8 +30,9 @@ class CustomButton extends StatelessWidget {
       color: backgroundColor,
       height: 45,
       padding: padding,
+      
       shape: OutlineInputBorder(borderRadius: BorderRadius.circular(kRadius), borderSide: BorderSide(width: 0, color: backgroundColor)),
-      child: Text(buttonText, style: Styles.black18w500.copyWith(color: fontColor)),
+      child: Text(buttonText, style: Styles.black18w500(context).copyWith(color: fontColor)),
     );
   }
 }

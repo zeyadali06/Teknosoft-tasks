@@ -51,7 +51,7 @@ class _ShoppingViewBodyState extends State<ShoppingViewBody> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 30),
-                const Text('Shopping', style: Styles.black21w500),
+                Text('Shopping', style: Styles.black21w500(context)),
                 const SizedBox(height: 30),
                 const ShoppingViewImage(),
                 const TitleRow(text: 'Available'),

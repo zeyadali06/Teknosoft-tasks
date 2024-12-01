@@ -44,15 +44,15 @@ class CartViewProductItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(item.product.title, style: Styles.black14w500, maxLines: 1, overflow: TextOverflow.ellipsis),
-                  Text(item.product.category, style: Styles.grey12w500, maxLines: 1, overflow: TextOverflow.ellipsis),
+                  Text(item.product.title, style: Styles.black14w500(context), maxLines: 1, overflow: TextOverflow.ellipsis),
+                  Text(item.product.category, style: Styles.grey12w500(context), maxLines: 1, overflow: TextOverflow.ellipsis),
                   const SizedBox(height: 10),
                   Row(
                     children: [
                       PricePart(product: item.product, firstPriceSize: 12, secondPriceSize: 10, asRow: false),
                       const SizedBox(width: 20),
-                      Text(item.numberOfItems.toString(), style: Styles.black18w500),
-                      const Text(" pieces", style: Styles.black14w500),
+                      Text(item.numberOfItems.toString(), style: Styles.black18w500(context)),
+                      Text(" pieces", style: Styles.black14w500(context)),
                     ],
                   ),
                 ],
@@ -64,7 +64,7 @@ class CartViewProductItem extends StatelessWidget {
               await BlocProvider.of<CartViewCubit>(context).deleteFromCart(item.product);
             },
             style: const ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsets.zero)),
-            child: Text('Remove from\n cart', style: Styles.black14w500.copyWith(color: Colors.red), textAlign: TextAlign.center),
+            child: Text('Remove from\n cart', style: Styles.black14w500(context).copyWith(color: Colors.red), textAlign: TextAlign.center),
           )
         ],
       ),

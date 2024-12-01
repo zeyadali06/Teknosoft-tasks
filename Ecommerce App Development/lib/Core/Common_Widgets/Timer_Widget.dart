@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Core/Utils/Functions/Get_Font_Size.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -55,7 +56,7 @@ class _TimerWidgetState extends State<TimerWidget> {
     return Center(
       child: Text(
         '$_minutes:${_seconds.toString().padLeft(2, '0')}',
-        style: TextStyle(fontSize: widget.fontSize),
+        style: TextStyle(fontSize: getResponsiveFontSize(context: context, fontSize: widget.fontSize)),
       ),
     );
   }

@@ -11,7 +11,7 @@ class FavourateView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Favourate Products', style: Styles.black21w500),
+        title: Text('My Favourate Products', style: Styles.black21w500(context)),
         centerTitle: true,
       ),
       body: const FavourateViewBody(),

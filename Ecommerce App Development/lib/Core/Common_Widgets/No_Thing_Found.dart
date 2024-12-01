@@ -14,7 +14,7 @@ class NoThingFound extends StatelessWidget {
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(kPadding),
-        child: Text(text, style: Styles.black18w500),
+        child: Text(text, style: Styles.black18w500(context)),
       ),
     );
   }

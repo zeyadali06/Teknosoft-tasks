@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'package:e_commerce_app_development/Core/Utils/Functions/Get_Font_Size.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Manager/SignUp_View_Cubit/sign_up_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/SignUp_Text_Fields_Part.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Data/Models/User_Data_Model/SignUpDataModel.dart';
@@ -63,7 +64,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                     const LottieImage("assets/images/LottieShoesBlackLine.json"),
 
                     // register keyword
-                    const Text('Register', style: Styles.black21w500),
+                    Text('Register', style: Styles.black21w500(context)),
 
                     // signup text fields
                     SignUpTextFieldsPart(
@@ -75,7 +76,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                       passwordController: passwordController,
                       confirmPasswordController: confirmPasswordController,
                     ),
-
+                    const SizedBox(height: 15),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: kPadding),
                       child: Column(
@@ -91,12 +92,18 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text("Already have an account?"),
+                              Text(
+                                "Already have an account?",
+                                style: TextStyle(fontSize: getResponsiveFontSize(context: context, fontSize: 14)),
+                              ),
                               TextButton(
                                 onPressed: () {
                                   Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.loginViewPath));
                                 },
-                                child: const Text('Login', style: TextStyle(fontWeight: FontWeight.bold, color: kPrimaryColor)),
+                                child: Text(
+                                  'Login',
+                                  style: TextStyle(fontWeight: FontWeight.bold, color: kPrimaryColor, fontSize: getResponsiveFontSize(context: context, fontSize: 14)),
+                                ),
                               ),
                             ],
                           ),

@@ -39,6 +39,11 @@ class ProfileImage extends StatelessWidget {
                         );
                       }
                     },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Center(
+                        child: Image.asset("assets/images/profile-user.png"),
+                      );
+                    },
                   ),
                 ),
                 Positioned(
@@ -78,9 +83,9 @@ class ProfileImage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 15),
-            Text(AuthRepoImplementation.allUserData!.username, style: Styles.black18w500),
+            Text(AuthRepoImplementation.allUserData!.username, style: Styles.black18w500(context)),
             const SizedBox(height: 6),
-            Text(AuthRepoImplementation.allUserData!.email, style: Styles.black18w500),
+            Text(AuthRepoImplementation.allUserData!.email, style: Styles.black18w500(context)),
           ],
         );
       },

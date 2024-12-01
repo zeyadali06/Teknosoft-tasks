@@ -8,7 +8,7 @@ void showSnackBar(BuildContext context, String message, [int seconds = 2]) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text(
       message,
-      style: Styles.black18w500,
+      style: Styles.black18w500(context),
     ),
     duration: Duration(seconds: seconds),
     backgroundColor: kPrimaryColor,
