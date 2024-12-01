@@ -123,7 +123,7 @@ class ForgetPasswordViewCubit extends Cubit<ForgetPasswordViewState> {
       if (codeSent) {
         attempts++;
       }
-      
+
       return codeSent;
     } catch (e) {
       bool connStat = await checkConn();

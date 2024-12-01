@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, use_build_context_synchronously
-
 import 'package:e_commerce_app_development/Core/Utils/Functions/Get_Font_Size.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Manager/Forget_Password_View_Cubit/forget_password_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Custom_Text_Form_Field.dart';
@@ -178,7 +176,9 @@ class _ForgetPasswordViewBodyState extends State<ForgetPasswordViewBody> {
       });
 
       if (codeSent) {
-        showAlertMesssge(context, "", "Code sended successfully. You may be redirected to google page to make sure that you aren't a roboot.");
+        if (mounted) {
+          showAlertMesssge(context, "", "Code sended successfully. You may be redirected to google page to make sure that you aren't a roboot.");
+        }
         sendCode = false;
         codeVerified = false;
         setState(() {});

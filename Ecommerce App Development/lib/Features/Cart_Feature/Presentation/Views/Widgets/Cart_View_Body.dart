@@ -1,10 +1,8 @@
-// ignore_for_file: file_names
-
 import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Manager/Cart_View_Cubit/cart_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Views/Widgets/Cart_View_Product_Item.dart';
-import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Views/Widgets/Price_Row.dart';
 import 'package:e_commerce_app_development/Core/Common_Widgets/No_Thing_Found.dart';
 import 'package:e_commerce_app_development/Core/Common_Widgets/Custom_Button.dart';
+import 'package:e_commerce_app_development/Features/Cart_Feature/Presentation/Views/Widgets/Price_Row.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
@@ -25,57 +23,60 @@ class CartViewBody extends StatelessWidget {
         } else {
           return Column(
             children: [
-              SafeArea(
-                child: Column(
-                  children: [
-                    Divider(color: Colors.grey.withOpacity(.2), height: 1),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height - 225 - kBottomNavigationBarHeight - 100,
-                      child: ListView.separated(
-                        itemCount: BlocProvider.of<CartViewCubit>(context).cartItems.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: kPadding, vertical: 15),
-                            child: CartViewProductItem(item: BlocProvider.of<CartViewCubit>(context).cartItems[index]),
-                          );
-                        },
-                        separatorBuilder: (BuildContext contextm, int index) {
-                          return Divider(color: Colors.grey.withOpacity(.2), height: 1);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                child: Container(
-                  height: 225,
-                  padding: const EdgeInsets.only(left: kPadding, right: kPadding, top: kPadding),
-                  width: MediaQuery.of(context).size.width,
-                  color: Colors.transparent,
+              Expanded(
+                child: SafeArea(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
-                        children: [
-                          PriceRow(text: 'Subtotal :', price: BlocProvider.of<CartViewCubit>(context).subtotalPrice),
-                          const SizedBox(height: 10),
-                          PriceRow(text: 'Delivery Fee :', price: BlocProvider.of<CartViewCubit>(context).deliveryFeePrice),
-                          const SizedBox(height: 10),
-                          PriceRow(text: 'Discount :', price: BlocProvider.of<CartViewCubit>(context).discountPercentage, isPercentage: true),
-                        ],
+                      Divider(color: Colors.grey.withOpacity(.2), height: 1),
+                      Expanded(
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: BlocProvider.of<CartViewCubit>(context).cartItems.length,
+                          separatorBuilder: (BuildContext context, int index) {
+                            return Divider(color: Colors.grey.withOpacity(.2), height: 1);
+                          },
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: kPadding, vertical: 15),
+                              child: CartViewProductItem(
+                                item: BlocProvider.of<CartViewCubit>(context).cartItems[index],
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                      PriceRow(text: 'Total :', price: BlocProvider.of<CartViewCubit>(context).totalPrice),
-                      CustomButton(
-                        onPressed: () async {
-                          await BlocProvider.of<CartViewCubit>(context).checkOut();
-                        },
-                        buttonText: "Check out",
-                      )
                     ],
                   ),
                 ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Divider(height: 1),
+                  Padding(
+                    padding: const EdgeInsets.only(left: kPadding, right: kPadding),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 5),
+                        PriceRow(text: 'Subtotal :', price: BlocProvider.of<CartViewCubit>(context).subtotalPrice),
+                        const SizedBox(height: 5),
+                        PriceRow(text: 'Delivery Fee :', price: BlocProvider.of<CartViewCubit>(context).deliveryFeePrice),
+                        const SizedBox(height: 5),
+                        PriceRow(text: 'Discount :', price: BlocProvider.of<CartViewCubit>(context).discountPercentage, isPercentage: true),
+                        const SizedBox(height: 5),
+                        PriceRow(text: 'Total :', price: BlocProvider.of<CartViewCubit>(context).totalPrice),
+                        const SizedBox(height: 15),
+                        CustomButton(
+                          onPressed: () async {
+                            await BlocProvider.of<CartViewCubit>(context).checkOut();
+                          },
+                          buttonText: "Check Out",
+                        ),
+                        const SizedBox(height: 15),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ],
           );

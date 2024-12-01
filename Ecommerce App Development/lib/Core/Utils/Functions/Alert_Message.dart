@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:e_commerce_app_development/Core/Common_Widgets/Custom_Button.dart';
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:bmi_calculater_app/constants.dart';
 import 'package:bmi_calculater_app/widgets/BMIResault.dart';
 import 'package:bmi_calculater_app/widgets/InstructionsContainer.dart';

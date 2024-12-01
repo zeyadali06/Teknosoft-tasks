@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 class Country {
   final String code;
   final String flag;

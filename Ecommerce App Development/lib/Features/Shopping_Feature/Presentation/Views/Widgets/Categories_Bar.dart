@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Shopping_View_Cubit.dart/shopping_view_cubit.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +24,7 @@ class _CategoriesBarState extends State<CategoriesBar> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: SizedBox(
-        height: 35,
+        height: 50,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: widget.categories.length,
@@ -47,6 +45,9 @@ class _CategoriesBarState extends State<CategoriesBar> {
                 },
                 elevation: 0,
                 color: isSelected ? selectedButtonColor : buttonColor,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.grey,
+                splashColor: Colors.grey,
                 shape: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(kRadius),
                   borderSide: BorderSide(

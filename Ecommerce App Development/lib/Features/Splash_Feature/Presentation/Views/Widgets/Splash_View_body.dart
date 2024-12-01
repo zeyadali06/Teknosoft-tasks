@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, use_build_context_synchronously
-
 import 'package:e_commerce_app_development/Core/Utils/App_Router.dart';
 import 'package:e_commerce_app_development/Features/Authentication_Feature/Presentation/Views/Widgets/Lottie_Image.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
@@ -32,16 +30,29 @@ class _SplashViewBodyState extends State<SplashViewBody> {
     bool loggedIn = await BlocProvider.of<SplashViewCubit>(context).checkLoginStatus();
     if (!loggedIn) {
       await Future.delayed(const Duration(seconds: 1), () {
-        Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.loginViewPath));
+        if (mounted) {
+          Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.loginViewPath));
+        }
       });
       return;
     }
-    List<ProductModel> products = await BlocProvider.of<ShoppingViewCubit>(context).getAllProducts();
-    BlocProvider.of<ShoppingViewCubit>(context).getAvaliableProducts(products);
-    BlocProvider.of<ShoppingViewCubit>(context).getCategories(products);
-    BlocProvider.of<ShoppingViewCubit>(context).getSpecificCategoryProducts(products, "All");
+    List<ProductModel> products = [];
+    if (mounted) {
+      products = await BlocProvider.of<ShoppingViewCubit>(context).getAllProducts();
+    }
+    if (mounted) {
+      BlocProvider.of<ShoppingViewCubit>(context).getAvaliableProducts(products);
+    }
+    if (mounted) {
+      BlocProvider.of<ShoppingViewCubit>(context).getCategories(products);
+    }
+    if (mounted) {
+      BlocProvider.of<ShoppingViewCubit>(context).getSpecificCategoryProducts(products, "All");
+    }
     await Future.delayed(const Duration(seconds: 1), () {
-      Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.navigationBarPath));
+      if (mounted) {
+        Navigator.of(context).pushReplacement(AppRouter.goTo(context, AppRouter.navigationBarPath));
+      }
     });
   }
 

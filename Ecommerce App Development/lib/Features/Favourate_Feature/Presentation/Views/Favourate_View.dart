@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
 import 'package:e_commerce_app_development/Features/Favourate_Feature/Presentation/Views/Widgets/Favourate_View_Body.dart';
 import 'package:flutter/material.dart';

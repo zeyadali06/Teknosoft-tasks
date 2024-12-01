@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:e_commerce_app_development/Core/Utils/Functions/Loading_Indicator.dart';
 import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Manager/Product_Details_Cubit/product_details_cubit.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';

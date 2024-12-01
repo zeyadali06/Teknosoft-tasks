@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce_app_development/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';

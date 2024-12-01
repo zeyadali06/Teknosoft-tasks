@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:e_commerce_app_development/Features/Profile_Settings_Feature/Presentation/Manager/Profile_Settings_View_Cubit.dart/profile_settings_view_cubit.dart';
 import 'package:e_commerce_app_development/Core/Common_Widgets/Custom_Phone_Text_Form_Field.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Loading_Indicator.dart';

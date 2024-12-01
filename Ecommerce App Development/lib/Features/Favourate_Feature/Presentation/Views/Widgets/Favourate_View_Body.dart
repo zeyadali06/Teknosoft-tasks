@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:e_commerce_app_development/Features/Favourate_Feature/Presentation/Manager/Favourate_View_Cubit/favourate_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Favourate_Feature/Presentation/Views/Widgets/Favourate_View_product_Item.dart';
 import 'package:e_commerce_app_development/Core/Common_Widgets/No_Thing_Found.dart';

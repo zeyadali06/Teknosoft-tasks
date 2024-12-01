@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:e_commerce_app_development/Core/Common_Widgets/Custom_Button.dart';
 import 'package:e_commerce_app_development/Core/Utils/App_Router.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Loading_Indicator.dart';
@@ -30,49 +28,40 @@ class _ProfileSettingsViewBodyState extends State<ProfileSettingsViewBody> {
         }
       },
       builder: (context, state) {
-        return CustomScrollView(
-          slivers: [
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(kPadding),
-                  child: Column(
-                    children: [
-                      const ProfileImage(),
-                      // const Spacer(),
-                      const SettingsListTile(listTileText: "Change phone number", toView: AppRouter.changePhoneViewPath, icon: Icons.phone_in_talk_rounded),
-                      const SizedBox(height: 10),
-                      const SettingsListTile(listTileText: "Change password", toView: AppRouter.changePasswordViewPath, icon: Icons.lock),
-                      const SizedBox(height: 10),
-                      const SettingsListTile(listTileText: "Addresses", toView: AppRouter.addressViewPath, icon: Icons.place),
-                      // const Spacer(),
-                      Column(
-                        children: [
-                          CustomButton(
-                            buttonText: "Logout",
-                            onPressed: () async {
-                              await waitUntilFinished(context, () async => await BlocProvider.of<ProfileSettingsViewCubit>(context).logout());
-                            },
-                          ),
-                          const SizedBox(height: 15),
-                          CustomButton(
-                            backgroundColor: Colors.red,
-                            fontColor: Colors.white,
-                            buttonText: "Delete Account",
-                            onPressed: () async {
-                              await waitUntilFinished(context, () async => await BlocProvider.of<ProfileSettingsViewCubit>(context).deleteAccount());
-                            },
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                    ],
+        return SingleChildScrollView(
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: kPadding),
+              child: Column(
+                children: [
+                  const ProfileImage(),
+                  const SizedBox(height: 15),
+                  const SettingsListTile(listTileText: "Change phone number", toView: AppRouter.changePhoneViewPath, icon: Icons.phone_in_talk_rounded),
+                  const SizedBox(height: 10),
+                  const SettingsListTile(listTileText: "Change password", toView: AppRouter.changePasswordViewPath, icon: Icons.lock),
+                  const SizedBox(height: 10),
+                  const SettingsListTile(listTileText: "Addresses", toView: AppRouter.addressViewPath, icon: Icons.place),
+                  const SizedBox(height: 15),
+                  CustomButton(
+                    buttonText: "Logout",
+                    onPressed: () async {
+                      await waitUntilFinished(context, () async => await BlocProvider.of<ProfileSettingsViewCubit>(context).logout());
+                    },
                   ),
-                ),
+                  const SizedBox(height: 15),
+                  CustomButton(
+                    backgroundColor: Colors.red,
+                    fontColor: Colors.white,
+                    buttonText: "Delete Account",
+                    onPressed: () async {
+                      await waitUntilFinished(context, () async => await BlocProvider.of<ProfileSettingsViewCubit>(context).deleteAccount());
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                ],
               ),
             ),
-          ],
+          ),
         );
       },
     );

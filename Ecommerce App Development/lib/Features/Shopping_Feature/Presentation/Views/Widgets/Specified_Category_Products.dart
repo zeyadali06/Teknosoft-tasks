@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:e_commerce_app_development/Core/Common_Widgets/No_Thing_Found.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Data/Models/Product_Model.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Shopping_View_Product_Item.dart';
@@ -18,8 +16,8 @@ class SpecifiedCategoryProducts extends StatelessWidget {
         : Padding(
             padding: const EdgeInsets.only(right: kPadding),
             child: GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),

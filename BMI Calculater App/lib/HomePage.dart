@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:bmi_calculater_app/ResaultPage.dart';
 import 'package:bmi_calculater_app/cubits/cubit/bmi_cubit.dart';
 import 'package:bmi_calculater_app/widgets/AgeField.dart';

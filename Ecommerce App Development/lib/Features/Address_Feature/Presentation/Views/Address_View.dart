@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:e_commerce_app_development/Core/Common_Widgets/No_Thing_Found.dart';
 import 'package:e_commerce_app_development/Features/Address_Feature/Presentation/Manager/Address_View_Cubit/address_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Address_Feature/Presentation/Views/Widgets/Address_Container.dart';

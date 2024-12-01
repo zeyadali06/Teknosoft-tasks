@@ -41,7 +41,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         emit(ProductDetailsFailed("No Internet Connection"));
         return;
       }
-      
+
       if (numberOfItems == 0) {
         emit(ProductDetailsCartNOItemsEqualZero());
         return;

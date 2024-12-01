@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 List<Map<String, dynamic>> dynamicToAddress(dynamic data) {
   List<dynamic> dataList = data as List<dynamic>;
 

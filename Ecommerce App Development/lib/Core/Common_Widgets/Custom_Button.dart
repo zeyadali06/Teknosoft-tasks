@@ -1,9 +1,8 @@
-// ignore_for_file: file_names, must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:e_commerce_app_development/Core/Utils/Styles.dart';
 import 'package:e_commerce_app_development/constants.dart';
 
+// ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
   CustomButton({
     super.key,
@@ -30,7 +29,6 @@ class CustomButton extends StatelessWidget {
       color: backgroundColor,
       height: 45,
       padding: padding,
-      
       shape: OutlineInputBorder(borderRadius: BorderRadius.circular(kRadius), borderSide: BorderSide(width: 0, color: backgroundColor)),
       child: Text(buttonText, style: Styles.black18w500(context).copyWith(color: fontColor)),
     );

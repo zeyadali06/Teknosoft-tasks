@@ -1,5 +1,4 @@
-// ignore_for_file: file_names, use_build_context_synchronously
-
+import 'package:e_commerce_app_development/Core/Common_Widgets/Scale_Down.dart';
 import 'package:e_commerce_app_development/Core/Utils/Functions/Get_Font_Size.dart';
 import 'package:e_commerce_app_development/Features/Product_Details_Feature/Presentation/Views/Widgets/Price_Part.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Manager/Shopping_View_Cubit.dart/shopping_view_cubit.dart';
@@ -25,15 +24,17 @@ class ShoppingViewProductItem extends StatelessWidget {
           prod = await BlocProvider.of<ShoppingViewCubit>(context).getProduct(product.id);
         });
         if (prod != null) {
-          Navigator.of(context).push(AppRouter.goTo(context, AppRouter.productDetailsViewPath(prod!)));
+          if (context.mounted) {
+            Navigator.of(context).push(AppRouter.goTo(context, AppRouter.productDetailsViewPath(prod!)));
+          }
         }
       },
-      child: SizedBox(
-        width: 150,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Flexible(
+            flex: 3,
+            child: Container(
               clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
                 color: Colors.transparent,
@@ -44,23 +45,32 @@ class ShoppingViewProductItem extends StatelessWidget {
                 child: ProductImage(url: product.thumbnail),
               ),
             ),
-            const SizedBox(height: 5),
-            Text(product.title, style: Styles.black14w500(context).copyWith(fontSize: getResponsiveFontSize(context: context, fontSize: 13)), maxLines: 2, overflow: TextOverflow.ellipsis),
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(product.category, style: Styles.grey12w500(context), maxLines: 1, overflow: TextOverflow.ellipsis),
-                      PricePart(product: product, firstPriceSize: 13, secondPriceSize: 11),
-                    ],
-                  ),
-                ),
-              ],
+          ),
+          const SizedBox(height: 5),
+          ScaleDown(
+            child: Text(
+              product.title,
+              style: Styles.black14w500(context).copyWith(fontSize: getResponsiveFontSize(context: context, fontSize: 13)),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
-          ],
-        ),
+          ),
+          ScaleDown(
+            child: Text(
+              product.category,
+              style: Styles.grey12w500(context),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          ScaleDown(
+            child: PricePart(
+              product: product,
+              firstPriceSize: 13,
+              secondPriceSize: 11,
+            ),
+          ),
+        ],
       ),
     );
   }

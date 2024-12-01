@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 class SignUpData {
   SignUpData({required this.username, required this.email, required this.phone, required this.password});
 

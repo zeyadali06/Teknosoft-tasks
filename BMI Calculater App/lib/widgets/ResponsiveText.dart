@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 
 double getResponsiveFontSize({required BuildContext context, required double fontSize}) {

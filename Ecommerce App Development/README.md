@@ -20,13 +20,13 @@ Shop smarter and faster with this feature-rich E-Commerce app. Designed for a se
 - [firebase_core](https://pub.dev/packages/firebase_core) -> the main package of firebase
 - [firebase_auth](https://pub.dev/packages/firebase_auth) -> to use firebase authentication
 - [cloud_firestore](https://pub.dev/packages/cloud_firestore) -> to use cloud firestore
-- [firebase_storage](https://pub.dev/packages/firebase_storage) ->
+- [firebase_storage](https://pub.dev/packages/firebase_storage) -> to upload and download files
 - [google_sign_in](https://pub.dev/packages/google_sign_in) -> to handle localization
 - [shared_preferences](https://pub.dev/packages/shared_preferences) -> to handle caching data
 - [dio](https://pub.dev/packages/dio) -> to integrate with APIs
 - [image_picker](https://pub.dev/packages/image_picker) -> to pick image from mobile storage
 - [dartz](https://pub.dev/packages/dartz) -> to seperate the return status of any function (Success or Failure)
-- [path](https://pub.dev/packages/path) -> to
+- [path](https://pub.dev/packages/path) -> to 
 
 ## Architecture ⚙
 
@@ -76,14 +76,14 @@ Features
 
 ## Screen Shots 📸
 
-<img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733001490.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733001523.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733001530.png" width="300">
+<img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733093463.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733093473.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733093475.png" width="300">
 
-<img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733001533.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733001535.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733001558.png" width="300">
+<img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733093735.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733093746.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733093752.png" width="300">
 
-<img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733001560.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733001568.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733001613.png" width="300">
+<img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733093755.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733093775.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733093778.png" width="300">
 
-<img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733001621.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733001629.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733001664.png" width="300">
+<img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733093781.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733093862.png" width="300"> <img src="https://github.com/zeyadali06/Teknosoft-tasks/blob/main/To-Do%20List%20App/ScreenShots/Screenshot_1733094053.png" width="300">
 
 # [Video Link](https://www.linkedin.com/posts/zeyadali06_flutter-firebase-teknosoft-activity-7204570243657043968-61iO?utm_source=share&utm_medium=member_desktop)
 
-# [Apk Link](https://drive.google.com/file/d/163tuqKDzkNlwJ8dD73043N4Uo-eXbonX/view?usp=sharing)
+# [Apk Link](https://drive.google.com/file/d/126hNXNuG3WxYgK_0Sy3OlSwqi92_I8dD/view?usp=sharing)

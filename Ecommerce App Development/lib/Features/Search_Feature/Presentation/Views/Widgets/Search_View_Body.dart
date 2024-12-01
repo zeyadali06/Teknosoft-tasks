@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:e_commerce_app_development/Core/Utils/Functions/Get_Font_Size.dart';
 import 'package:e_commerce_app_development/Features/Search_Feature/Presentation/Manager/Search_View_Cubit.dart/search_view_cubit.dart';
 import 'package:e_commerce_app_development/Features/Shopping_Feature/Presentation/Views/Widgets/Shopping_View_Product_Item.dart';
@@ -32,13 +30,13 @@ class SearchViewBody extends StatelessWidget {
                     onTapOutside: (_) => FocusManager.instance.primaryFocus?.unfocus(),
                     style: TextStyle(fontSize: getResponsiveFontSize(context: context, fontSize: 18)),
                     cursorColor: kPrimaryColor,
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(
                         Icons.search,
                         color: kPrimaryColor,
                       ),
                       hintText: 'Search for anything',
-                      hintStyle: TextStyle(color: kPrimaryColor),
+                      hintStyle: TextStyle(color: kPrimaryColor, fontSize: getResponsiveFontSize(context: context, fontSize: 16)),
                       fillColor: kPrimaryColor,
                       border: InputBorder.none,
                       enabledBorder: InputBorder.none,
@@ -51,20 +49,20 @@ class SearchViewBody extends StatelessWidget {
                   const NoThingFound(text: 'No Data Found...')
                 else
                   Expanded(
-                    child: GridView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
+                    child: SingleChildScrollView(
+                      child: Wrap(
+                        children: List.generate(BlocProvider.of<SearchViewCubit>(context).filteredProducts.length, (int index) {
+                          return ConstrainedBox(
+                            constraints: const BoxConstraints(maxWidth: 150, maxHeight: 150),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: kPadding / 2, right: kPadding / 2, top: 10),
+                              child: ShoppingViewProductItem(
+                                product: BlocProvider.of<SearchViewCubit>(context).filteredProducts[index],
+                              ),
+                            ),
+                          );
+                        }),
                       ),
-                      itemCount: BlocProvider.of<SearchViewCubit>(context).filteredProducts.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: EdgeInsets.only(left: kPadding, right: index % 2 != 0 ? kPadding : 0, top: 10),
-                          child: ShoppingViewProductItem(
-                            product: BlocProvider.of<SearchViewCubit>(context).filteredProducts[index],
-                          ),
-                        );
-                      },
                     ),
                   ),
               ],
